@@ -1235,12 +1235,19 @@ let HREF = {}; // type -> {product,cheese,grams,portions,kgDay,isFocus,formulaBa
 HORECA_REFERENCE_LIST.forEach(r => { HREF[r.type] = Object.assign({}, r); });
 const HREF_DEFAULT = JSON.parse(JSON.stringify(HREF));
 
+const OTHER_CITIES_LABEL = 'Др. города (<100 тыс. чел.)';
 function typeVolume(type, tt){
   const r = HREF[type];
   if(!r) return 0;
   return (r.kgDay || 0) * tt * 365 / 1000; // tonnes/year
 }
-function cityVolume(city){ return city.entries.reduce((s,e) => s + typeVolume(e.type, e.tt), 0); }
+// Excel halves the volume specifically for the "Др. города (<100 тыс. чел.)" bucket rows
+// (formula: =((VLOOKUP(...)*E*365)/1000)/2 ) — replicate that exactly here.
+function entryVolume(city, entry){
+  const base = typeVolume(entry.type, entry.tt);
+  return city.city === OTHER_CITIES_LABEL ? base / 2 : base;
+}
+function cityVolume(city){ return city.entries.reduce((s,e) => s + entryVolume(city, e), 0); }
 function cityTT(city){ return city.entries.reduce((s,e) => s + (e.tt||0), 0); }
 
 function typeLabelHtml(type){
@@ -1362,11 +1369,12 @@ function hMatchesGlobal(agg){
 function hTypeBreakdown(agg){
   const byType = {};
   agg.cities.forEach(c => c.entries.forEach(e => {
-    if(!byType[e.type]) byType[e.type] = {type:e.type, tt:0, fact:0, forecast:0};
+    if(!byType[e.type]) byType[e.type] = {type:e.type, tt:0, fact:0, forecast:0, vol:0};
     byType[e.type].tt += e.tt;
+    byType[e.type].vol += entryVolume(c, e);
     if(e.dtype === 'Факт') byType[e.type].fact += e.tt; else byType[e.type].forecast += e.tt;
   }));
-  return Object.values(byType).map(x => ({...x, vol: typeVolume(x.type, x.tt)})).sort((a,b)=>b.vol-a.vol);
+  return Object.values(byType).sort((a,b)=>b.vol-a.vol);
 }
 
 function hDetailHTML(agg){
@@ -1536,7 +1544,7 @@ function createHorecaPanel(root, defaultMode){
     if(!c) return;
     const vol = cityVolume(c);
     const tt = cityTT(c);
-    const rows = [...c.entries].filter(e=>e.tt>0).sort((a,b)=> typeVolume(b.type,b.tt) - typeVolume(a.type,a.tt));
+    const rows = [...c.entries].filter(e=>e.tt>0).sort((a,b)=> entryVolume(c,b) - entryVolume(c,a));
     dossierEl.innerHTML = `
       <div class="dossier-kpis">
         <div class="mini"><b>${hFmtInt(c.pop)}</b><span>население</span></div>
@@ -1548,7 +1556,7 @@ function createHorecaPanel(root, defaultMode){
       <table>
         <thead><tr><th>Тип заведения</th><th>ТТ</th><th>Данные</th><th>Объём, т/год</th></tr></thead>
         <tbody>
-          ${rows.map(e => `<tr><td>${typeLabelHtml(e.type)}</td><td>${hFmtInt(e.tt)}</td><td>${e.dtype}</td><td>${hFmtVol(typeVolume(e.type,e.tt))}</td></tr>`).join('')}
+          ${rows.map(e => `<tr><td>${typeLabelHtml(e.type)}</td><td>${hFmtInt(e.tt)}</td><td>${e.dtype}</td><td>${hFmtVol(entryVolume(c,e))}</td></tr>`).join('')}
         </tbody>
       </table>
       </div>
@@ -1566,10 +1574,9 @@ function createHorecaPanel(root, defaultMode){
     let totalTT = 0, totalVol = 0;
     const regionRows = [];
     HREGIONS.forEach(agg => {
-      let tt = 0;
-      agg.cities.forEach(c => c.entries.forEach(e => { if(e.type===type) tt += e.tt; }));
+      let tt = 0, vol = 0;
+      agg.cities.forEach(c => c.entries.forEach(e => { if(e.type===type){ tt += e.tt; vol += entryVolume(c, e); } }));
       if(tt > 0){
-        const vol = typeVolume(type, tt);
         totalTT += tt; totalVol += vol;
         regionRows.push({region: agg.region, tt, vol});
       }
