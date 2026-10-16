@@ -188,6 +188,8 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
 .ref-row3{display:grid; grid-template-columns:2.4fr 0.9fr 0.9fr 0.9fr 1fr; gap:10px; align-items:center; padding:9px 6px; border-bottom:1px solid var(--border); font-size:12.5px;}
 .ref-row3.head{color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em; font-weight:700;}
 .ref-row3 input{width:100%; background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:6px; padding:5px 7px; font-size:12.5px;}
+#dualLayoutProd3 .p3-filters{box-sizing:border-box; height:40px; overflow:hidden;} #dualLayoutProd3 [data-role=legend]{min-height:44px; align-content:flex-start;} @media (max-width:1400px){#dualLayoutProd3 [data-role=legend]{min-height:68px;}} @media (max-width:1250px){#dualLayoutProd3 [data-role=legend]{min-height:92px;}} #dualLayoutProd3 .map-holder svg{display:block; width:100%; aspect-ratio:1000/539; height:auto;}
+#dualLayoutProd3{grid-template-columns:repeat(2,minmax(0,1fr));} #dualLayoutProd3 .panel-col{min-width:0;}
 .pst3{display:inline-block; padding:1px 8px; border-radius:20px; font-size:10.5px; font-weight:700; white-space:nowrap; color:#fff;}
 .pst3.work{background:#00b050;} .pst3.cont{background:#f5a524;} .pst3.no{background:#8a93a3;} .pst3.nouse{background:#e6455b;} .pst3.na{background:var(--chip-bg); color:var(--muted);}
 </style>
@@ -624,38 +626,27 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
 
   <div class="kpis" id="kpisProd3"></div>
 
-  <div class="card">
-    <div class="card-h">
-      <div class="title">Фильтры производств рынка</div>
-      <button class="clear-link" id="pfReset3">✕ Сбросить фильтры</button>
-    </div>
-    <div class="card-body">
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px;">
-        <select id="pfGrp3" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"></select>
-        <select id="pfUses3" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"></select>
-        <select id="pfUmk3" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"></select>
-        <input type="text" id="pfQ3" placeholder="Поиск: название, ИНН, регион…" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;">
-      </div>
-      <div class="editor-note" style="margin-top:8px;">«Используют продукт»: в файле отмечено только «Нет» — у остальных отметки нет (это не значит, что они используют). «Работает с УМК»: Работаем / Контактировали / Не контактировали / Нет данных (поле пустое).</div>
-    </div>
-  </div>
-
   <div class="dual-layout" id="dualLayoutProd3">
 
     <div class="panel-col" data-panel="1">
       <div class="card">
         <div class="card-h">
-          <div class="title">Карта 1</div>
+          <div class="title">Рынок производств</div>
           <div class="seg" data-role="colorSeg">
             <button data-mode="rev" class="active">Выручка производств</button>
             <button data-mode="n">Число производств</button>
-            <button data-mode="prim">Наши продажи: первичка</button>
-            <button data-mode="sec">Наши продажи: вторичка</button>
-            <button data-mode="both">Наши продажи: всего</button>
-            <button data-mode="white">Белые пятна</button>
+            <button data-mode="work">Выручка «работаем»</button>
           </div>
         </div>
         <div class="card-body" style="padding-bottom:6px;">
+          <div class="p3-filters" style="display:flex; flex-wrap:nowrap; align-items:center; gap:6px; margin-bottom:8px; padding:7px 8px; background:var(--chip-bg); border-radius:9px;" title="«Используют продукт»: в файле отмечено только «Нет» — у остальных отметки нет. Фильтры действуют только на рынок производств.">
+            <span class="meta" style="font-size:11px; font-weight:700;">Фильтры:</span>
+            <select id="pfGrp3" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"></select>
+            <select id="pfUses3" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"></select>
+            <select id="pfUmk3" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"></select>
+            <input type="text" id="pfQ3" placeholder="Поиск…" title="Название, ИНН или регион" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;" style="flex:0.8 1 0; min-width:0; background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 8px; font-size:12px;">
+            <button class="clear-link" id="pfReset3" type="button" style="font-size:11.5px; white-space:nowrap;">✕ сбросить</button>
+          </div>
           <div class="legend" data-role="legend" style="margin-bottom:10px;"></div>
           <div class="map-holder">
             <svg data-role="map" viewBox="0 0 1000 539" preserveAspectRatio="xMidYMid meet"></svg>
@@ -675,17 +666,18 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
     <div class="panel-col" data-panel="2">
       <div class="card">
         <div class="card-h">
-          <div class="title">Карта 2</div>
+          <div class="title">Наши продажи</div>
           <div class="seg" data-role="colorSeg">
-            <button data-mode="rev">Выручка производств</button>
-            <button data-mode="n">Число производств</button>
-            <button data-mode="prim">Наши продажи: первичка</button>
-            <button data-mode="sec">Наши продажи: вторичка</button>
-            <button data-mode="both" class="active">Наши продажи: всего</button>
+            <button data-mode="prim">Первичка</button>
+            <button data-mode="sec">Вторичка</button>
+            <button data-mode="both" class="active">Всего</button>
             <button data-mode="white">Белые пятна</button>
           </div>
         </div>
         <div class="card-body" style="padding-bottom:6px;">
+          <div class="p3-filters" style="display:flex; align-items:center; gap:6px; margin-bottom:8px; padding:7px 8px; background:var(--chip-bg); border-radius:9px; min-height:36px;">
+            <span class="meta" style="font-size:11px;">Фильтры рынка (слева) на наши продажи не влияют.</span>
+          </div>
           <div class="legend" data-role="legend" style="margin-bottom:10px;"></div>
           <div class="map-holder">
             <svg data-role="map" viewBox="0 0 1000 539" preserveAspectRatio="xMidYMid meet"></svg>
@@ -2711,6 +2703,7 @@ const P_MODES3 = {
   n:     {label:'Число производств',   note:'Число производств рынка, лог. шкала'},
   prim:  {label:'Наши продажи: первичка', note:'Наши продажи по первичке, лог. шкала'},
   sec:   {label:'Наши продажи: вторичка', note:'Наши продажи по вторичке, лог. шкала'},
+  work:  {label:'Выручка «работаем»',  note:'Выручка производств со статусом «Работаем», лог. шкала'},
   both:  {label:'Наши продажи: всего',   note:'Первичка + вторичка, лог. шкала'},
   white: {label:'Белые пятна',           note:'Выручка производств в регионах, где у нас нет продаж, лог. шкала'}
 };
@@ -2784,6 +2777,7 @@ function p3Val(region, mode){
   const a = p3Agg(region), o = p3Our(region);
   if(mode === 'rev') return a.rev;
   if(mode === 'n') return a.n;
+  if(mode === 'work') return a.revWork;
   if(mode === 'prim') return o.primRub;
   if(mode === 'sec') return o.secRub;
   if(mode === 'both') return o.primRub + o.secRub;
@@ -2799,7 +2793,7 @@ function p3Color(region, mode, R){
 }
 function p3FmtMode(v, mode){
   if(mode === 'n') return p3Int(v) + ' произв.';
-  if(mode === 'rev' || mode === 'white') return p3Mln(v);
+  if(mode === 'rev' || mode === 'white' || mode === 'work') return p3Mln(v);
   return p3Rub(v);
 }
 function p3Legend(el, mode){
@@ -2829,14 +2823,14 @@ function p3Totals(){
 function renderKpisProd3(){
   const T = p3Totals();
   document.getElementById('kpisProd3').innerHTML = `
-    <div class="kpi"><div class="num">${p3Int(T.n)}</div><div class="lbl">производств в выборке (всего в списке ${p3Int(PROD3.plants.length)})</div></div>
-    <div class="kpi"><div class="num">${p3Mln(T.rev)}</div><div class="lbl">выручка производств в выборке, ${T.nRegs} регионов</div></div>
-    <div class="kpi"><div class="num">${p3Int(T.nWork)}</div><div class="lbl">работаем с УМК · ${T.rev ? p3Num(T.revWork/T.rev*100, 1) : '0'}% выручки выборки (${p3Mln(T.revWork)})</div></div>
-    <div class="kpi"><div class="num">${p3Rub(T.primRub + T.secRub)}</div><div class="lbl">наши продажи без НДС за год (9 мес. × 12/9): первичка + вторичка</div></div>
-    <div class="kpi"><div class="num">${p3Rub(T.primRub)}</div><div class="lbl">первичка · ${p3Kg(T.primKg)} · ${PROD3.prim.length} строк, ${new Set(PROD3.prim.map(r=>r.ka)).size} клиентов</div></div>
-    <div class="kpi"><div class="num">${p3Rub(T.secRub)}</div><div class="lbl">вторичка · ${p3Kg(T.secKg)} · ${new Set(PROD3.sec.map(r=>r.dist)).size} дистрибьюторов</div></div>
-    <div class="kpi"><div class="num">${T.ourRegs}</div><div class="lbl">регионов, где у нас есть продажи (с учётом регионов вне карты)</div></div>
-    <div class="kpi"><div class="num">${T.rev ? p3Num(T.whiteRev/T.rev*100, 1) : '0'}%</div><div class="lbl">выручки производств выборки — в ${T.white.length} регионах, где у нас продаж нет</div></div>
+    <div class="kpi"><div class="num">${p3Int(T.n)}</div><div class="lbl">РЫНОК: производств в выборке (всего в списке ${p3Int(PROD3.plants.length)})</div></div>
+    <div class="kpi"><div class="num">${p3Mln(T.rev)}</div><div class="lbl">РЫНОК: выручка производств в выборке, ${T.nRegs} регионов</div></div>
+    <div class="kpi"><div class="num">${p3Int(T.nWork)}</div><div class="lbl">РЫНОК: работаем с УМК · ${T.rev ? p3Num(T.revWork/T.rev*100, 1) : '0'}% выручки выборки (${p3Mln(T.revWork)})</div></div>
+    <div class="kpi"><div class="num">${T.rev ? p3Num(T.whiteRev/T.rev*100, 1) : '0'}%</div><div class="lbl">РЫНОК: выручки выборки — в ${T.white.length} регионах, где у нас продаж нет</div></div>
+    <div class="kpi"><div class="num">${p3Rub(T.primRub + T.secRub)}</div><div class="lbl">НАШИ ПРОДАЖИ за год без НДС (янв–сен × 12/9): первичка + вторичка</div></div>
+    <div class="kpi"><div class="num">${p3Rub(T.primRub)}</div><div class="lbl">НАШИ: первичка · ${p3Kg(T.primKg)} · ${PROD3.prim.length} строк, ${new Set(PROD3.prim.map(r=>r.ka)).size} клиентов</div></div>
+    <div class="kpi"><div class="num">${p3Rub(T.secRub)}</div><div class="lbl">НАШИ: вторичка · ${p3Kg(T.secKg)} · ${new Set(PROD3.sec.map(r=>r.dist)).size} дистрибьюторов</div></div>
+    <div class="kpi"><div class="num">${T.ourRegs}</div><div class="lbl">НАШИ: регионов с продажами (с учётом регионов вне карты)</div></div>
   `;
 }
 
@@ -2850,7 +2844,7 @@ function p3ListCap(items, render, cap){
 function p3PlantChip(p){
   return `<div class="dist-chip"><span class="n">${p3Esc(p.n)} ${p3UmkPill(p)}${p.uses === 'Нет' ? ' ' + p3UsesPill(p) : ''}</span><span class="v">${p3Mln(p.rev||0)} · ${p3Esc(p.grp)}${p.note ? '<br><i>' + p3Esc(p.note) + '</i>' : ''}</span></div>`;
 }
-function p3DetailHTML(region){
+function p3DetailHTML(region, kind){
   const a = p3Agg(region), o = p3Our(region);
   const total = pPlants3.reduce((s,p) => s + (p.rev||0), 0);
   const plants = [...a.plants].sort((x,y) => (y.rev||0) - (x.rev||0));
@@ -2862,6 +2856,7 @@ function p3DetailHTML(region){
   return `
     <h3>${region}</h3>
     <div class="meta">${our > 0 ? 'Мы здесь продаём' : (a.rev > 0 ? '<b style="color:#e6455b;">Белое пятно: производства есть, наших продаж нет</b>' : 'Ни производств в выборке, ни наших продаж')}</div>
+    ${kind === 'market' ? `
     <div class="gt" style="margin-top:10px; font-weight:700;">Рынок производств${p3Filtering() ? ' (с учётом фильтров)' : ''}</div>
     <div class="stat-row">
       <div><b>${p3Int(a.n)}</b>производств</div>
@@ -2870,36 +2865,34 @@ function p3DetailHTML(region){
       <div><b>${p3Int(a.nWork)}</b>работаем с УМК</div>
       <div><b>${p3Mln(a.revWork)}</b>выручка «работаем»</div>
     </div>
+    ` : `
     <div class="gt" style="margin-top:10px; font-weight:700;">Наши продажи за год (без НДС, 9 мес. × 12/9)</div>
     <div class="stat-row">
       <div><b>${p3Rub(o.primRub)}</b>первичка · ${p3Kg(o.primKg)}</div>
       <div><b>${p3Rub(o.secRub)}</b>вторичка · ${p3Kg(o.secKg)}</div>
       <div><b>${p3Rub(our)}</b>всего</div>
     </div>
-    ${plants.length ? `<div class="dist-group"><div class="gt">Производства региона по выручке (${plants.length})</div><div class="dist-chip-list">${p3ListCap(plants, p3PlantChip, 8)}</div></div>` : ''}
-    ${prim.length ? `<div class="dist-group"><div class="gt">Первичка: клиенты (${prim.length})</div><div class="dist-chip-list">${p3ListCap(prim, r => p3Chip(`${p3Esc(r.ka)} · ${p3Esc(r.brand)}`, `${p3Rub(r.rub)} · ${p3Kg(r.kg)}<br>${p3Esc(r.spec)}`), 8)}</div></div>` : ''}
-    ${secL.length ? `<div class="dist-group"><div class="gt">Вторичка: дистрибьюторы (${secL.length})</div><div class="dist-chip-list">${p3ListCap(secL, x => p3Chip(p3Esc(x.dist), `${p3Rub(x.rub)} · ${p3Kg(x.kg)}<br>${x.tts.size} ТТ · ${[...x.cities].slice(0,4).map(p3Esc).join(', ')}${x.cities.size > 4 ? '…' : ''}`), 8)}</div></div>` : ''}
-    <div style="margin:8px 0 0;"><button class="clear-link" data-p3-scope="${p3Esc(region)}">Показать производства и продажи региона в таблицах ниже ↓</button></div>`;
+    `}
+    ${kind === 'market' && plants.length ? `<div class="dist-group"><div class="gt">Производства региона по выручке (${plants.length})</div><div class="dist-chip-list">${p3ListCap(plants, p3PlantChip, 8)}</div></div>` : ''}
+    ${kind === 'our' && prim.length ? `<div class="dist-group"><div class="gt">Первичка: клиенты (${prim.length})</div><div class="dist-chip-list">${p3ListCap(prim, r => p3Chip(`${p3Esc(r.ka)} · ${p3Esc(r.brand)}`, `${p3Rub(r.rub)} · ${p3Kg(r.kg)}<br>${p3Esc(r.spec)}`), 8)}</div></div>` : ''}
+    ${kind === 'our' && secL.length ? `<div class="dist-group"><div class="gt">Вторичка: дистрибьюторы (${secL.length})</div><div class="dist-chip-list">${p3ListCap(secL, x => p3Chip(p3Esc(x.dist), `${p3Rub(x.rub)} · ${p3Kg(x.kg)}<br>${x.tts.size} ТТ · ${[...x.cities].slice(0,4).map(p3Esc).join(', ')}${x.cities.size > 4 ? '…' : ''}`), 8)}</div></div>` : ''}
+    <div style="margin:8px 0 0;"><button class="clear-link" data-p3-scope="${p3Esc(region)}">Показать данные региона в таблицах ниже ↓</button></div>`;
 }
-function p3DetailAllHTML(){
+function p3DetailAllHTML(kind){
   const T = p3Totals();
-  const rows = Object.keys(pAgg3).map(r => ({region:r, rev:pAgg3[r].rev, n:pAgg3[r].n, our:p3OurAll(r)})).sort((x,y) => y.rev - x.rev);
-  const top = rows.slice(0, 10);
-  const white = rows.filter(r => r.our === 0).slice(0, 10);
-  const ourTop = Object.keys(P_OUR3).map(r => ({region:r, ...p3Our(r)})).filter(o => o.primRub + o.secRub > 0).sort((x,y) => (y.primRub+y.secRub) - (x.primRub+x.secRub)).slice(0, 10);
-  const byGrp = {}; pPlants3.forEach(p => { const g = byGrp[p.grp] || (byGrp[p.grp] = {grp:p.grp, n:0, rev:0}); g.n++; g.rev += (p.rev||0); });
-  const byUmk = {}; pPlants3.forEach(p => { const u = p3Umk(p); const g = byUmk[u] || (byUmk[u] = {n:0, rev:0}); g.n++; g.rev += (p.rev||0); });
-  return `
-    <h3>Все регионы — производства рынка и наши продажи</h3>
-    <div class="meta">${T.nRegs} регион(ов) с производствами · кликните регион на карте, чтобы увидеть детали${T.offRev ? ` · вне карты: производства на ${p3Mln(T.offRev)}` : ''}</div>
+  if(kind === 'market'){
+    const rows = Object.keys(pAgg3).map(r => ({region:r, rev:pAgg3[r].rev, n:pAgg3[r].n, nWork:pAgg3[r].nWork})).sort((x,y) => y.rev - x.rev);
+    const byGrp = {}; pPlants3.forEach(p => { const g = byGrp[p.grp] || (byGrp[p.grp] = {grp:p.grp, n:0, rev:0}); g.n++; g.rev += (p.rev||0); });
+    const byUmk = {}; pPlants3.forEach(p => { const u = p3Umk(p); const g = byUmk[u] || (byUmk[u] = {n:0, rev:0}); g.n++; g.rev += (p.rev||0); });
+    const topPl = [...pPlants3].sort((x,y) => (y.rev||0) - (x.rev||0)).slice(0, 10);
+    return `
+    <h3>Рынок производств — все регионы</h3>
+    <div class="meta">${T.nRegs} регион(ов) с производствами${p3Filtering() ? ' (с учётом фильтров)' : ''} · кликните регион на карте, чтобы увидеть детали${T.offRev ? ` · вне карты: производства на ${p3Mln(T.offRev)}` : ''}</div>
     <div class="dist-group"><div class="gt">Топ-10 регионов по выручке производств</div><div class="dist-chip-list">
-      ${top.map(r => p3Chip(r.region, `${p3Mln(r.rev)} · ${r.n} произв.<br>${r.our > 0 ? 'наши продажи ' + p3Rub(r.our) : '<span style="color:#e6455b;">наших продаж нет</span>'}`)).join('')}
+      ${rows.slice(0, 10).map(r => p3Chip(r.region, `${p3Mln(r.rev)} · ${r.n} произв.${r.nWork ? '<br>работаем: ' + r.nWork : ''}`)).join('') || '<div class="empty">Нет данных.</div>'}
     </div></div>
-    <div class="dist-group"><div class="gt">Белые пятна: крупнейшие по выручке регионы без наших продаж</div><div class="dist-chip-list">
-      ${white.map(r => p3Chip(r.region, `${p3Mln(r.rev)} · ${r.n} произв.`)).join('') || '<div class="empty">Нет.</div>'}
-    </div></div>
-    <div class="dist-group"><div class="gt">Где мы продаём больше всего (первичка + вторичка)</div><div class="dist-chip-list">
-      ${ourTop.map(o => p3Chip(o.region, `${p3Rub(o.primRub + o.secRub)}<br>перв. ${p3Rub(o.primRub)} · втор. ${p3Rub(o.secRub)}`)).join('')}
+    <div class="dist-group"><div class="gt">Крупнейшие производства</div><div class="dist-chip-list">
+      ${topPl.map(p3PlantChip).join('')}
     </div></div>
     <div class="dist-group"><div class="gt">По группам производств</div><div class="dist-chip-list">
       ${Object.values(byGrp).sort((x,y) => y.rev - x.rev).map(g => p3Chip(p3Esc(g.grp), `${g.n} произв. · ${p3Mln(g.rev)}`)).join('')}
@@ -2907,12 +2900,34 @@ function p3DetailAllHTML(){
     <div class="dist-group"><div class="gt">По работе с УМК</div><div class="dist-chip-list">
       ${P_UMK_ORDER3.filter(u => byUmk[u]).map(u => p3Chip(u, `${byUmk[u].n} произв. · ${p3Mln(byUmk[u].rev)}`)).join('')}
     </div></div>`;
+  }
+  const rows = Object.keys(pAgg3).map(r => ({region:r, rev:pAgg3[r].rev, n:pAgg3[r].n, our:p3OurAll(r)})).sort((x,y) => y.rev - x.rev);
+  const white = rows.filter(r => r.our === 0).slice(0, 10);
+  const ourTop = Object.keys(P_OUR3).map(r => ({region:r, ...p3Our(r)})).filter(o => o.primRub + o.secRub > 0).sort((x,y) => (y.primRub+y.secRub) - (x.primRub+x.secRub)).slice(0, 10);
+  const brand = {}; const spec = {};
+  PROD3.prim.forEach(r => { const b = brand[r.brand] || (brand[r.brand] = {prim:0, sec:0, kg:0}); b.prim += r.rub; b.kg += r.kg; const s = spec[r.spec] || (spec[r.spec] = {rub:0, kg:0}); s.rub += r.rub; s.kg += r.kg; });
+  PROD3.sec.forEach(r => { const b = brand[r.brand] || (brand[r.brand] = {prim:0, sec:0, kg:0}); b.sec += r.rub; b.kg += r.kg; });
+  return `
+    <h3>Наши продажи — все регионы</h3>
+    <div class="meta">Первичка + вторичка за год (янв–сен × 12/9) · кликните регион на карте, чтобы увидеть клиентов и дистрибьюторов</div>
+    <div class="dist-group"><div class="gt">Где мы продаём больше всего</div><div class="dist-chip-list">
+      ${ourTop.map(o => p3Chip(o.region, `${p3Rub(o.primRub + o.secRub)}<br>перв. ${p3Rub(o.primRub)} · втор. ${p3Rub(o.secRub)}`)).join('')}
+    </div></div>
+    <div class="dist-group"><div class="gt">Белые пятна: крупнейшие по выручке регионы производств без наших продаж${p3Filtering() ? ' (с учётом фильтров рынка)' : ''}</div><div class="dist-chip-list">
+      ${white.map(r => p3Chip(r.region, `${p3Mln(r.rev)} · ${r.n} произв.`)).join('') || '<div class="empty">Нет.</div>'}
+    </div></div>
+    <div class="dist-group"><div class="gt">По брендам</div><div class="dist-chip-list">
+      ${Object.entries(brand).sort((x,y) => (y[1].prim+y[1].sec) - (x[1].prim+x[1].sec)).map(([n,b]) => p3Chip(p3Esc(n), `${p3Rub(b.prim + b.sec)} · ${p3Kg(b.kg)}<br>перв. ${p3Rub(b.prim)} · втор. ${p3Rub(b.sec)}`)).join('')}
+    </div></div>
+    <div class="dist-group"><div class="gt">Первичка по специализации клиентов</div><div class="dist-chip-list">
+      ${Object.entries(spec).sort((x,y) => y[1].rub - x[1].rub).map(([n,s]) => p3Chip(p3Esc(n), `${p3Rub(s.rub)} · ${p3Kg(s.kg)}`)).join('')}
+    </div></div>`;
 }
 
 // ---------- панель (карта + детали) ----------
 const pPanels3 = [];
 let pScope3 = '';
-function createProdPanel3(root, defaultMode){
+function createProdPanel3(root, defaultMode, kind){
   const mapEl = root.querySelector('[data-role=map]');
   const legendEl = root.querySelector('[data-role=legend]');
   const colorSeg = root.querySelector('[data-role=colorSeg]');
@@ -2944,10 +2959,9 @@ function createProdPanel3(root, defaultMode){
     const rect = mapHolderEl.getBoundingClientRect();
     tooltipEl.style.left = (ev.clientX - rect.left) + 'px'; tooltipEl.style.top = (ev.clientY - rect.top) + 'px'; tooltipEl.style.display = 'block';
     const a = p3Agg(region), o = p3Our(region);
-    tooltipEl.innerHTML = `<b>${region}</b>
-      Производства: ${p3Int(a.n)} · ${p3Mln(a.rev)}<br>
-      Работаем с УМК: ${p3Int(a.nWork)}<br>
-      Наши продажи: первичка ${p3Rub(o.primRub)} · вторичка ${p3Rub(o.secRub)}`;
+    tooltipEl.innerHTML = kind === 'market'
+      ? `<b>${region}</b>Производства: ${p3Int(a.n)} · ${p3Mln(a.rev)}<br>Работаем с УМК: ${p3Int(a.nWork)} · ${p3Mln(a.revWork)}`
+      : `<b>${region}</b>Первичка: ${p3Rub(o.primRub)}<br>Вторичка: ${p3Rub(o.secRub)}<br>Всего: ${p3Rub(o.primRub + o.secRub)}`;
   }
   function refreshColors(){
     const R = p3Range(state.mode);
@@ -2962,8 +2976,8 @@ function createProdPanel3(root, defaultMode){
     });
   }
   function renderDetail(){
-    if(!state.selected){ detailEl.innerHTML = p3DetailAllHTML(); clearBtn.style.display = 'none'; }
-    else { detailEl.innerHTML = p3DetailHTML(state.selected); clearBtn.style.display = 'inline'; }
+    if(!state.selected){ detailEl.innerHTML = p3DetailAllHTML(kind); clearBtn.style.display = 'none'; }
+    else { detailEl.innerHTML = p3DetailHTML(state.selected, kind); clearBtn.style.display = 'inline'; }
   }
   function setRegion(region){
     state.selected = region;
@@ -3106,8 +3120,8 @@ function p3RefreshAll(){
     sel.innerHTML = `<option value="">${label}</option>` + items.map(v => `<option value="${p3Esc(v)}">${p3Esc(v)}</option>`).join('');
   };
   fill('pfGrp3', 'Все группы', [...new Set(PROD3.plants.map(p => p.grp))].sort());
-  fill('pfUses3', 'Используют продукт: все', P_USES_ORDER3);
-  fill('pfUmk3', 'Работает с УМК: все', P_UMK_ORDER3);
+  fill('pfUses3', 'Используют: все', P_USES_ORDER3);
+  fill('pfUmk3', 'УМК: все', P_UMK_ORDER3);
   const regs = [...new Set([...PROD3.plants.map(p => p.reg), ...Object.keys(P_OUR3)])].sort((a,b) => a.localeCompare(b, 'ru'));
   ['pScopeP3', 'pScopeS3'].forEach(id => fill(id, 'Все регионы', regs));
   document.getElementById('pfGrp3').addEventListener('change', e => { pF3.grp = e.target.value; pPlAll3 = false; p3RefreshAll(); });
@@ -3145,7 +3159,7 @@ function p3RefreshAll(){
   document.getElementById('plMore3').addEventListener('click', () => { pPlAll3 = !pPlAll3; renderPlantsTable3(); });
   document.getElementById('saleMore3').addEventListener('click', () => { pSaleAll3 = !pSaleAll3; renderSalesTable3(); });
   p3Recalc();
-  document.querySelectorAll('#page-production .panel-col').forEach((root, i) => pPanels3.push(createProdPanel3(root, i === 0 ? 'rev' : 'both')));
+  document.querySelectorAll('#page-production .panel-col').forEach((root, i) => pPanels3.push(createProdPanel3(root, i === 0 ? 'rev' : 'both', i === 0 ? 'market' : 'our')));
   renderKpisProd3(); renderRegTable3(); renderPlantsTable3(); renderSalesTable3();
 })();
 </script>
