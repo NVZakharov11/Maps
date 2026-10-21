@@ -188,11 +188,11 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
 .ref-row3{display:grid; grid-template-columns:2.4fr 0.9fr 0.9fr 0.9fr 1fr; gap:10px; align-items:center; padding:9px 6px; border-bottom:1px solid var(--border); font-size:12.5px;}
 .ref-row3.head{color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em; font-weight:700;}
 .ref-row3 input{width:100%; background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:6px; padding:5px 7px; font-size:12.5px;}
-#dualLayoutProd3 .p3-filters{box-sizing:border-box; height:40px; overflow:hidden;} #dualLayoutProd3 [data-role=legend]{min-height:44px; align-content:flex-start;} @media (max-width:1400px){#dualLayoutProd3 [data-role=legend]{min-height:68px;}} @media (max-width:1250px){#dualLayoutProd3 [data-role=legend]{min-height:92px;}} #dualLayoutProd3 .map-holder svg{display:block; width:100%; aspect-ratio:1000/539; height:auto;}
+#dualLayoutProd3 .p3-filters{box-sizing:border-box; height:40px; overflow:visible;} #dualLayoutProd3 .panel-col > .card:first-child{overflow:visible; position:relative; z-index:5;} #dualLayoutProd3 [data-role=legend]{min-height:44px; align-content:flex-start;} @media (max-width:1400px){#dualLayoutProd3 [data-role=legend]{min-height:68px;}} @media (max-width:1250px){#dualLayoutProd3 [data-role=legend]{min-height:92px;}} #dualLayoutProd3 .map-holder svg{display:block; width:100%; aspect-ratio:1000/539; height:auto;}
 #dualLayoutProd3{grid-template-columns:repeat(2,minmax(0,1fr));} #dualLayoutProd3 .panel-col{min-width:0;}
 .pst3{display:inline-block; padding:1px 8px; border-radius:20px; font-size:10.5px; font-weight:700; white-space:nowrap; color:#fff;}
 .pst3.work{background:#00b050;} .pst3.cont{background:#f5a524;} .pst3.no{background:#8a93a3;} .pst3.nouse{background:#e6455b;} .pst3.na{background:var(--chip-bg); color:var(--muted);}
-#dualLayoutProd4 .p3-filters{box-sizing:border-box; height:40px; overflow:hidden;} #dualLayoutProd4 [data-role=legend]{min-height:44px; align-content:flex-start;} @media (max-width:1400px){#dualLayoutProd4 [data-role=legend]{min-height:68px;}} @media (max-width:1250px){#dualLayoutProd4 [data-role=legend]{min-height:92px;}} #dualLayoutProd4 .map-holder svg{display:block; width:100%; aspect-ratio:1000/539; height:auto;}
+#dualLayoutProd4 .p3-filters{box-sizing:border-box; height:40px; overflow:visible;} #dualLayoutProd4 .panel-col > .card:first-child{overflow:visible; position:relative; z-index:5;} #dualLayoutProd4 [data-role=legend]{min-height:44px; align-content:flex-start;} @media (max-width:1400px){#dualLayoutProd4 [data-role=legend]{min-height:68px;}} @media (max-width:1250px){#dualLayoutProd4 [data-role=legend]{min-height:92px;}} #dualLayoutProd4 .map-holder svg{display:block; width:100%; aspect-ratio:1000/539; height:auto;}
 #dualLayoutProd4{grid-template-columns:repeat(2,minmax(0,1fr));} #dualLayoutProd4 .panel-col{min-width:0;}
 #tblProdReg4{width:100%; table-layout:auto;} #tblProdReg4 th,#tblProdReg4 td{padding:7px 6px; font-size:12px; vertical-align:middle;} #tblProdReg4 th{white-space:normal; line-height:1.2; position:sticky; top:0; z-index:2; background:var(--card,var(--bg));} #tblProdReg4 td:first-child{min-width:110px;} @media (max-width:1300px){#tblProdReg4 th,#tblProdReg4 td{padding:6px 4px; font-size:11px;}}
 </style>
@@ -390,22 +390,10 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
 
   <div class="kpis" id="kpisHoreca2"></div>
 
-  <div class="card" style="margin-bottom:12px; overflow:visible; position:relative; z-index:20;">
-    <div class="card-body" style="padding:8px 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
-      <b style="font-size:12.8px;">🔗 Сеть на карте:</b>
-      <div style="position:relative; width:340px; max-width:100%;">
-        <input type="text" id="chainPick2" placeholder="Загрузка списка сетей…" autocomplete="off" role="combobox" aria-expanded="false" style="box-sizing:border-box; width:100%; background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:6px 10px; font-size:12.8px;">
-        <div id="chainDrop2" role="listbox" style="display:none; position:absolute; z-index:50; left:0; right:0; top:100%; margin-top:4px; max-height:320px; overflow-y:auto; overscroll-behavior:contain; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);"></div>
-      </div>
-      <button class="clear-link" id="chainPickClear2" type="button">✕ сбросить</button>
-      <span class="meta" id="chainPickInfo2"></span>
-    </div>
-  </div>
-
   <div class="dual-layout" id="dualLayoutHoreca2">
 
     <div class="panel-col" data-panel="1">
-      <div class="card">
+      <div class="card" style="overflow:visible; position:relative; z-index:5;">
         <div class="card-h">
           <div class="title">Карта 1</div>
           <div class="seg" data-role="colorSeg">
@@ -419,6 +407,36 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
           </div>
         </div>
         <div class="card-body" style="padding-bottom:6px;">
+          <div class="hf-bar" style="display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:8px; padding:7px 8px; background:var(--chip-bg); border-radius:9px;" title="Фильтры действуют на эту карту и её блок «Детали региона». Регионы: можно выбрать несколько (в списке или кликом по карте с Ctrl / Shift).">
+            <span class="meta" style="font-size:11px; font-weight:700;">Фильтры:</span>
+            <div style="position:relative; flex:1 1 110px; min-width:100px;">
+              <button type="button" data-role="foBtn" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; text-align:left; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Фед. округ: все ▾</button>
+              <div data-role="foDrop" style="display:none; position:absolute; z-index:60; left:0; top:100%; margin-top:4px; width:200px; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);">
+                <div style="display:flex; gap:12px; padding:8px 10px 6px;"><button type="button" class="clear-link" data-role="foAll">Выбрать все</button><button type="button" class="clear-link" data-role="foNone">Снять все</button></div>
+                <div data-role="foList" style="max-height:300px; overflow-y:auto;"></div>
+              </div>
+            </div>
+            <div style="position:relative; flex:1 1 130px; min-width:110px;">
+              <button type="button" data-role="regBtn" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; text-align:left; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Регион: все ▾</button>
+              <div data-role="regDrop" style="display:none; position:absolute; z-index:60; left:0; top:100%; margin-top:4px; width:310px; max-width:85vw; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);">
+                <div style="padding:6px;"><input type="text" data-role="regSearch" placeholder="Поиск региона…" autocomplete="off" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; box-sizing:border-box;"></div>
+                <div style="display:flex; gap:12px; padding:0 10px 6px;"><button type="button" class="clear-link" data-role="regAll">Выбрать все</button><button type="button" class="clear-link" data-role="regNone">Снять все</button></div>
+                <div data-role="regList" style="max-height:280px; overflow-y:auto; overscroll-behavior:contain;"></div>
+              </div>
+            </div>
+            <div style="position:relative; flex:1 1 130px; min-width:110px;">
+              <button type="button" data-role="typeBtn" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; text-align:left; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Тип заведения: все ▾</button>
+              <div data-role="typeDrop" style="display:none; position:absolute; z-index:60; left:0; top:100%; margin-top:4px; width:360px; max-width:85vw; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);">
+                <div style="display:flex; gap:12px; padding:8px 10px 6px;"><button type="button" class="clear-link" data-role="typeAll">Выбрать все</button><button type="button" class="clear-link" data-role="typeNone">Снять все</button></div>
+                <div data-role="typeList" style="max-height:300px; overflow-y:auto; overscroll-behavior:contain;"></div>
+              </div>
+            </div>
+            <div style="position:relative; flex:1 1 130px; min-width:110px;">
+              <input type="text" data-role="chainInput" placeholder="Сеть: загрузка…" autocomplete="off" role="combobox" aria-expanded="false" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; box-sizing:border-box; width:100%;">
+              <div data-role="chainDrop" role="listbox" style="display:none; position:absolute; z-index:60; left:0; top:100%; margin-top:4px; width:340px; max-width:85vw; max-height:320px; overflow-y:auto; overscroll-behavior:contain; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);"></div>
+            </div>
+            <button class="clear-link" data-role="resetFilters" type="button" style="font-size:11.5px; white-space:nowrap;">✕ сбросить</button>
+          </div>
           <div class="legend" data-role="legend" style="margin-bottom:10px;"></div>
           <div class="map-holder">
             <svg data-role="map" viewBox="0 0 1000 539" preserveAspectRatio="xMidYMid meet"></svg>
@@ -465,7 +483,7 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
     </div>
 
     <div class="panel-col" data-panel="2">
-      <div class="card">
+      <div class="card" style="overflow:visible; position:relative; z-index:5;">
         <div class="card-h">
           <div class="title">Карта 2</div>
           <div class="seg" data-role="colorSeg">
@@ -479,6 +497,36 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
           </div>
         </div>
         <div class="card-body" style="padding-bottom:6px;">
+          <div class="hf-bar" style="display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:8px; padding:7px 8px; background:var(--chip-bg); border-radius:9px;" title="Фильтры действуют на эту карту и её блок «Детали региона». Регионы: можно выбрать несколько (в списке или кликом по карте с Ctrl / Shift).">
+            <span class="meta" style="font-size:11px; font-weight:700;">Фильтры:</span>
+            <div style="position:relative; flex:1 1 110px; min-width:100px;">
+              <button type="button" data-role="foBtn" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; text-align:left; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Фед. округ: все ▾</button>
+              <div data-role="foDrop" style="display:none; position:absolute; z-index:60; left:0; top:100%; margin-top:4px; width:200px; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);">
+                <div style="display:flex; gap:12px; padding:8px 10px 6px;"><button type="button" class="clear-link" data-role="foAll">Выбрать все</button><button type="button" class="clear-link" data-role="foNone">Снять все</button></div>
+                <div data-role="foList" style="max-height:300px; overflow-y:auto;"></div>
+              </div>
+            </div>
+            <div style="position:relative; flex:1 1 130px; min-width:110px;">
+              <button type="button" data-role="regBtn" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; text-align:left; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Регион: все ▾</button>
+              <div data-role="regDrop" style="display:none; position:absolute; z-index:60; left:0; top:100%; margin-top:4px; width:310px; max-width:85vw; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);">
+                <div style="padding:6px;"><input type="text" data-role="regSearch" placeholder="Поиск региона…" autocomplete="off" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; box-sizing:border-box;"></div>
+                <div style="display:flex; gap:12px; padding:0 10px 6px;"><button type="button" class="clear-link" data-role="regAll">Выбрать все</button><button type="button" class="clear-link" data-role="regNone">Снять все</button></div>
+                <div data-role="regList" style="max-height:280px; overflow-y:auto; overscroll-behavior:contain;"></div>
+              </div>
+            </div>
+            <div style="position:relative; flex:1 1 130px; min-width:110px;">
+              <button type="button" data-role="typeBtn" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; text-align:left; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Тип заведения: все ▾</button>
+              <div data-role="typeDrop" style="display:none; position:absolute; z-index:60; left:0; top:100%; margin-top:4px; width:360px; max-width:85vw; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);">
+                <div style="display:flex; gap:12px; padding:8px 10px 6px;"><button type="button" class="clear-link" data-role="typeAll">Выбрать все</button><button type="button" class="clear-link" data-role="typeNone">Снять все</button></div>
+                <div data-role="typeList" style="max-height:300px; overflow-y:auto; overscroll-behavior:contain;"></div>
+              </div>
+            </div>
+            <div style="position:relative; flex:1 1 130px; min-width:110px;">
+              <input type="text" data-role="chainInput" placeholder="Сеть: загрузка…" autocomplete="off" role="combobox" aria-expanded="false" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; box-sizing:border-box; width:100%;">
+              <div data-role="chainDrop" role="listbox" style="display:none; position:absolute; z-index:60; left:0; top:100%; margin-top:4px; width:340px; max-width:85vw; max-height:320px; overflow-y:auto; overscroll-behavior:contain; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);"></div>
+            </div>
+            <button class="clear-link" data-role="resetFilters" type="button" style="font-size:11.5px; white-space:nowrap;">✕ сбросить</button>
+          </div>
           <div class="legend" data-role="legend" style="margin-bottom:10px;"></div>
           <div class="map-holder">
             <svg data-role="map" viewBox="0 0 1000 539" preserveAspectRatio="xMidYMid meet"></svg>
@@ -700,10 +748,9 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
         <div class="card-body" style="padding-bottom:6px;">
           <div class="p3-filters" style="display:flex; flex-wrap:nowrap; align-items:center; gap:6px; margin-bottom:8px; padding:7px 8px; background:var(--chip-bg); border-radius:9px;" title="«Используют продукт»: в файле отмечено только «Нет» — у остальных отметки нет. Фильтры действуют только на рынок производств.">
             <span class="meta" style="font-size:11px; font-weight:700;">Фильтры:</span>
-            <select id="pfGrp3" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"></select>
-            <select id="pfUses3" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"></select>
-            <select id="pfUmk3" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"></select>
-            <input type="text" id="pfQ3" placeholder="Поиск…" title="Название, ИНН или регион" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;" style="flex:0.8 1 0; min-width:0; background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 8px; font-size:12px;">
+            <div id="pfGrp3"></div>
+            <div id="pfUses3"></div>
+            <div id="pfUmk3"></div>
             <button class="clear-link" id="pfReset3" type="button" style="font-size:11.5px; white-space:nowrap;">✕ сбросить</button>
           </div>
           <div class="legend" data-role="legend" style="margin-bottom:10px;"></div>
@@ -854,11 +901,11 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
         <div class="card-body" style="padding-bottom:6px;">
           <div class="p3-filters" style="display:flex; flex-wrap:nowrap; align-items:center; gap:6px; margin-bottom:8px; padding:7px 8px; background:var(--chip-bg); border-radius:9px;" title="Фильтры действуют только на рынок (карты, KPI, таблицы рынка). «Наш клиент» — совпадение названия с первичным клиентом из наших продаж (точное или нестрогое ≈) либо с торговой точкой вторички в том же регионе.">
             <span class="meta" style="font-size:11px; font-weight:700;">Фильтры:</span>
-            <select id="pfSpec4" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"></select>
-            <select id="pfProd4" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"></select>
-            <select id="pfFo4" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"></select>
-            <select id="pfOurs4" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;"><option value="">Наш клиент: все</option><option value="yes">Наши клиенты</option><option value="no">Не наши</option></select>
-            <input type="text" id="pfQ4" placeholder="Поиск…" title="Название, регион или адрес" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; flex:1 1 0; min-width:0;">
+            <div id="pfFo4"></div>
+            <div id="pfReg4"></div>
+            <div id="pfSpec4"></div>
+            <div id="pfProd4"></div>
+            <div id="pfOurs4"></div>
             <button class="clear-link" id="pfReset4" type="button" style="font-size:11.5px; white-space:nowrap;">✕ сбросить</button>
           </div>
           <div class="legend" data-role="legend" style="margin-bottom:10px;"></div>
@@ -1244,11 +1291,11 @@ function createPanel(root, defaultMode){
 
   function refreshFilterState(){
     pathEls.forEach(({el, region}) => {
-      el.classList.toggle('dim', !panelMatches(byRegion[region]));
+      el.classList.toggle('dim', !panelMatches(byRegion[region]) || (state.selectedRegion && region !== state.selectedRegion));
       el.classList.toggle('selected', region === state.selectedRegion);
     });
     markerEls.forEach(({el, region}) => {
-      el.classList.toggle('dim', !panelMatches(byRegion[region]));
+      el.classList.toggle('dim', !panelMatches(byRegion[region]) || (state.selectedRegion && region !== state.selectedRegion));
       el.classList.toggle('selected', region === state.selectedRegion);
     });
   }
@@ -1852,6 +1899,8 @@ const HPOP_MIN2 = Math.min(...HPOP_VALS2), HPOP_MAX2 = Math.max(...HPOP_VALS2);
 const HTT_VALS2 = HREGIONS2.map(r=>r.tt).filter(v=>v>0);
 const HTT_MIN2 = Math.min(...HTT_VALS2), HTT_MAX2 = Math.max(...HTT_VALS2);
 const H_NODATA2 = 'var(--chip-bg)';
+let hChainKind2 = '';    // '' | 'chain' (все сетевые точки) | 'plain' (не сетевые)
+const H_KIND_LABEL2 = {chain:'Сетевые точки', plain:'Не сетевые точки'};
 let hChainSel2 = 0;      // выбранная сеть (индекс+1; 0 — не выбрана)
 let hPtsData2 = null;    // распакованные точки (после первой загрузки)
 let hHoldSel2 = '';      // фильтр «холдинг» (таблица сетей и карта «Центр решений»)
@@ -1931,7 +1980,58 @@ function hPercentile2(arr, p){
   return a[Math.min(a.length-1, Math.floor(p*(a.length-1)))] || 1;
 }
 // диапазоны текущих шкал (верх шкалы покрытия — максимум по регионам)
-function hRanges2(){
+// значения региона по одному типу заведения (рынок и наши ТТ)
+const hTypeValsCache2 = new Map();
+function hTypeLabel2(types){ return types.length === 1 ? types[0] : types.length + ' типов(а)'; }
+function hTypeVals2(region, types){
+  const ts = Array.isArray(types) ? types : [types];
+  const key = region + '|' + ts.join('\u0001');
+  let v = hTypeValsCache2.get(key);
+  if(!v){
+    v = {tt:0, vol:0, oTT:0, oCY:0};
+    ts.forEach(type => {
+      const mk = covTypeMarketForRegion(region, type), our = COV_RT_INDEX[region + '|' + type];
+      v.tt += mk.tt; v.vol += mk.vol; if(our){ v.oTT += our.tt; v.oCY += our.cy; }
+    });
+    hTypeValsCache2.set(key, v);
+  }
+  return v;
+}
+// точки рынка по региону для вида «сетевые / не сетевые» (с учётом типов): {tt, vol т/год}
+const hKindCache2 = new Map();
+function hKindMap2(types, kind){
+  if(!hPtsData2) return null;
+  const key = kind + '#' + types.join('\u0001');
+  let r = hKindCache2.get(key); if(r) return r;
+  const m = hPtsData2.m, tSet = types.length ? new Set(types.map(t => m.types.indexOf(t))) : null;
+  const typeKg = m.types.map(t => hNormKg(t).reduce((a, v) => a + v, 0) * 12);
+  const pr = m.places.map(pl => pl[1]);
+  r = new Map();
+  for(let i = 0; i < m.N; i++){
+    const isCh = m.ch[i] > 0;
+    if(kind === 'chain' ? !isCh : isCh) continue;
+    if(tSet && !tSet.has(m.t[i])) continue;
+    const reg = pr[m.k[i]]; let x = r.get(reg); if(!x){ x = {tt:0, vol:0}; r.set(reg, x); }
+    x.tt++; x.vol += typeKg[m.t[i]] * (m.a[i] === 1 ? 0.5 : 1) / 1000;
+  }
+  hKindCache2.set(key, r); return r;
+}
+function hKindPresent2(region, types){ const mp = hKindMap2(types || [], hChainKind2); if(!mp) return null; const x = mp.get(region); return !!(x && x.tt > 0); }
+function hTypeHas2(region, type){ const v = hTypeVals2(region, type); return v.tt > 0 || v.oTT > 0; }
+function hRanges2(type){
+  const r = hRanges2Base();
+  const kmap = hChainKind2 ? hKindMap2(type || [], hChainKind2) : null;
+  if(kmap){ const a = [...kmap.values()]; const t = a.map(x => x.tt).filter(v => v > 0), v = a.map(x => x.vol).filter(v => v > 0); Object.assign(r, {kind: hChainKind2, kmap, ktMin: t.length ? Math.min(...t) : 1, ktMax: t.length ? Math.max(...t) : 1, kvMin: v.length ? Math.min(...v) : 1, kvMax: v.length ? Math.max(...v) : 1}); }
+  if(type && type.length){
+    const vs = HREGIONS2.map(a => hTypeVals2(a.region, type));
+    const mn = a => a.length ? Math.min(...a) : 1, mx = a => a.length ? Math.max(...a) : 1;
+    const tts = vs.map(v => v.tt).filter(v => v > 0), vols = vs.map(v => v.vol).filter(v => v > 0);
+    Object.assign(r, {type, tMin: mn(tts), tMax: mx(tts), vMin: mn(vols), vMax: mx(vols),
+      cTT: mx(vs.filter(v => v.tt > 0).map(v => v.oTT / v.tt * 100)), cVol: mx(vs.filter(v => v.vol > 0).map(v => v.oCY / v.vol * 100))});
+  }
+  return r;
+}
+function hRanges2Base(){
   const vols = HREGIONS2.map(r=>regionVolume2(r)).filter(v=>v>0);
   const ttP = HREGIONS2.map(a=>covPctTT(a.region)).filter(v=>v!==null);
   const volP = HREGIONS2.map(a=>covPctVol(a.region)).filter(v=>v!==null);
@@ -1947,6 +2047,18 @@ function hColorForMode2(agg, mode, R){
   if(mode === 'hq'){ const st = hHqStats2(), r = st && st.reg.get(agg.region); return r ? logColor2(r.n, 0, R.hqMax, GREEN_STOPS2) : H_NODATA2; }
   if(mode === 'chain'){ const v = hChainRegionN2(agg.region); return v > 0 ? logColor2(v, 0, R.chainMax, GREEN_STOPS2) : H_NODATA2; }
   if(agg.noModel) return H_NODATA2;
+  if(R.kind && (mode === 'tt' || mode === 'volume')){
+    const x = R.kmap.get(agg.region);
+    if(mode === 'tt') return x && x.tt > 0 ? logColor2(x.tt, R.ktMin, R.ktMax, GREEN_STOPS2) : H_NODATA2;
+    return x && x.vol > 0 ? logColor2(x.vol, R.kvMin, R.kvMax, GREEN_STOPS2) : H_NODATA2;
+  }
+  if(R.type && mode !== 'population'){
+    const v = hTypeVals2(agg.region, R.type);
+    if(mode === 'tt') return v.tt > 0 ? logColor2(v.tt, R.tMin, R.tMax, GREEN_STOPS2) : H_NODATA2;
+    if(mode === 'volume') return v.vol > 0 ? logColor2(v.vol, R.vMin, R.vMax, GREEN_STOPS2) : H_NODATA2;
+    if(mode === 'covTT') return v.tt > 0 ? logColor2(v.oTT / v.tt * 100, 0, R.cTT, GREEN_STOPS2) : H_NODATA2;
+    return v.vol > 0 ? logColor2(v.oCY / v.vol * 100, 0, R.cVol, GREEN_STOPS2) : H_NODATA2;
+  }
   if(mode === 'population') return popColor2(agg.pop);
   if(mode === 'tt') return ttColor2(agg.tt);
   if(mode === 'volume') return volColor2(regionVolume2(agg), R.min, R.max);
@@ -1984,10 +2096,22 @@ function hRenderLegendCore2(el, mode, R){
     return;
   }
   if(mode === 'chain'){
-    el.innerHTML = hChainSel2 ? scale('1', hFmtInt2(R.chainMax)+' точек', `Точки сети «${hChainName2()}» по регионам, лог. шкала`) + gray : '<span style="color:var(--muted)">Выберите сеть в строке «Сеть на карте» над картами (или нажмите сеть в таблице «Сети рынка»)</span>';
+    el.innerHTML = hChainSel2 ? scale('1', hFmtInt2(R.chainMax)+' точек', `Точки сети «${hChainName2()}» по регионам, лог. шкала`) + gray : '<span style="color:var(--muted)">Выберите сеть в фильтре «Сеть» над картой над картами (или нажмите сеть в таблице «Сети рынка»)</span>';
     return;
   }
   if(mode === 'population') el.innerHTML = scale(hFmtInt2(HPOP_MIN2), hFmtInt2(HPOP_MAX2)+' чел.', 'Население, лог. шкала') + gray;
+  else if(R.kind && (mode === 'tt' || mode === 'volume')){
+    const tn = ' · ' + H_KIND_LABEL2[R.kind].toLowerCase() + (R.type ? ' · тип: «' + hTypeLabel2(R.type).replace(/</g,'&lt;') + '»' : '');
+    if(mode === 'tt') el.innerHTML = scale(hFmtInt2(R.ktMin), hFmtInt2(R.ktMax)+' ТТ', 'ТТ рынка, лог. шкала' + tn) + gray;
+    else el.innerHTML = scale(hFmtVol2(R.kvMin), hFmtVol2(R.kvMax)+' т/год', 'Объём рынка, лог. шкала' + tn) + gray;
+  }
+  else if(R.type){
+    const tn = ' · тип: «' + hTypeLabel2(R.type).replace(/</g,'&lt;') + '»';
+    if(mode === 'tt') el.innerHTML = scale(hFmtInt2(R.tMin), hFmtInt2(R.tMax)+' ТТ', 'ТТ рынка, лог. шкала' + tn) + gray;
+    else if(mode === 'volume') el.innerHTML = scale(hFmtVol2(R.vMin), hFmtVol2(R.vMax)+' т/год', 'Объём рынка, лог. шкала' + tn) + gray;
+    else if(mode === 'covTT') el.innerHTML = scale('0%', hFmtPct2(R.cTT), 'Покрытие ТТ, лог. шкала' + tn) + gray;
+    else el.innerHTML = scale('0%', hFmtPct2(R.cVol), 'Покрытие объёма, лог. шкала' + tn) + gray;
+  }
   else if(mode === 'tt') el.innerHTML = scale(hFmtInt2(HTT_MIN2), hFmtInt2(HTT_MAX2)+' ТТ', 'ТТ рынка, лог. шкала') + gray;
   else if(mode === 'volume') el.innerHTML = scale(hFmtVol2(R.min), hFmtVol2(R.max)+' т/год', 'Объём рынка, лог. шкала') + gray;
   else if(mode === 'covTT') el.innerHTML = scale('0%', hFmtPct2(R.ttMax), 'Покрытие ТТ, лог. шкала') + gray;
@@ -2002,6 +2126,117 @@ function hMatchesGlobal2(agg){
   if(agg.region.toLowerCase().includes(t)) return true;
   if(agg.cities.some(c => c.city.toLowerCase().includes(t))) return true;
   return (COV_CITIES_BY_REGION[agg.region] || []).some(c => c.city.toLowerCase().includes(t));
+}
+
+// ---------- Сети, сетевые и несетевые точки, центры решений: по выбранным регионам и типу ----------
+let hDetailCtx2 = {regions: [], type: [], fo: []};
+const H_FO_LIST2 = {
+  'ЦФО': ['Белгородская область','Брянская область','Владимирская область','Воронежская область','Ивановская область','Калужская область','Костромская область','Курская область','Липецкая область','Московская область','Орловская область','Рязанская область','Смоленская область','Тамбовская область','Тверская область','Тульская область','Ярославская область','г. Москва'],
+  'СЗФО': ['Архангельская область','Вологодская область','Калининградская область','Республика Карелия','Республика Коми','Ленинградская область','Мурманская область','Ненецкий автономный округ','Новгородская область','Псковская область','г. Санкт-Петербург'],
+  'ЮФО': ['Республика Адыгея','Республика Калмыкия','Республика Крым','г. Севастополь','Краснодарский край','Астраханская область','Волгоградская область','Ростовская область','Донецкая Народная Республика','Луганская Народная Республика','Запорожская область','Херсонская область'],
+  'СКФО': ['Республика Дагестан','Республика Ингушетия','Кабардино-Балкарская Республика','Карачаево-Черкесская Республика','Республика Северная Осетия-Алания','Чеченская Республика','Ставропольский край'],
+  'ПФО': ['Республика Башкортостан','Республика Марий Эл','Республика Мордовия','Республика Татарстан','Удмуртская Республика','Чувашская Республика','Пермский край','Кировская область','Нижегородская область','Оренбургская область','Пензенская область','Самарская область','Саратовская область','Ульяновская область'],
+  'УрФО': ['Курганская область','Свердловская область','Тюменская область','Ханты-Мансийский автономный округ-Югра','Ямало-Ненецкий автономный округ','Челябинская область'],
+  'СФО': ['Алтайский край','Республика Алтай','Республика Тыва','Республика Хакасия','Красноярский край','Иркутская область','Кемеровская область','Новосибирская область','Омская область','Томская область'],
+  'ДФО': ['Республика Бурятия','Забайкальский край','Республика Саха (Якутия)','Камчатский край','Приморский край','Хабаровский край','Амурская область','Магаданская область','Сахалинская область','Еврейская автономная область','Чукотский автономный округ']
+};
+const H_FO_BY_REGION2 = {};
+Object.entries(H_FO_LIST2).forEach(([fo, rs]) => rs.forEach(r => { H_FO_BY_REGION2[r] = fo; }));
+function hFoOf2(region){ return H_FO_BY_REGION2[region] || (/Казахстан/.test(region) ? 'Казахстан' : 'Прочие'); }
+const H_SHOP_TYPE2 = 'Магазины и кулинарии готовой еды';
+let hNetCache2 = new Map();
+function hNetStats2(regions, type){
+  if(!hPtsData2) return null;
+  const key = [...regions].sort().join('|') + '#' + type.join('\u0001') + '#' + hChainKind2;
+  if(hNetCache2.has(key)) return hNetCache2.get(key);
+  const m = hPtsData2.m, S = regions.length ? new Set(regions) : null;
+  const tSet = type.length ? new Set(type.map(t => m.types.indexOf(t)).filter(k => k >= 0)) : null;
+  if(tSet && !tSet.size){ const z = {pts:0, chainPts:0, plain:0, chains:0, shops:0, ctrUsed:0, ctrHere:0, chainsHere:0}; hNetCache2.set(key, z); return z; }
+  const pr = m.places.map(p => p[1]);
+  const chSeen = new Set(), ctrUsed = new Set();
+  let pts = 0, chainPts = 0, shops = 0;
+  const shopIdx = m.types.indexOf(H_SHOP_TYPE2);
+  for(let i = 0; i < m.N; i++){
+    if(S && !S.has(pr[m.k[i]])) continue;
+    if(tSet && !tSet.has(m.t[i])) continue;
+    const c = m.ch[i];
+    if(hChainKind2 === 'chain' && !c) continue;
+    if(hChainKind2 === 'plain' && c) continue;
+    pts++;
+    if(!c) continue;
+    chainPts++; if(m.t[i] === shopIdx) shops++;
+    chSeen.add(m.chains[c-1].toLowerCase().replace(/ё/g,'е'));
+    if(m.chCtr[c-1]) ctrUsed.add(m.chCtr[c-1]);
+  }
+  // центры решений, расположенные в выбранных регионах (по адресу головного офиса INFOLine) и их сети
+  const ctrHere = new Set(), nmHere = new Set();
+  m.chains.forEach((nm, j) => {
+    const hq = m.chHq[j]; if(!hq || (S && !S.has(hq))) return;
+    if(!m.chainPts[j].length) return;
+    if(m.chCtr[j]) ctrHere.add(m.chCtr[j]);
+    nmHere.add(nm.toLowerCase().replace(/ё/g,'е'));
+  });
+  const r = {pts, chainPts, plain: pts - chainPts, chains: chSeen.size, shops, ctrUsed: ctrUsed.size, ctrHere: ctrHere.size, chainsHere: nmHere.size};
+  hNetCache2.set(key, r); return r;
+}
+function hNetHTML2(regions, type){
+  const st = hNetStats2(regions, type);
+  const scope = (regions.length ? (regions.length === 1 ? regions[0] : regions.length + ' регион(ов)') : 'все регионы') + (type.length ? ' · тип: «' + hTypeLabel2(type).replace(/</g,'&lt;') + '»' : '') + (hChainKind2 ? ' · ' + H_KIND_LABEL2[hChainKind2].toLowerCase() : '');
+  if(!st){ try { hLoadPoints(); } catch(e){} return `<div class="dist-group"><div class="gt">Торговые точки, сети и центры решений</div><div class="meta">Загрузка данных точек…</div></div>`; }
+  const pct = v => st.pts ? hFmtPct2(v / st.pts * 100) : '—';
+  return `<div class="gt" style="margin-top:12px; font-weight:700;">Торговые точки, сети и центры решений <span class="meta" style="font-weight:400;">— ${scope}</span></div>
+    <div class="stat-row" style="flex-wrap:nowrap;">
+      <div><b>${hFmtInt2(st.pts)}</b>точек рынка</div>
+      <div><b>${hFmtInt2(st.chainPts)}</b>сетевых точек · ${pct(st.chainPts)}</div>
+      <div><b>${hFmtInt2(st.plain)}</b>не сетевых точек · ${pct(st.plain)}</div>
+      <div><b>${hFmtInt2(st.chains)}</b>сетей</div>
+      <div title="Где принимаются решения по сетям этих точек (адрес головного офиса, INFOLine)"><b>${hFmtInt2(st.ctrUsed)}</b>центров решений</div>
+      <div title="Центры решений, которые физически расположены в выбранных регионах (адрес головного офиса, INFOLine)"><b>${hFmtInt2(st.ctrHere)}</b>центров в регионе</div>
+      <div title="Сети, головной офис которых находится в выбранных регионах"><b>${hFmtInt2(st.chainsHere)}</b>сетей с центром в регионе</div>
+    </div>
+    <div class="meta">Сеть определяется по названию точки; центры решений известны примерно у половины сетевых точек (справочник INFOLine).</div>`;
+}
+function hTypeDetailHTML2(regions, type){
+  if(!type || !type.length) return '';
+  const rs = regions.length ? regions : HMAP_REGIONS2.map(a => a.region);
+  let tt = 0, vol = 0, oTT = 0, oCY = 0;
+  rs.forEach(r => { const a = HREGION_AGG2[r]; const v = hTypeVals2(r, type); if(a && !a.noModel){ tt += v.tt; vol += v.vol; } oTT += v.oTT; oCY += v.oCY; });
+  return `<div class="gt" style="margin-top:12px; font-weight:700;">Тип: «${hTypeLabel2(type).replace(/</g,'&lt;')}»${type.length > 1 ? ' <span class="meta" style="font-weight:400;">— сумма по выбранным типам</span>' : ''}</div>
+    <div class="stat-row">
+      <div><b>${hFmtInt2(tt)}</b>ТТ рынка</div><div><b>${hFmtVol2(vol)}</b>объём рынка, т/год</div>
+      <div><b>${hFmtInt2(oTT)}</b>наши ТТ</div><div><b>${hFmtVol2(oCY)}</b>наш объём, т/год</div>
+      ${tt > 0 ? `<div><b>${hFmtPct2(oTT/tt*100)}</b>покрытие ТТ</div>` : ''}${vol > 0 ? `<div><b>${hFmtPct2(oCY/vol*100)}</b>покрытие объёма</div>` : ''}
+    </div>`;
+}
+// сводка по нескольким выбранным регионам
+function hDetailMultiHTML2(regions){
+  const aggs = regions.map(r => HREGION_AGG2[r]).filter(Boolean);
+  const model = aggs.filter(a => !a.noModel);
+  const pop = model.reduce((s,a) => s + a.pop, 0), tt = model.reduce((s,a) => s + a.tt, 0), vol = model.reduce((s,a) => s + regionVolume2(a), 0);
+  const ourTT = aggs.reduce((s,a) => s + covOur(a.region).ourTT, 0), ourCY = aggs.reduce((s,a) => s + covOur(a.region).ourCY, 0);
+  const ourTTm = model.reduce((s,a) => s + covOur(a.region).ourTT, 0), ourCYm = model.reduce((s,a) => s + covOur(a.region).ourCY, 0);
+  const chip = a => `<div class="dist-chip"><span class="n">${a.region}</span><span class="v">${a.noModel ? 'нет в модели' : hFmtVol2(regionVolume2(a)) + ' т/год · ' + hFmtInt2(a.tt) + ' ТТ'}</span></div>`;
+  const sorted = [...aggs].sort((a,b) => regionVolume2(b) - regionVolume2(a));
+  const chainN = hChainSel2 ? regions.reduce((s,r) => s + hChainRegionN2(r), 0) : 0;
+  return `
+    <h3>${hDetailCtx2.fo && hDetailCtx2.fo.length ? 'Федеральные округа: ' + hDetailCtx2.fo.join(', ') + ' — ' : ''}регионов: ${aggs.length}</h3>
+    <div class="meta">Клик по региону с Ctrl / Shift добавляет или убирает его; обычный клик — выбрать только его.</div>
+    <div class="stat-row">
+      <div><b>${hFmtInt2(pop)}</b>население, чел.</div>
+      <div><b>${hFmtInt2(tt)}</b>точек рынка (ТТ)</div>
+      <div><b>${hFmtVol2(vol)}</b>объём рынка, т/год</div>
+    </div>
+    <div class="gt" style="margin-top:12px; font-weight:700;">Наше присутствие</div>
+    <div class="stat-row">
+      <div><b>${hFmtInt2(ourTT)}</b>наши ТТ</div>
+      <div><b>${hFmtVol2(ourCY)}</b>наш объём, т/год</div>
+      ${tt > 0 ? `<div><b>${hFmtPct2(ourTTm/tt*100)}</b>покрытие ТТ</div><div><b>${hFmtPct2(ourCYm/vol*100)}</b>покрытие объёма</div>
+      <div><b>${hFmtInt2(Math.max(0, tt - ourTTm))}</b>неохваченные ТТ</div><div><b>${hFmtVol2(Math.max(0, vol - ourCYm))}</b>неохваченный объём, т/год</div>` : ''}
+    </div>
+    ${hTypeDetailHTML2(regions, hDetailCtx2.type)}
+    ${hNetHTML2(regions, hDetailCtx2.type)}
+    ${hChainSel2 ? `<div class="gt" style="margin-top:12px; font-weight:700;">Сеть «${hChainName2().replace(/</g,'&lt;')}»</div><div class="meta">В выбранных регионах: ${hFmtInt2(chainN)} точек.</div>` : ''}
+    <div class="dist-group"><div class="gt">Регионы (${aggs.length})</div><div class="dist-chip-list">${sorted.map(chip).join('')}</div></div>`;
 }
 
 // ---------- Detail panel content ----------
@@ -2052,6 +2287,7 @@ function hDetailNoModelHTML2(agg){
       <div><b>${hFmtInt2(o.ourTT)}</b>наши ТТ</div>
       <div><b>${hFmtVol2(o.ourCY)}</b>наш объём, т/год</div>
     </div>` : '<div class="meta" style="margin-top:8px;">У нас нет точек в этом регионе.</div>'}
+    ${hNetHTML2([agg.region], hDetailCtx2.type)}
     ${hOurOnlyCitiesHTML2(agg.region)}
   `;
 }
@@ -2078,6 +2314,8 @@ function hDetailHTML2(agg){
       <div><b>${hFmtVol2(vol)}</b>объём рынка, т/год</div>
     </div>
     ${hOurStatsHTML2(agg.region)}
+    ${hTypeDetailHTML2([agg.region], hDetailCtx2.type)}
+    ${hNetHTML2([agg.region], hDetailCtx2.type)}
     ${hChainDetailHTML2(agg.region)}
     <div class="dist-group"><div class="gt">Города модели (${cities.length})</div><div class="dist-chip-list">
       ${cities.map(c => { const oc = COV_CITY_INDEX[c.city+'|'+c.region]; return `<div class="dist-chip"><span class="n">${c.city}</span><span class="v">${hFmtInt2(c.pop)} чел. · ${hFmtInt2(cityTT2(c))} ТТ${oc ? `<br>наши ${hFmtInt2(oc.ttHoreca)} ТТ · ${hFmtVol2(oc.cy)} т/год` : ''}</span></div>`; }).join('')}
@@ -2130,6 +2368,8 @@ function hDetailAllHTML2(){
       <div><b>${hFmtVol2(Math.max(0, T.marketVol - T.ourCYModel))}</b>неохваченный объём, т/год</div>
     </div>
     <div class="meta">Проценты — по регионам модели рынка (${hFmtInt2(T.ourTTModel)} наших ТТ, ${hFmtVol2(T.ourCYModel)} т/год). Наш объём в исходном файле дан за 9 месяцев и пересчитан на год ×12/9.</div>
+    ${hTypeDetailHTML2([], hDetailCtx2.type)}
+    ${hNetHTML2([], hDetailCtx2.type)}
     <div class="dist-group"><div class="gt">Топ-10 регионов по объёму рынка</div><div class="dist-chip-list">
       ${topRegions.map(r => `<div class="dist-chip"><span class="n">${r.region}</span><span class="v">${hFmtVol2(regionVolume2(r))} т/год</span></div>`).join('')}
     </div></div>
@@ -2159,13 +2399,24 @@ function createHorecaPanel2(root, defaultMode){
   const dossierTabSeg = root.querySelector('[data-role=dossierTabSeg]');
   const tabWraps = root.querySelectorAll('[data-tab-panel]');
 
-  const state = { colorMode: defaultMode, selectedRegion: null, tab:'city', cityValue:'', typeValue:'' };
+  const state = { colorMode: defaultMode, regions: new Set(), fType: [], fo: [], tab:'city', cityValue:'', typeValue:'' };
   const regionOfKey = key => key.slice(key.lastIndexOf('|')+1);
 
-  function colorFor(agg){ return hColorForMode2(agg, state.colorMode, hRanges2()); }
+  function colorFor(agg){ return hColorForMode2(agg, state.colorMode, hRanges2(state.fType)); }
 
+  // регионы, прошедшие фильтры «Регион» и «Федеральный округ»
+  function effRegions(){
+    let rs = state.regions.size ? [...state.regions] : (state.fo.length ? HMAP_REGIONS2.map(a => a.region) : []);
+    if(state.fo.length) rs = rs.filter(r => state.fo.includes(hFoOf2(r)));
+    return rs;
+  }
+  let effCache = null;
+  function effSet(){ return new Set(effRegions()); }
   function panelMatches(agg){
     if(!hMatchesGlobal2(agg)) return false;
+    if((state.regions.size || state.fo.length) && !effSet().has(agg.region)) return false;
+    if(hChainKind2 && hKindPresent2(agg.region, state.fType) === false) return false;
+    if(state.fType.length && !hTypeHas2(agg.region, state.fType)) return false;
     if(state.tab === 'city' && state.cityValue){
       if(regionOfKey(state.cityValue) !== agg.region) return false;
     }
@@ -2189,7 +2440,7 @@ function createHorecaPanel2(root, defaultMode){
       el.setAttribute('fill', colorFor(agg));
       el.addEventListener('mousemove', ev => showTooltip(ev, agg));
       el.addEventListener('mouseleave', hideTooltip);
-      el.addEventListener('click', () => toggleRegion(agg.region));
+      el.addEventListener('click', ev => toggleRegion(agg.region, ev.ctrlKey || ev.metaKey || ev.shiftKey));
       mapEl.appendChild(el);
       pathEls.push({el, region: agg.region});
     } else {
@@ -2201,29 +2452,35 @@ function createHorecaPanel2(root, defaultMode){
       el.setAttribute('fill', colorFor(agg));
       el.addEventListener('mousemove', ev => showTooltip(ev, agg));
       el.addEventListener('mouseleave', hideTooltip);
-      el.addEventListener('click', () => toggleRegion(agg.region));
+      el.addEventListener('click', ev => toggleRegion(agg.region, ev.ctrlKey || ev.metaKey || ev.shiftKey));
       mapEl.appendChild(el);
       markerEls.push({el, region: agg.region});
     }
   });
 
   function refreshColors(){
-    const R = hRanges2();
+    const R = hRanges2(state.fType);
     pathEls.forEach(({el,region}) => el.setAttribute('fill', hColorForMode2(HREGION_AGG2[region], state.colorMode, R)));
     markerEls.forEach(({el,region}) => el.setAttribute('fill', hColorForMode2(HREGION_AGG2[region], state.colorMode, R)));
   }
   function refreshFilterState(){
     pathEls.forEach(({el,region}) => {
       el.classList.toggle('dim', !panelMatches(HREGION_AGG2[region]));
-      el.classList.toggle('selected', region===state.selectedRegion);
+      el.classList.toggle('selected', state.regions.has(region));
     });
     markerEls.forEach(({el,region}) => {
       el.classList.toggle('dim', !panelMatches(HREGION_AGG2[region]));
-      el.classList.toggle('selected', region===state.selectedRegion);
+      el.classList.toggle('selected', state.regions.has(region));
     });
   }
 
-  function showTooltip(event, agg){
+  function typeTip(agg){
+    if(!state.fType.length || agg.noModel) return '';
+    const v = hTypeVals2(agg.region, state.fType);
+    return `<br>Тип: «${hTypeLabel2(state.fType).replace(/</g,'&lt;')}»: ${hFmtInt2(v.tt)} ТТ · ${hFmtVol2(v.vol)} т/год · наши ${hFmtInt2(v.oTT)} ТТ`;
+  }
+  function showTooltip(event, agg){ showTooltipCore(event, agg); if(state.fType.length && !agg.noModel) tooltipEl.innerHTML += typeTip(agg); }
+  function showTooltipCore(event, agg){
     const rect = mapHolderEl.getBoundingClientRect();
     const x = event.clientX - rect.left, y = event.clientY - rect.top;
     tooltipEl.style.left = x+'px'; tooltipEl.style.top = y+'px'; tooltipEl.style.display='block';
@@ -2241,26 +2498,37 @@ function createHorecaPanel2(root, defaultMode){
   }
   function hideTooltip(){ tooltipEl.style.display = 'none'; }
 
-  function renderDetail(region){
-    if(!region){
+  function renderDetail(){
+    const active = state.regions.size > 0 || state.fo.length > 0;
+    const regs = effRegions();
+    hDetailCtx2 = {regions: regs, type: state.fType, fo: state.fo};
+    if(!active){
       detailEl.innerHTML = hDetailAllHTML2();
       clearRegionBtn.style.display = 'none';
       return;
     }
-    const agg = HREGION_AGG2[region];
-    if(!agg){ detailEl.innerHTML = '<div class="empty">Регион не найден.</div>'; clearRegionBtn.style.display='none'; return; }
     clearRegionBtn.style.display = 'inline';
+    if(!regs.length){ detailEl.innerHTML = '<div class="empty">Выбранные регионы не входят в выбранные федеральные округа.</div>'; return; }
+    if(regs.length > 1 || state.fo.length){ detailEl.innerHTML = hDetailMultiHTML2(regs); return; }
+    const agg = HREGION_AGG2[regs[0]];
+    if(!agg){ detailEl.innerHTML = '<div class="empty">Регион не найден.</div>'; clearRegionBtn.style.display='none'; return; }
     detailEl.innerHTML = hDetailHTML2(agg);
   }
 
-  function setRegion(region){
-    state.selectedRegion = region;
-    if(typeof hSetTypeScope2 === 'function') hSetTypeScope2(region || '');
-    renderDetail(region);
+  function setRegions(set){
+    state.regions = set;
+    const one = set.size === 1 && !state.fo.length ? [...set][0] : '';
+    if(typeof hFiltersChanged2 === 'function') hFiltersChanged2();
+    renderDetail();
     refreshFilterState();
+    syncFilterUI();
     highlightTableRowHoreca2();
   }
-  function toggleRegion(region){ setRegion(state.selectedRegion === region ? null : region); }
+  function setRegion(region){ setRegions(region ? new Set([region]) : new Set()); }
+  function toggleRegion(region, add){
+    if(add){ const n = new Set(state.regions); if(n.has(region)) n.delete(region); else n.add(region); setRegions(n); }
+    else setRegion(state.regions.size === 1 && state.regions.has(region) ? null : region);
+  }
   clearRegionBtn.addEventListener('click', () => setRegion(null));
   root.addEventListener('click', e => {
     const b = e.target.closest('[data-exp-region],[data-exp-city],[data-exp-type],[data-exp-chain]'); if(!b) return;
@@ -2269,16 +2537,16 @@ function createHorecaPanel2(root, defaultMode){
     else if(b.dataset.expCity !== undefined){ const key = b.dataset.expCity; hExportPreset({region: key.slice(key.lastIndexOf('|')+1), city: key}); }
     else hExportPreset({type: b.dataset.expType});
   });
-  renderDetail(null); // по умолчанию — сводная статистика по всем регионам
+  renderDetail(); // по умолчанию — сводная статистика по всем регионам
 
   colorSeg.addEventListener('click', e => {
     const btn = e.target.closest('button'); if(!btn) return;
     state.colorMode = btn.dataset.mode;
     colorSeg.querySelectorAll('button').forEach(b=>b.classList.toggle('active', b===btn));
-    hRenderLegend2(legendEl, state.colorMode, hRanges2());
+    hRenderLegend2(legendEl, state.colorMode, hRanges2(state.fType));
     refreshColors();
   });
-  hRenderLegend2(legendEl, state.colorMode, hRanges2());
+  hRenderLegend2(legendEl, state.colorMode, hRanges2(state.fType));
 
   // populate city & type selects
   const modelCityKeys = new Set(HORECA_CITIES2.map(c => c.city+'|'+c.region));
@@ -2442,13 +2710,79 @@ function createHorecaPanel2(root, defaultMode){
     renderDossier(); refreshFilterState();
   });
 
+  // ---------- фильтры над картой: регион (несколько), тип заведения ----------
+  const regBtn = root.querySelector('[data-role=regBtn]'), regDrop = root.querySelector('[data-role=regDrop]');
+  const regSearch = root.querySelector('[data-role=regSearch]'), regList = root.querySelector('[data-role=regList]');
+  const typeBtn = root.querySelector('[data-role=typeBtn]'), typeDrop = root.querySelector('[data-role=typeDrop]'), typeList = root.querySelector('[data-role=typeList]');
+  const resetBtn = root.querySelector('[data-role=resetFilters]');
+  const foBtn = root.querySelector('[data-role=foBtn]'), foDrop = root.querySelector('[data-role=foDrop]'), foList = root.querySelector('[data-role=foList]');
+  const foNames = Object.keys(H_FO_LIST2);
+  const regNames = [...new Set(HMAP_REGIONS2.map(a => a.region))].sort((a,b) => a.localeCompare(b, 'ru'));
+  const escA = x => String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+  const visibleRegs = () => { const q = regSearch.value.trim().toLowerCase().replace(/ё/g,'е'); return regNames.filter(r => !q || r.toLowerCase().replace(/ё/g,'е').includes(q)); };
+  function buildRegList(){
+    const rs = visibleRegs();
+    regList.innerHTML = rs.map(r => `<label style="display:flex; gap:8px; align-items:center; padding:4px 10px; font-size:12.5px; cursor:pointer;"><input type="checkbox" value="${escA(r)}"${state.regions.has(r) ? ' checked' : ''}><span>${escA(r)}${HREGION_AGG2[r] && HREGION_AGG2[r].noModel ? ' <span class="meta">(нет в модели)</span>' : ''}</span></label>`).join('') || '<div class="meta" style="padding:8px 10px;">Не найдено</div>';
+  }
+  function syncFilterUI(){
+    const n = state.regions.size;
+    regBtn.textContent = (n === 0 ? 'Регион: все' : n === 1 ? [...state.regions][0] : 'Регионы: ' + n) + ' ▾';
+    regBtn.title = n ? [...state.regions].join(', ') : '';
+    const fn = state.fo.length;
+    foBtn.textContent = (fn === 0 ? 'Фед. округ: все' : fn === 1 ? state.fo[0] : 'Округа: ' + fn) + ' ▾';
+    foBtn.title = fn ? state.fo.join(', ') : '';
+    foList.querySelectorAll('input[type=checkbox]').forEach(cb => { cb.checked = state.fo.includes(cb.value); });
+    regList.querySelectorAll('input[type=checkbox]').forEach(cb => { cb.checked = state.regions.has(cb.value); });
+    const tn = state.fType.length;
+    typeBtn.textContent = (tn === 0 ? 'Тип заведения: все' : tn === 1 ? state.fType[0] : 'Типы заведений: ' + tn) + ' ▾';
+    typeBtn.title = tn ? state.fType.join(', ') : '';
+    typeList.querySelectorAll('input[type=checkbox]').forEach(cb => { cb.checked = state.fType.includes(cb.value); });
+  }
+  const openReg = () => { buildRegList(); regDrop.style.display = ''; regSearch.focus(); };
+  const closeReg = () => { regDrop.style.display = 'none'; };
+  regBtn.addEventListener('click', () => { regDrop.style.display === 'none' ? openReg() : closeReg(); });
+  regSearch.addEventListener('input', buildRegList);
+  regList.addEventListener('change', e => {
+    const cb = e.target; if(!cb || cb.type !== 'checkbox') return;
+    const n = new Set(state.regions); if(cb.checked) n.add(cb.value); else n.delete(cb.value); setRegions(n);
+  });
+  root.querySelector('[data-role=regAll]').addEventListener('click', () => { const n = new Set(state.regions); visibleRegs().forEach(r => n.add(r)); setRegions(n); });
+  root.querySelector('[data-role=regNone]').addEventListener('click', () => { const q = regSearch.value.trim(); if(!q){ setRegions(new Set()); return; } const v = new Set(visibleRegs()); setRegions(new Set([...state.regions].filter(r => !v.has(r)))); });
+  document.addEventListener('mousedown', e => { if(!regDrop.contains(e.target) && e.target !== regBtn) closeReg(); });
+  regSearch.addEventListener('keydown', e => { if(e.key === 'Escape') closeReg(); });
+  typeList.innerHTML = HORECA_REFERENCE_LIST2.map(r => `<label style="display:flex; gap:8px; align-items:center; padding:4px 10px; font-size:12.5px; cursor:pointer;"><input type="checkbox" value="${escA(r.type)}"><span>${escA(r.type)}</span></label>`).join('');
+  foList.innerHTML = foNames.map(f => `<label style="display:flex; gap:8px; align-items:center; padding:4px 10px; font-size:12.5px; cursor:pointer;"><input type="checkbox" value="${f}"><span>${f}</span></label>`).join('');
+  const closeFo = () => { foDrop.style.display = 'none'; };
+  foBtn.addEventListener('click', () => { foDrop.style.display === 'none' ? (syncFilterUI(), foDrop.style.display = '') : closeFo(); });
+  document.addEventListener('mousedown', e => { if(!foDrop.contains(e.target) && e.target !== foBtn) closeFo(); });
+  function applyFo(){ setRegions(state.regions); }
+  foList.addEventListener('change', () => { state.fo = [...foList.querySelectorAll('input:checked')].map(c => c.value); applyFo(); });
+  root.querySelector('[data-role=foAll]').addEventListener('click', () => { state.fo = foNames.slice(); applyFo(); });
+  root.querySelector('[data-role=foNone]').addEventListener('click', () => { state.fo = []; applyFo(); });
+  const closeType = () => { typeDrop.style.display = 'none'; };
+  typeBtn.addEventListener('click', () => { typeDrop.style.display === 'none' ? (syncFilterUI(), typeDrop.style.display = '') : closeType(); });
+  document.addEventListener('mousedown', e => { if(!typeDrop.contains(e.target) && e.target !== typeBtn) closeType(); });
+  function applyType(){
+    refreshColors(); refreshFilterState(); hRenderLegend2(legendEl, state.colorMode, hRanges2(state.fType)); renderDetail(); syncFilterUI();
+    if(typeof hFiltersChanged2 === 'function') hFiltersChanged2();
+  }
+  typeList.addEventListener('change', () => { state.fType = [...typeList.querySelectorAll('input:checked')].map(c => c.value); applyType(); });
+  root.querySelector('[data-role=typeAll]').addEventListener('click', () => { state.fType = HORECA_REFERENCE_LIST2.map(r => r.type); applyType(); });
+  root.querySelector('[data-role=typeNone]').addEventListener('click', () => { state.fType = []; applyType(); });
+  resetBtn.addEventListener('click', () => { state.fType = []; state.fo = []; setRegions(new Set()); applyType(); });
+  syncFilterUI();
+
   return {
     refreshFilterState, refreshColors,
-    get selectedRegion(){ return state.selectedRegion; },
+    get selectedRegion(){ return state.regions.size === 1 ? [...state.regions][0] : null; },
+    get selectedRegions(){ return [...state.regions]; },
+    get filterActive(){ return state.regions.size > 0 || state.fo.length > 0; },
+    get effRegions(){ return effRegions(); },
+    get fType(){ return state.fType; },
     focus(region){ setRegion(region); },
     rerenderDossier(){ renderDossier(); },
-    rerenderDetail(){ renderDetail(state.selectedRegion); },
-    rerenderLegend(){ hRenderLegend2(legendEl, state.colorMode, hRanges2()); },
+    rerenderDetail(){ renderDetail(); },
+    rerenderLegend(){ hRenderLegend2(legendEl, state.colorMode, hRanges2(state.fType)); },
     get mode(){ return state.colorMode; },
     setMode(mode){ const b = colorSeg.querySelector('[data-mode="'+mode+'"]'); if(b) b.click(); }
   };
@@ -2486,9 +2820,20 @@ let hSortKey2 = 'vol', hSortDir2 = -1;
 
 function renderTableHoreca2(){
   const src = HREGIONS2.concat(HNOMODEL2.filter(a => covOur(a.region).ourTT > 0 || covOur(a.region).ourCY > 0));
-  let rows = src.filter(hMatchesGlobal2).map(agg => {
+  const fr = hTblRegions2(), ft = hTblTypes2(), kmap = hChainKind2 ? hKindMap2(ft || [], hChainKind2) : null;
+  let rows = src.filter(hMatchesGlobal2).filter(a => !fr || fr.includes(a.region)).map(agg => {
     const o = covOur(agg.region);
     const noM = !!agg.noModel;
+    if(ft || kmap){
+      const v = ft ? hTypeVals2(agg.region, ft) : null, kx = kmap ? (kmap.get(agg.region) || {tt:0, vol:0}) : null;
+      const tt = noM ? null : (kx ? kx.tt : v.tt), vol = noM ? null : (kx ? kx.vol : v.vol);
+      const ourTT = v ? v.oTT : o.ourTT, ourCY = v ? v.oCY : o.ourCY;
+      const cov = !kx && !noM;   // наши ТТ не делятся на сетевые / не сетевые — покрытие считаем только без этого фильтра
+      return {region: agg.region, noModel: noM, dept: hDeptName2(agg.region), homeDist: hHomeDists2(agg.region).join(', '),
+        tt, vol, ourTT, ourCY,
+        covTT: cov && tt > 0 ? ourTT / tt * 100 : null, covVol: cov && vol > 0 ? ourCY / vol * 100 : null,
+        unTT: cov && tt !== null ? Math.max(0, tt - ourTT) : null, unVol: cov && vol !== null ? Math.max(0, vol - ourCY) : null};
+    }
     return {
       region: agg.region, noModel: noM,
       dept: hDeptName2(agg.region), homeDist: hHomeDists2(agg.region).join(', '),
@@ -2524,7 +2869,7 @@ function renderTableHoreca2(){
       <td>${r.unVol===null ? '—' : hFmtVol2(r.unVol)}</td>
     </tr>
   `).join('');
-  document.getElementById('tblTitleHoreca2').textContent = `Все регионы — рынок и покрытие (${rows.length})`;
+  document.getElementById('tblTitleHoreca2').textContent = `Все регионы — рынок и покрытие (${rows.length})${(fr || ft || kmap) ? ' · ' + hTblScopeText2() : ''}`;
   tblBodyHoreca2.querySelectorAll('tr.tbl-row').forEach(tr => {
     tr.addEventListener('click', () => {
       hPanels2.forEach(p => p.focus(p.selectedRegion === tr.dataset.region ? null : tr.dataset.region));
@@ -2534,7 +2879,7 @@ function renderTableHoreca2(){
   highlightTableRowHoreca2();
 }
 function highlightTableRowHoreca2(){
-  const sel = new Set(hPanels2.map(p=>p.selectedRegion).filter(Boolean));
+  const sel = new Set(hPanels2.flatMap(p => p.selectedRegions));
   tblBodyHoreca2.querySelectorAll('tr.tbl-row').forEach(tr => {
     tr.classList.toggle('selected', sel.has(tr.dataset.region));
   });
@@ -2556,32 +2901,58 @@ document.getElementById('searchHoreca2').addEventListener('input', e => {
 
 // ---------- Типы заведений (единая таблица; область — выбранный регион или все регионы) ----------
 let hTypeScope2 = '';
+// фильтры карт для таблиц: объединение фильтров обеих карт (регионы, типы) + вид точек (сеть)
+function hTblRegions2(){
+  if(hTypeScope2) return [hTypeScope2];
+  const set = new Set(); let any = false;
+  hPanels2.forEach(p => { if(p.filterActive){ any = true; p.effRegions.forEach(r => set.add(r)); } });
+  return any ? [...set] : null;
+}
+function hTblTypes2(){ const set = new Set(); hPanels2.forEach(p => p.fType.forEach(t => set.add(t))); return set.size ? [...set] : null; }
+function hTblScopeText2(){
+  const r = hTblRegions2(), t = hTblTypes2();
+  return (r ? (r.length === 1 ? r[0] : r.length + ' регион(ов)') : 'все регионы') + (t ? ' · тип: ' + hTypeLabel2(t) : '') + (hChainKind2 ? ' · ' + H_KIND_LABEL2[hChainKind2].toLowerCase() : '');
+}
+function hRefreshTables2(){ renderTableHoreca2(); renderTypesTable2(); if(typeof hExpInited !== 'undefined' && hExpInited) renderChains2(); }
+function hFiltersChanged2(){
+  hTypeScope2 = '';   // ручной выбор области в списке сбрасывается: действуют фильтры карт
+  const sel = document.getElementById('typeScope2'); if(sel) sel.value = '';
+  hRefreshTables2();
+}
 let hTypeSortKey2 = 'mVol', hTypeSortDir2 = -1;
-function hTypeRows2(scope){
+function hTypeRows2(regs, ftypes, kind){
   const mk = {};   // type -> {mTT, mVol}
-  const addExtra = e => { const x = mk[e.type] || (mk[e.type] = {mTT:0, mVol:0}); x.mTT += e.tt; x.mVol += typeVolume2(e.type, e.tt); };
-  if(!scope){
-    HORECA_CITIES2.forEach(c => c.entries.forEach(e => {
-      const x = mk[e.type] || (mk[e.type] = {mTT:0, mVol:0});
-      x.mTT += e.tt; x.mVol += entryVolume2(c, e);
-    }));
-    HORECA_EXTRA2.forEach(addExtra);   // регионы вне модели — тоже точки рынка
-  } else {
+  const add = (type, tt, vol) => { const x = mk[type] || (mk[type] = {mTT:0, mVol:0}); x.mTT += tt; x.mVol += vol; };
+  const kmode = !!(kind && hPtsData2);
+  if(kmode){
+    const m = hPtsData2.m, S = regs ? new Set(regs) : null, pr = m.places.map(pl => pl[1]);
+    const typeKg = m.types.map(t => hNormKg(t).reduce((a, v) => a + v, 0) * 12);
+    for(let i = 0; i < m.N; i++){
+      const isCh = m.ch[i] > 0; if(kind === 'chain' ? !isCh : isCh) continue;
+      if(S && !S.has(pr[m.k[i]])) continue;
+      add(m.types[m.t[i]], 1, typeKg[m.t[i]] * (m.a[i] === 1 ? 0.5 : 1) / 1000);
+    }
+  } else if(!regs){
+    HORECA_CITIES2.forEach(c => c.entries.forEach(e => add(e.type, e.tt, entryVolume2(c, e))));
+    HORECA_EXTRA2.forEach(e => add(e.type, e.tt, typeVolume2(e.type, e.tt)));   // регионы вне модели — тоже точки рынка
+  } else regs.forEach(scope => {
     const agg = HREGION_AGG2[scope];
-    if(agg && !agg.noModel) hTypeBreakdown2(agg).forEach(t => { mk[t.type] = {mTT:t.tt, mVol:t.vol}; });
-    else HORECA_EXTRA2.filter(e => e.region === scope).forEach(addExtra);
-  }
+    if(agg && !agg.noModel) hTypeBreakdown2(agg).forEach(t => add(t.type, t.tt, t.vol));
+    else HORECA_EXTRA2.filter(e => e.region === scope).forEach(e => add(e.type, e.tt, typeVolume2(e.type, e.tt)));
+  });
   const ok = {};   // type -> {oTT, oCY}
-  (scope ? (COV_RT_BY_REGION[scope] || []) : COV_REGION_TYPE).forEach(r => {
+  (regs ? regs.flatMap(r => COV_RT_BY_REGION[r] || []) : COV_REGION_TYPE).forEach(r => {
     const x = ok[r.type] || (ok[r.type] = {oTT:0, oCY:0});
     x.oTT += r.tt; x.oCY += r.cy;
   });
-  const types = new Set([...Object.keys(mk), ...Object.keys(ok)]);
+  const types = new Set([...Object.keys(mk), ...(kmode ? [] : Object.keys(ok))]);
   const rows = [];
   types.forEach(type => {
+    if(ftypes && !ftypes.includes(type)) return;
     const m = mk[type] || {mTT:0, mVol:0}, o = ok[type] || {oTT:0, oCY:0};
     if(m.mTT <= 0 && m.mVol <= 0 && o.oTT <= 0 && o.oCY <= 0) return;
     const inModel = COV_MODEL_TYPES_SET.has(type);
+    if(kmode){ rows.push({type, inModel, mTT:m.mTT, mVol:m.mVol, oTT:null, oCY:null, covTT:null, covVol:null, unTT:null, unVol:null}); return; }
     rows.push({
       type, inModel,
       mTT: inModel ? m.mTT : null, mVol: inModel ? m.mVol : null, oTT: o.oTT, oCY: o.oCY,
@@ -2596,7 +2967,7 @@ function hTypeRows2(scope){
 function renderTypesTable2(){
   const body = document.getElementById('tblBodyTypes2');
   if(!body) return;
-  const rows = hTypeRows2(hTypeScope2);
+  const rows = hTypeRows2(hTblRegions2(), hTblTypes2(), hChainKind2);
   rows.sort((a,b) => {
     let av=a[hTypeSortKey2], bv=b[hTypeSortKey2];
     if(av===null || av===undefined) av = -Infinity;
@@ -2612,14 +2983,14 @@ function renderTypesTable2(){
       <td>${r.inModel ? typeLabelHtml2(r.type) : r.type + ' <span class="forecast-badge">вне модели рынка</span>'}</td>
       <td>${n(r.mTT)}</td>
       <td>${r.mVol===null ? '—' : hFmtVol2(r.mVol)}</td>
-      <td>${hFmtInt2(r.oTT)}</td>
-      <td>${hFmtVol2(r.oCY)}</td>
+      <td>${n(r.oTT)}</td>
+      <td>${r.oCY===null ? '—' : hFmtVol2(r.oCY)}</td>
       <td>${hFmtPct2(r.covTT)}</td>
       <td>${hFmtPct2(r.covVol)}</td>
       <td>${n(r.unTT)}</td>
       <td>${r.unVol===null ? '—' : hFmtVol2(r.unVol)}</td>
     </tr>`).join('') || '<tr><td colspan="9" style="color:var(--muted)">Нет данных.</td></tr>';
-  document.getElementById('tblTitleTypes2').textContent = `Типы заведений — ${hTypeScope2 || 'все регионы'} (${rows.length})`;
+  document.getElementById('tblTitleTypes2').textContent = `Типы заведений — ${hTblScopeText2()} (${rows.length})`;
 }
 function hSetTypeScope2(region){
   hTypeScope2 = region;
@@ -2646,6 +3017,11 @@ function hInitTypesTable2(){
 }
 
 // ---------- Выбранная сеть на картах ----------
+let hKindCounts2 = {chain: 0, plain: 0};
+function hChainLabel2(){
+  if(hChainSel2){ const n = hPtsData2 ? hPtsData2.m.chainPts[hChainSel2-1].length : 0; return hChainName2() + (n ? ' · ' + hFmtInt2(n) + ' точ.' : ''); }
+  return hChainKind2 ? H_KIND_LABEL2[hChainKind2] + ' · ' + hFmtInt2(hKindCounts2[hChainKind2]) + ' точ.' : '';
+}
 function hChainName2(){ return (hChainSel2 && hPtsData2) ? hPtsData2.m.chains[hChainSel2-1] : ''; }
 function hChainRegionN2(region){ return (hChainSel2 && hPtsData2) ? (hPtsData2.m.chainReg[hChainSel2-1].get(region) || 0) : 0; }
 function hChainCitiesIn2(region){   // города сети (в регионе или везде) -> [город, точек]
@@ -2713,59 +3089,69 @@ function hChainAllCore2(){
     <div class="dist-chip-list">${top.map(([r, k]) => `<div class="dist-chip"><span class="n">${r}</span><span class="v">${hFmtInt2(k)} точек · ${hFmtPct2(k/tot*100)}</span></div>`).join('')}</div>
     <div style="margin-top:6px;"><button class="clear-link" data-exp-chain="${hChainSel2}" data-exp-chain-region="">📥 Все точки сети в Excel</button></div></div>`;
 }
-function hSetChain2(idx){
+function hSetChain2(idx, kind){
   hChainSel2 = idx || 0;
-  const inp = document.getElementById('chainPick2'); if(inp) inp.value = hChainSel2 ? hChainName2() : '';
-  const info = document.getElementById('chainPickInfo2');
-  if(info){
-    if(hChainSel2 && hPtsData2){ const m = hPtsData2.m, mp = m.chainReg[hChainSel2-1]; info.textContent = `${hFmtInt2(m.chainPts[hChainSel2-1].length)} точек · ${mp.size} регион(ов) · ${hFmtInt2(new Set(m.chainPts[hChainSel2-1].map(i => m.k[i])).size)} город(ов)`; }
-    else info.textContent = '';
-  }
+  hChainKind2 = idx ? '' : (kind || '');
+  let infoTxt = '';
+  if(hChainSel2 && hPtsData2){ const m = hPtsData2.m, mp = m.chainReg[hChainSel2-1]; infoTxt = `${hFmtInt2(m.chainPts[hChainSel2-1].length)} точек · ${mp.size} регион(ов) · ${hFmtInt2(new Set(m.chainPts[hChainSel2-1].map(i => m.k[i])).size)} город(ов)`; }
+  document.querySelectorAll('#dualLayoutHoreca2 [data-role=chainInput]').forEach(inp => { if(document.activeElement !== inp) inp.value = hChainLabel2(); inp.title = infoTxt; });
   hHqCache2 = null;
   const cand = hPanels2.filter(p => p.mode !== 'hq');   // карту «Центр решений» не трогаем — она сама покажет центр выбранной сети
   if(hChainSel2 && cand.length && !hPanels2.some(p => p.mode === 'chain')) cand[cand.length-1].setMode('chain');
   else if(!hChainSel2) hPanels2.forEach(p => { if(p.mode === 'chain') p.setMode(p === hPanels2[0] ? 'population' : 'volume'); });
-  hPanels2.forEach(p => { p.refreshColors(); p.rerenderLegend(); p.rerenderDetail(); });
+  hPanels2.forEach(p => { p.refreshColors(); p.refreshFilterState(); p.rerenderLegend(); p.rerenderDetail(); });
+  hRefreshTables2();
 }
+let hChainPickReady2 = false;
 function hInitChainPick2(P){
-  const inp = document.getElementById('chainPick2'), drop = document.getElementById('chainDrop2');
-  if(!inp || !drop || inp.dataset.ready) return;
-  inp.dataset.ready = '1';
+  if(hChainPickReady2) return; hChainPickReady2 = true;
   // сети по убыванию числа точек
-  const list = [];
-  const seen = new Set();
+  const list = [], seen = new Set();
   P.m.chains.forEach((nm, j) => { if(seen.has(nm)) return; seen.add(nm); list.push({nm, idx: j+1, n: P.m.chainPts[j].length, low: nm.toLowerCase().replace(/ё/g,'е')}); });
   list.sort((a, b) => b.n - a.n || a.nm.localeCompare(b.nm, 'ru'));
-  inp.placeholder = `Выберите сеть или начните вводить (${list.length.toLocaleString('ru-RU')})…`;
-  const LIMIT = 500;
-  let shown = [], act = -1;
-  const esc = x => x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-  const open = () => { drop.style.display = ''; inp.setAttribute('aria-expanded', 'true'); };
-  const close = () => { drop.style.display = 'none'; inp.setAttribute('aria-expanded', 'false'); act = -1; };
-  const paint = () => {
-    drop.querySelectorAll('.cp-item').forEach((el, k) => { el.style.background = k === act ? 'var(--chip-bg)' : ''; });
-    const el = drop.querySelectorAll('.cp-item')[act]; if(el) el.scrollIntoView({block:'nearest'});
-  };
-  const render = q => {
-    const t = q.trim().toLowerCase().replace(/ё/g,'е');
-    const all = t ? list.filter(c => c.low.includes(t)) : list;
-    shown = all.slice(0, LIMIT); act = -1;
-    drop.innerHTML = shown.map((c, k) => `<div class="cp-item" role="option" data-k="${k}" style="display:flex; justify-content:space-between; gap:12px; padding:6px 10px; cursor:pointer; font-size:12.8px;"><span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(c.nm)}</span><span style="color:var(--muted); white-space:nowrap;">${c.n.toLocaleString('ru-RU')} точ.</span></div>`).join('')
-      + (all.length > LIMIT ? `<div style="padding:6px 10px; font-size:11.5px; color:var(--muted);">Показано ${LIMIT} из ${all.length.toLocaleString('ru-RU')} — уточните запрос</div>` : '')
-      + (!all.length ? '<div style="padding:8px 10px; font-size:12.5px; color:var(--muted);">Сеть не найдена</div>' : '');
-  };
-  const pick = k => { const c = shown[k]; if(!c) return; hSetChain2(c.idx); close(); inp.blur(); };
-  inp.addEventListener('focus', () => { inp.select(); render(''); open(); });
-  inp.addEventListener('input', () => { if(!inp.value.trim() && hChainSel2) hSetChain2(0); render(inp.value); open(); });
-  inp.addEventListener('keydown', e => {
-    if(e.key === 'ArrowDown'){ e.preventDefault(); open(); act = Math.min(shown.length - 1, act + 1); paint(); }
-    else if(e.key === 'ArrowUp'){ e.preventDefault(); act = Math.max(0, act - 1); paint(); }
-    else if(e.key === 'Enter'){ e.preventDefault(); pick(act >= 0 ? act : 0); }
-    else if(e.key === 'Escape'){ close(); inp.value = hChainSel2 ? hChainName2() : ''; inp.blur(); }
+  let nChainPts = 0; for(let i = 0; i < P.m.N; i++) if(P.m.ch[i] > 0) nChainPts++;
+  hKindCounts2 = {chain: nChainPts, plain: P.m.N - nChainPts};
+  const kinds = [{kind:'chain', nm:'Сетевые точки', n:nChainPts, low:'сетевые точки сеть'}, {kind:'plain', nm:'Не сетевые точки', n:P.m.N - nChainPts, low:'не сетевые точки'}];
+  const LIMIT = 500, esc = x => x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+  document.querySelectorAll('#dualLayoutHoreca2 [data-role=chainInput]').forEach(inp => {
+    const drop = inp.parentElement.querySelector('[data-role=chainDrop]');
+    inp.placeholder = `Сеть (${list.length.toLocaleString('ru-RU')})…`;
+    let shown = [], act = -1;
+    const open = () => {
+      drop.style.display = ''; inp.setAttribute('aria-expanded', 'true');
+      // список шире поля: если справа не хватает места — выравниваем по правому краю поля, чтобы числа точек были видны
+      drop.style.left = '0'; drop.style.right = 'auto';
+      const r = drop.getBoundingClientRect();
+      if(r.right > document.documentElement.clientWidth - 8){ drop.style.left = 'auto'; drop.style.right = '0'; }
+    };
+    const close = () => { drop.style.display = 'none'; inp.setAttribute('aria-expanded', 'false'); act = -1; };
+    const paint = () => {
+      const els = drop.querySelectorAll('.cp-item');
+      els.forEach((el, k) => { el.style.background = k === act ? 'var(--chip-bg)' : ''; });
+      if(els[act]) els[act].scrollIntoView({block:'nearest'});
+    };
+    const render = q => {
+      const t = q.trim().toLowerCase().replace(/ё/g,'е');
+      const all = t ? list.filter(c => c.low.includes(t)) : list;
+      const ks = kinds.filter(k => !t || k.low.includes(t) || k.nm.toLowerCase().includes(t));
+      shown = ks.concat(all.slice(0, LIMIT)); act = -1;
+      drop.innerHTML = ((hChainSel2 || hChainKind2) ? '<div class="cp-item" role="option" data-k="-1" style="padding:6px 10px; cursor:pointer; font-size:12.8px; color:var(--muted);">✕ Снять выбор</div>' : '')
+        + shown.map((c, k) => `<div class="cp-item" role="option" data-k="${k}" style="display:flex; justify-content:space-between; gap:12px; padding:6px 10px; cursor:pointer; font-size:12.8px;"><span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;${c.kind ? ' font-weight:700;' : ''}">${esc(c.nm)}</span><span style="color:var(--muted); white-space:nowrap;">${c.n.toLocaleString('ru-RU')} точ.</span></div>`).join('')
+        + (all.length > LIMIT ? `<div style="padding:6px 10px; font-size:11.5px; color:var(--muted);">Показано ${LIMIT} из ${all.length.toLocaleString('ru-RU')} — уточните запрос</div>` : '')
+        + (!all.length ? '<div style="padding:8px 10px; font-size:12.5px; color:var(--muted);">Сеть не найдена</div>' : '');
+    };
+    const pick = k => { if(k === -1){ hSetChain2(0); close(); inp.blur(); return; } const c = shown[k]; if(!c) return; if(c.kind) hSetChain2(0, c.kind); else hSetChain2(c.idx); close(); inp.blur(); };
+    inp.addEventListener('focus', () => { inp.select(); render(''); open(); });
+    inp.addEventListener('input', () => { if(!inp.value.trim() && (hChainSel2 || hChainKind2)) hSetChain2(0); render(inp.value); open(); });
+    inp.addEventListener('keydown', e => {
+      if(e.key === 'ArrowDown'){ e.preventDefault(); open(); act = Math.min(shown.length - 1, act + 1); paint(); }
+      else if(e.key === 'ArrowUp'){ e.preventDefault(); act = Math.max(0, act - 1); paint(); }
+      else if(e.key === 'Enter'){ e.preventDefault(); pick(act >= 0 ? act : 0); }
+      else if(e.key === 'Escape'){ close(); inp.value = hChainLabel2(); inp.blur(); }
+    });
+    drop.addEventListener('mousedown', e => { e.preventDefault(); const el = e.target.closest('.cp-item'); if(el) pick(Number(el.dataset.k)); });
+    inp.addEventListener('blur', () => { close(); inp.value = hChainLabel2(); });
   });
-  drop.addEventListener('mousedown', e => { e.preventDefault(); const el = e.target.closest('.cp-item'); if(el) pick(Number(el.dataset.k)); });   // mousedown: до потери фокуса полем
-  inp.addEventListener('blur', () => { close(); inp.value = hChainSel2 ? hChainName2() : ''; });
-  document.getElementById('chainPickClear2').addEventListener('click', () => { hSetChain2(0); close(); });
 }
 
 // ---------- Сети рынка (по названию точки; варианты написания объединены) ----------
@@ -2779,10 +3165,14 @@ async function renderChains2(){
   const typeKg = m.types.map(t => hNormKg(t).reduce((s,v)=>s+v,0) * 12);   // кг/год на 1 ТТ
   const st = new Array(m.chains.length + 1);
   let totN = 0, totKg = 0, chN = 0, chKg = 0;
-  const scope = hTypeScope2;
+  const regsF = hTblRegions2(), rset = regsF ? new Set(regsF) : null, tf = hTblTypes2();
+  const tIdxSet = tf ? new Set(tf.map(t => m.types.indexOf(t))) : null;
+  const scope = (regsF || tf || hChainKind2) ? hTblScopeText2() : '';
   for(let i=0;i<m.N;i++){
     const k = m.k[i];
-    if(scope && m.places[k][1] !== scope) continue;
+    if(rset && !rset.has(m.places[k][1])) continue;
+    if(tIdxSet && !tIdxSet.has(m.t[i])) continue;
+    if(hChainKind2 === 'plain' && m.ch[i]) continue;
     const kg = typeKg[m.t[i]] * (m.a[i] === 1 ? 0.5 : 1);
     totN++; totKg += kg;
     const ci = m.ch[i]; if(!ci) continue;
@@ -2796,7 +3186,8 @@ async function renderChains2(){
   const ourSt = new Map();
   // надёжно: совпало название (вывеска/сеть ТТ) или адрес здания + тот же тип заведения; возможно: на адресе есть точка сети, но тип другой
   for(let i=0;i<o.N;i++){
-    if(scope && o.places[o.k[i]][1] !== scope) continue;
+    if(rset && !rset.has(o.places[o.k[i]][1])) continue;
+    if(tIdxSet && !tIdxSet.has(o.mType[o.t[i]])) continue;
     const strong = new Set(), weak = new Set();
     if(o.cn && o.cn[i]) strong.add(o.cn[i]);
     const mt = o.mType[o.t[i]];
@@ -3307,17 +3698,48 @@ PROD3.plants.forEach(p => { if(!HGEO_BY_REGION2[p.reg]) P_OFFMAP3.push(p.reg); }
 function p3Our(region){ return P_OUR3[region] || {region, primRub:0, primKg:0, secRub:0, secKg:0, prim:[], sec:[]}; }
 function p3OurAll(region){ const o = p3Our(region); return o.primRub + o.secRub; }
 
-// ---------- фильтры рынка ----------
-const pF3 = {grp:'', uses:'', umk:'', q:''};
-function p3Filtered(){
-  const q = pF3.q.toLowerCase();
-  return PROD3.plants.filter(p =>
-    (!pF3.grp || p.grp === pF3.grp) &&
-    (!pF3.uses || p3Uses(p) === pF3.uses) &&
-    (!pF3.umk || p3Umk(p) === pF3.umk) &&
-    (!q || p.n.toLowerCase().includes(q) || p.inn.includes(q) || p.reg.toLowerCase().includes(q)));
+
+// ---------- мультивыбор для фильтров (кнопка + список с галочками) ----------
+const PMULTI = {};
+function pMulti(id, noun, allLabel, opts, onChange){
+  const host = document.getElementById(id); if(!host) return null;
+  host.style.cssText += ';position:relative; flex:1 1 0; min-width:0;';
+  const esc = x => String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+  host.innerHTML = `<button type="button" class="pm-btn" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; text-align:left; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></button>
+    <div class="pm-drop" style="display:none; position:absolute; z-index:60; left:0; top:100%; margin-top:4px; min-width:100%; width:max-content; max-width:360px; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.18);">
+      <div style="padding:6px;"><input type="text" class="pm-q" placeholder="Поиск…" autocomplete="off" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:7px; padding:4px 6px; font-size:11.5px; width:100%; box-sizing:border-box;"></div>
+      <div style="display:flex; gap:12px; padding:0 10px 6px;"><button type="button" class="clear-link pm-all">Выбрать все</button><button type="button" class="clear-link pm-none">Снять все</button></div>
+      <div class="pm-list" style="max-height:280px; overflow-y:auto; overscroll-behavior:contain;"></div></div>`;
+  const btn = host.querySelector('.pm-btn'), drop = host.querySelector('.pm-drop'), q = host.querySelector('.pm-q'), list = host.querySelector('.pm-list');
+  const sel = new Set();
+  const label = v => (opts.find(o => o[0] === v) || [v, v])[1];
+  const sync = () => {
+    btn.textContent = (sel.size === 0 ? allLabel : sel.size === 1 ? label([...sel][0]) : noun + ': ' + sel.size) + ' ▾';
+    btn.title = sel.size ? [...sel].map(label).join(', ') : '';
+    list.querySelectorAll('input[type=checkbox]').forEach(cb => { cb.checked = sel.has(cb.value); });
+  };
+  const visible = () => { const t = q.value.trim().toLowerCase().replace(/ё/g,'е'); return opts.filter(o => !t || String(o[1]).toLowerCase().replace(/ё/g,'е').includes(t)); };
+  const build = () => { list.innerHTML = visible().map(o => `<label style="display:flex; gap:8px; align-items:center; padding:4px 10px; font-size:12.2px; cursor:pointer; white-space:nowrap;"><input type="checkbox" value="${esc(o[0])}"${sel.has(o[0]) ? ' checked' : ''}><span>${esc(o[1])}</span></label>`).join('') || '<div class="meta" style="padding:8px 10px;">Не найдено</div>'; };
+  const change = () => { sync(); onChange([...sel]); };
+  btn.addEventListener('click', () => { if(drop.style.display === 'none'){ build(); drop.style.display = ''; q.focus(); } else drop.style.display = 'none'; });
+  q.addEventListener('input', build);
+  q.addEventListener('keydown', e => { if(e.key === 'Escape') drop.style.display = 'none'; });
+  list.addEventListener('change', e => { const cb = e.target; if(cb.type !== 'checkbox') return; if(cb.checked) sel.add(cb.value); else sel.delete(cb.value); change(); });
+  host.querySelector('.pm-all').addEventListener('click', () => { visible().forEach(o => sel.add(o[0])); build(); change(); });
+  host.querySelector('.pm-none').addEventListener('click', () => { if(!q.value.trim()) sel.clear(); else visible().forEach(o => sel.delete(o[0])); build(); change(); });
+  document.addEventListener('mousedown', e => { if(!host.contains(e.target)) drop.style.display = 'none'; });
+  sync();
+  const api = {clear(){ sel.clear(); sync(); }};
+  PMULTI[id] = api; return api;
 }
-function p3Filtering(){ return !!(pF3.grp || pF3.uses || pF3.umk || pF3.q); }
+
+// ---------- фильтры рынка ----------
+const pF3 = {grp:[], uses:[], umk:[]};
+function p3Filtered(){
+  const inn = (arr, v) => !arr.length || arr.includes(v);
+  return PROD3.plants.filter(p => inn(pF3.grp, p.grp) && inn(pF3.uses, p3Uses(p)) && inn(pF3.umk, p3Umk(p)));
+}
+function p3Filtering(){ return !!(pF3.grp.length || pF3.uses.length || pF3.umk.length); }
 let pPlants3 = [];
 let pAgg3 = {};
 function p3Recalc(){
@@ -3528,7 +3950,7 @@ function createProdPanel3(root, defaultMode, kind){
   function refreshFilterState(){
     const f = p3Filtering();
     els.forEach(({el, region}) => {
-      el.classList.toggle('dim', f && p3Agg(region).n === 0);
+      el.classList.toggle('dim', (f && p3Agg(region).n === 0) || (state.selected && region !== state.selected));
       el.classList.toggle('selected', region === state.selected);
     });
   }
@@ -3676,18 +4098,16 @@ function p3RefreshAll(){
     const sel = document.getElementById(id);
     sel.innerHTML = `<option value="">${label}</option>` + items.map(v => `<option value="${p3Esc(v)}">${p3Esc(v)}</option>`).join('');
   };
-  fill('pfGrp3', 'Все группы', [...new Set(PROD3.plants.map(p => p.grp))].sort());
-  fill('pfUses3', 'Используют: все', P_USES_ORDER3);
-  fill('pfUmk3', 'УМК: все', P_UMK_ORDER3);
+  const sortedGrp = [...new Set(PROD3.plants.map(p => p.grp))].sort();
+  const mk = (id, key, noun, all, vals) => pMulti(id, noun, all, vals.map(v => [v, v]), arr => { pF3[key] = arr; pPlAll3 = false; p3RefreshAll(); });
+  mk('pfGrp3', 'grp', 'Группы', 'Все группы', sortedGrp);
+  mk('pfUses3', 'uses', 'Используют', 'Используют: все', P_USES_ORDER3);
+  mk('pfUmk3', 'umk', 'УМК', 'УМК: все', P_UMK_ORDER3);
   const regs = [...new Set([...PROD3.plants.map(p => p.reg), ...Object.keys(P_OUR3)])].sort((a,b) => a.localeCompare(b, 'ru'));
   ['pScopeP3', 'pScopeS3'].forEach(id => fill(id, 'Все регионы', regs));
-  document.getElementById('pfGrp3').addEventListener('change', e => { pF3.grp = e.target.value; pPlAll3 = false; p3RefreshAll(); });
-  document.getElementById('pfUses3').addEventListener('change', e => { pF3.uses = e.target.value; pPlAll3 = false; p3RefreshAll(); });
-  document.getElementById('pfUmk3').addEventListener('change', e => { pF3.umk = e.target.value; pPlAll3 = false; p3RefreshAll(); });
-  document.getElementById('pfQ3').addEventListener('input', e => { pF3.q = e.target.value.trim(); pPlAll3 = false; p3RefreshAll(); });
   document.getElementById('pfReset3').addEventListener('click', () => {
-    pF3.grp = pF3.uses = pF3.umk = pF3.q = '';
-    ['pfGrp3','pfUses3','pfUmk3','pfQ3'].forEach(id => { document.getElementById(id).value = ''; });
+    pF3.grp = []; pF3.uses = []; pF3.umk = [];
+    ['pfGrp3','pfUses3','pfUmk3'].forEach(id => PMULTI[id] && PMULTI[id].clear());
     p3RefreshAll();
   });
   ['pScopeP3', 'pScopeS3'].forEach(id => document.getElementById(id).addEventListener('change', e => {
@@ -3746,17 +4166,15 @@ const P_MODES4 = {
 function p4T(v){ return p3Num(v, v < 10 ? 1 : 0) + ' т'; }
 
 // ---------- фильтры рынка ----------
-const pF4 = {spec:'', prod:'', fo:'', ours:'', q:''};
-function p4Filtering(){ return !!(pF4.spec || pF4.prod || pF4.fo || pF4.ours || pF4.q); }
+const pF4 = {spec:[], prod:[], fo:[], ours:[], reg:[]};
+function p4Filtering(){ return !!(pF4.spec.length || pF4.prod.length || pF4.fo.length || pF4.ours.length || pF4.reg.length); }
 let pRows4 = [];      // отфильтрованные строки (клиент × продукт)
 let pCl4 = [];        // клиенты с учётом фильтров: {…клиент, items (отфильтрованные), t}
 let pAgg4 = {};
 function p4Recalc(){
-  const q = pF4.q.toLowerCase();
-  pRows4 = PROD4.rows.filter(r =>
-    (!pF4.spec || r.spec === pF4.spec) && (!pF4.prod || r.prod === pF4.prod) && (!pF4.fo || r.fo === pF4.fo) &&
-    (!pF4.ours || (pF4.ours === 'yes' ? r.ours : !r.ours)) &&
-    (!q || r.n.toLowerCase().includes(q) || r.reg.toLowerCase().includes(q) || r.addr.toLowerCase().includes(q)));
+  const inn = (arr, v) => !arr.length || arr.includes(v);
+  pRows4 = PROD4.rows.filter(r => inn(pF4.spec, r.spec) && inn(pF4.prod, r.prod) && inn(pF4.fo, r.fo) && inn(pF4.reg, r.reg) &&
+    (!pF4.ours.length || pF4.ours.some(v => v === 'yes' ? r.ours : !r.ours)));
   const m = new Map();
   pRows4.forEach(r => {
     const k = r.n.toLowerCase() + '|' + r.reg;
@@ -3967,7 +4385,7 @@ function createProdPanel4(root, defaultMode, kind){
   function refreshFilterState(){
     const f = p4Filtering();
     els.forEach(({el, region}) => {
-      el.classList.toggle('dim', f && p4Agg(region).n === 0);
+      el.classList.toggle('dim', (f && p4Agg(region).n === 0) || (state.selected && region !== state.selected));
       el.classList.toggle('selected', region === state.selected);
     });
   }
@@ -4113,16 +4531,17 @@ function p4RefreshAll(){
     sel.innerHTML = `<option value="">${label}</option>` + items.map(v => `<option value="${p3Esc(v)}">${p3Esc(v)}</option>`).join('');
   };
   const cnt = (key) => { const m = new Map(); PROD4.rows.forEach(r => m.set(r[key], (m.get(r[key])||0) + r.t)); return [...m.entries()].sort((a,b) => b[1]-a[1]).map(e => e[0]); };
-  fill('pfSpec4', 'Все специализации', cnt('spec'));
-  fill('pfProd4', 'Все виды продукта', cnt('prod'));
-  fill('pfFo4', 'Все округа', cnt('fo'));
+  const mk = (id, key, noun, all, vals) => pMulti(id, noun, all, vals, arr => { pF4[key] = arr; pClAll4 = false; p4RefreshAll(); });
+  mk('pfSpec4', 'spec', 'Специализации', 'Все специализации', cnt('spec').map(v => [v, v]));
+  mk('pfProd4', 'prod', 'Виды продукта', 'Все виды продукта', cnt('prod').map(v => [v, v]));
+  mk('pfFo4', 'fo', 'Округа', 'Все округа', cnt('fo').map(v => [v, v]));
+  mk('pfOurs4', 'ours', 'Наш клиент', 'Наш клиент: все', [['yes', 'Наши клиенты'], ['no', 'Не наши']]);
+  mk('pfReg4', 'reg', 'Регионы', 'Все регионы', [...new Set(PROD4.rows.map(r => r.reg))].sort((a, b) => a.localeCompare(b, 'ru')).map(v => [v, v]));
   const regs = [...new Set([...PROD4.rows.map(p => p.reg), ...Object.keys(P_OUR3)])].sort((a,b) => a.localeCompare(b, 'ru'));
   ['pScopeP4', 'pScopeS4'].forEach(id => fill(id, 'Все регионы', regs));
-  const on = (id, key, ev) => document.getElementById(id).addEventListener(ev || 'change', e => { pF4[key] = e.target.value.trim ? e.target.value.trim() : e.target.value; pClAll4 = false; p4RefreshAll(); });
-  on('pfSpec4', 'spec'); on('pfProd4', 'prod'); on('pfFo4', 'fo'); on('pfOurs4', 'ours'); on('pfQ4', 'q', 'input');
   document.getElementById('pfReset4').addEventListener('click', () => {
-    pF4.spec = pF4.prod = pF4.fo = pF4.ours = pF4.q = '';
-    ['pfSpec4','pfProd4','pfFo4','pfOurs4','pfQ4'].forEach(id => { document.getElementById(id).value = ''; });
+    pF4.spec = []; pF4.prod = []; pF4.fo = []; pF4.ours = []; pF4.reg = [];
+    ['pfSpec4','pfProd4','pfFo4','pfOurs4','pfReg4'].forEach(id => PMULTI[id] && PMULTI[id].clear());
     p4RefreshAll();
   });
   ['pScopeP4', 'pScopeS4'].forEach(id => document.getElementById(id).addEventListener('change', e => {
