@@ -1821,6 +1821,18 @@ HORECA_CITIES2.forEach(c => {
   agg.tt += cityTT2(c);
   agg.cities.push(c);
 });
+// Регионы, которых нет в исходной городской модели, но по которым есть точки рынка в базе, включаем в модель одним агрегатом на регион.
+// ТТ по типам — из базы точек, объём — по тем же нормам, население — перепись 2021 (Ленинградская область — без Санкт-Петербурга).
+const H_EXTRA_POP2 = {'Ленинградская область': 2000997, 'Еврейская автономная область': 150453, 'Магаданская область': 136085, 'Республика Алтай': 210924, 'Чукотский автономный округ': 47490};
+Object.keys(H_EXTRA_POP2).forEach(reg => {
+  if(HREGION_AGG2[reg]) return;
+  const ents = HORECA_EXTRA2.filter(e => e.region === reg).map(e => ({type: e.type, tt: e.tt, dtype: 'Факт'}));
+  if(!ents.length) return;
+  // все города этих регионов меньше 100 тыс. — по правилу модели (как «Др. города») объём делится пополам
+  const city = {city: OTHER_CITIES_LABEL2, region: reg, pop: H_EXTRA_POP2[reg], entries: ents};
+  HREGION_AGG2[reg] = {region: reg, pop: city.pop, tt: cityTT2(city), cities: [city]};
+  for(let k = HORECA_EXTRA2.length - 1; k >= 0; k--) if(HORECA_EXTRA2[k].region === reg) HORECA_EXTRA2.splice(k, 1);   // чтобы не считать дважды
+});
 const HREGIONS2 = Object.values(HREGION_AGG2);   // регионы модели рынка
 function regionVolume2(agg){ return agg.cities.reduce((s,c) => s + cityVolume2(c), 0); }
 
@@ -1829,7 +1841,7 @@ const HGEO_BY_REGION2 = {};
 HORECA_RENDER_GEO2.features.forEach(f => { HGEO_BY_REGION2[f.region] = {type:'path', d:f.d}; });
 HORECA_RENDER_GEO2.markers.forEach(m => { HGEO_BY_REGION2[m.region] = {type:'marker', x:m.x, y:m.y}; });
 
-// регионы, которые есть на карте, но не входят в модель рынка (нет населения/ТТ/норм) — Ленинградская обл., Чукотка и т.д.
+// регионы, которые есть на карте, но не входят в модель рынка (нет населения/ТТ/норм) — Чукотка и т.д.
 // Для них показываем только наши данные присутствия; на картах рынка они серые.
 const HNOMODEL2 = [];
 Object.keys(HGEO_BY_REGION2).forEach(name => {
