@@ -196,6 +196,10 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
 #dualLayoutProd4{grid-template-columns:repeat(2,minmax(0,1fr));} #dualLayoutProd4 .panel-col{min-width:0;}
 #tblProdReg4{width:100%; table-layout:auto;} #tblProdReg4 th,#tblProdReg4 td{padding:7px 6px; font-size:12px; vertical-align:middle;} #tblProdReg4 th{white-space:normal; line-height:1.2; position:sticky; top:0; z-index:2; background:var(--card,var(--bg));} #tblProdReg4 td:first-child{min-width:110px;} @media (max-width:1300px){#tblProdReg4 th,#tblProdReg4 td{padding:6px 4px; font-size:11px;}}
 
+.ut-tbl{table-layout:fixed; width:100%; font-size:12px;}
+.ut-tbl th,.ut-tbl td{white-space:normal; overflow-wrap:anywhere; word-break:break-word; padding:6px 6px; vertical-align:top;}
+.ut-tbl select{width:100%; max-width:100%; font-size:11.5px;}
+
 .ut-chip{display:inline-block; margin:2px 4px 2px 0; padding:3px 9px; border-radius:20px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:11.5px; cursor:pointer;}
 .ut-chip:hover{border-color:var(--accent);}
 .ut-chip.ut-top{font-weight:700;}
@@ -740,18 +744,19 @@ tr.ut-done td{background:rgba(34,165,90,.07);}
       <button class="clear-link" id="utReset">✕ Сбросить фильтры</button>
     </div>
     <div class="card-body">
-      <div class="editor-note">Наши ТТ, у которых тип заведения не определён («Не определено»). Для каждой инструмент предлагает до трёх типов и объясняет почему (наведите на тип): по точкам рынка на том же адресе, по словам в названии и адресе, по тому, какой тип у похожих точек рынка и у уже размеченных наших ТТ. Принять подсказку — клик по типу, любой другой тип — в списке справа. Адрес можно проверить в 2ГИС или Яндексе по ссылкам. Разметка сохраняется в браузере и выгружается в файл — ей можно обмениваться.</div>
+      <div class="editor-note">Наши ТТ: по умолчанию — те, у которых тип не определён; переключатель «Какие ТТ» показывает и уже размеченные — у них видно, как был определён тип (по сети, названию, адресу, вывеске или метке), и тип можно изменить. Для каждой инструмент предлагает до трёх типов и объясняет почему (наведите на тип): по точкам рынка на том же адресе, по словам в названии и адресе, по тому, какой тип у похожих точек рынка и у уже размеченных наших ТТ. Принять подсказку — клик по типу, любой другой тип — в списке справа. Адрес можно проверить в 2ГИС или Яндексе по ссылкам. Разметка сохраняется в браузере и выгружается в файл — ей можно обмениваться.</div>
       <div class="editor-actions"><button class="btn-secondary" id="utStart">🔍 Построить подсказки</button><span id="utStatus" style="color:var(--muted); font-size:12.5px;"></span></div>
       <div id="utWork" style="display:none;">
         <div class="legend" id="utSummary" style="margin-bottom:10px; gap:18px;"></div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-bottom:10px;">
           <input id="utQ" type="search" placeholder="Поиск: название, адрес, город" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;">
+          <select id="utSetSel" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"><option value="undef">Неопознанные ТТ</option><option value="typed">ТТ с определённым типом</option><option value="all">Все наши ТТ</option></select>
           <select id="utReg" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"></select>
           <select id="utConf" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"><option value="">Любая уверенность</option><option value="high">Высокая</option><option value="mid">Средняя</option><option value="low">Слабая</option><option value="none">Нет подсказки</option></select>
           <select id="utType" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"></select>
           <select id="utStat" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"><option value="">Размечены и нет</option><option value="todo">Ещё не размечены</option><option value="done">Размечены</option></select>
         </div>
-        <div class="tbl-scroll" style="max-height:560px;"><table><thead><tr><th>№</th><th>Город · регион</th><th>Название</th><th>Адрес</th><th>Объём, т/год</th><th>Подсказки</th><th>Тип</th></tr></thead><tbody id="utBody"></tbody></table></div>
+        <div class="tbl-scroll" style="max-height:600px; overflow-x:hidden;"><table class="ut-tbl"><colgroup><col style="width:3%"><col style="width:10%"><col style="width:15%"><col style="width:16%"><col style="width:6%"><col style="width:14%"><col style="width:18%"><col style="width:18%"></colgroup><thead><tr><th>№</th><th>Город · регион</th><th>Название</th><th>Адрес</th><th>Объём, т/год</th><th>Как определён тип</th><th>Подсказки</th><th>Тип</th></tr></thead><tbody id="utBody"></tbody></table></div>
         <div id="utPager" style="margin-top:8px; display:flex; gap:10px; align-items:center;"></div>
         <div id="utDone"></div>
         <div class="editor-actions" style="margin-top:12px; flex-wrap:wrap;">
@@ -4861,7 +4866,7 @@ const UT_ADDR_RULES = [
   [/склад|промзон|промышлен|база\b|логист/, 'Субдистрибьюторы и производство', 1.4]
 ];
 const UT_PAGE = 50;
-const ut = { ready:false, building:false, rows:[], types:[], tIdx:null, dec:{}, filtered:[], page:0, q:'', fReg:'', fConf:'', fType:'', fStat:'' };
+const ut = { ready:false, building:false, rows:[], types:[], tIdx:null, dec:{}, filtered:[], page:0, q:'', fReg:'', fConf:'', fType:'', fStat:'', fSet:'undef' };
 const UT_KEY = 'umk_untyped_marks_v1';
 function utSaveLocal(){ try { localStorage.setItem(UT_KEY, JSON.stringify(ut.dec)); } catch(e){} }
 function utLoadLocal(){ try { const s = localStorage.getItem(UT_KEY); if(s) ut.dec = JSON.parse(s) || {}; } catch(e){ ut.dec = {}; } }
@@ -4989,17 +4994,26 @@ async function utStart(){
   btn.disabled = true; st.textContent = 'Анализирую неопознанные ТТ…';
   try {
     await utBuild(); utLoadLocal();
-    const {o, uIdx} = ut.ctx, k = typeof COV_ANNUAL_FACTOR === 'number' ? COV_ANNUAL_FACTOR : 12 / 9;
+    const {o, m, uIdx} = ut.ctx; o.m_name = mi => (m.nameA[mi] || '').slice(0, 60); const k = typeof COV_ANNUAL_FACTOR === 'number' ? COV_ANNUAL_FACTOR : 12 / 9;
     ut.rows = [];
+    const HOW = {'сеть ТТ': 'по сети', 'название ТТ': 'по названию ТТ', 'адрес → 2ГИС': 'по адресу (2ГИС)', 'метка «Типы ТТ»': 'по метке «Типы ТТ»', 'вывеска': 'по вывеске', 'не определён': 'не определён'};
     for(let i = 0; i < o.N; i++){
-      if(o.t[i] !== uIdx) continue;
-      const r = utSuggest(i, false);
-      ut.rows.push({i, id: String(o.id[i]), reg: o.places[o.k[i]][1], city: o.places[o.k[i]][0], name: (o.nameA[i] || '').replace(/\s+/g, ' ').trim(), addr: (o.addrA[i] || '').trim(), vol: (o.cy[i] || 0) * k / 1000, sug: r.sug, conf: r.conf, fio: r.fio});
+      const typed = o.t[i] !== uIdx, cur = typed ? o.types[o.t[i]] : '', hw = o.how[o.h[i]] || '';
+      const r = utSuggest(i, false, typed && o.h[i] !== ut.hMeta && ut.tIdx.has(cur) ? ut.tIdx.get(cur) : undefined);
+      let det = '';
+      if(typed){
+        if(hw === 'сеть ТТ') det = o.chainA[i] ? 'сеть «' + o.chainA[i] + '»' : '';
+        else if(hw === 'вывеска') det = o.signA[i] ? '«' + o.signA[i] + '»' : '';
+        else if(hw === 'адрес → 2ГИС'){ const mi = (o.om[i] || [])[0]; det = mi !== undefined ? 'на адресе в базе рынка: «' + o.m_name(mi) + '»' : '2ГИС по адресу'; }
+        else if(hw === 'название ТТ') det = 'слова в названии';
+        else if(hw === 'метка «Типы ТТ»') det = 'внутренняя метка клиентской базы, не проверена по заведению';
+      }
+      ut.rows.push({i, id: String(o.id[i]), typed, cur, how: HOW[hw] || hw, det, reg: o.places[o.k[i]][1], city: o.places[o.k[i]][0], name: (o.nameA[i] || '').replace(/\s+/g, ' ').trim(), addr: (o.addrA[i] || '').trim(), vol: (o.cy[i] || 0) * k / 1000, sug: r.sug, conf: r.conf, fio: r.fio});
     }
     ut.rows.sort((a, b) => b.vol - a.vol);
     const regs = [...new Set(ut.rows.map(r => r.reg))].sort((a, b) => a.localeCompare(b, 'ru'));
     utEl('utReg').innerHTML = '<option value="">Все регионы</option>' + regs.map(r => `<option>${utEsc(r)}</option>`).join('');
-    utEl('utType').innerHTML = '<option value="">Любой подсказанный тип</option>' + ut.types.map(t => `<option>${utEsc(t)}</option>`).join('');
+    utEl('utType').innerHTML = '<option value="">Любой тип</option>' + ut.types.map(t => `<option>${utEsc(t)}</option>`).join('');
     utEl('utWork').style.display = ''; btn.style.display = 'none'; st.textContent = '';
     utApplyFilters();
   } catch(e){ st.textContent = 'Не удалось построить подсказки: ' + e.message; btn.disabled = false; }
@@ -5007,9 +5021,10 @@ async function utStart(){
 function utApplyFilters(keepPage){
   const q = utNorm(ut.q);
   ut.filtered = ut.rows.filter(r => {
+    if(ut.fSet === 'undef' && r.typed) return false; if(ut.fSet === 'typed' && !r.typed) return false;
     if(ut.fReg && r.reg !== ut.fReg) return false;
     if(ut.fConf && r.conf !== ut.fConf) return false;
-    if(ut.fType && !(r.sug.length && ut.types[r.sug[0].ti] === ut.fType)) return false;
+    if(ut.fType && !(r.cur === ut.fType || (r.sug.length && ut.types[r.sug[0].ti] === ut.fType))) return false;
     const d = ut.dec[r.id];
     if(ut.fStat === 'done' && !d) return false; if(ut.fStat === 'todo' && d) return false;
     if(q && !(utNorm(r.name).includes(q) || utNorm(r.addr).includes(q) || utNorm(r.city).includes(q))) return false;
@@ -5022,50 +5037,62 @@ function utLinks(r){
   const q = encodeURIComponent((r.city && !r.addr.toLowerCase().includes(r.city.toLowerCase()) ? r.city + ', ' : '') + (r.addr && !/^самовывоз$/i.test(r.addr) ? r.addr : r.name));
   return `<a href="https://2gis.ru/search/${q}" target="_blank" rel="noopener" class="ut-lnk">2ГИС</a> <a href="https://yandex.ru/maps/?text=${q}" target="_blank" rel="noopener" class="ut-lnk">Яндекс</a>`;
 }
+function utOptions(sel){ return '<option value="">— выбрать тип —</option>' + ut.types.map(t => `<option value="${utEsc(t)}"${t === sel ? ' selected' : ''}>${utEsc(t)}</option>`).join(''); }
 function utRender(){
-  const tot = ut.rows.length, done = ut.rows.filter(r => ut.dec[r.id]).length;
-  const byConf = {high:0, mid:0, low:0, none:0}; ut.rows.forEach(r => byConf[r.conf]++);
-  utEl('utSummary').innerHTML = `<span><b>${hFmtInt2(tot)}</b> неопознанных ТТ · объём ${hFmtVol2(ut.rows.reduce((s, r) => s + r.vol, 0))} т/год</span><span>Подсказки: высокая <b>${byConf.high}</b> · средняя <b>${byConf.mid}</b> · слабая <b>${byConf.low}</b> · нет <b>${byConf.none}</b></span><span>Размечено: <b>${hFmtInt2(done)}</b> (${tot ? Math.round(done / tot * 100) : 0}%)</span>`;
+  const und = ut.rows.filter(r => !r.typed), typ = ut.rows.filter(r => r.typed);
+  const doneU = und.filter(r => ut.dec[r.id]).length, doneT = typ.filter(r => ut.dec[r.id]).length;
+  const byConf = {high:0, mid:0, low:0, none:0}; und.forEach(r => byConf[r.conf]++);
+  utEl('utSummary').innerHTML = `<span><b>${hFmtInt2(und.length)}</b> неопознанных ТТ · ${hFmtVol2(und.reduce((s, r) => s + r.vol, 0))} т/год · и <b>${hFmtInt2(typ.length)}</b> с уже определённым типом</span><span>Подсказки для неопознанных: высокая <b>${byConf.high}</b> · средняя <b>${byConf.mid}</b> · слабая <b>${byConf.low}</b> · нет <b>${byConf.none}</b></span><span>Размечено неопознанных: <b>${hFmtInt2(doneU)}</b> (${und.length ? Math.round(doneU / und.length * 100) : 0}%) · изменён тип у <b>${hFmtInt2(doneT)}</b></span>`;
   const pages = Math.max(1, Math.ceil(ut.filtered.length / UT_PAGE)); if(ut.page >= pages) ut.page = pages - 1;
   const slice = ut.filtered.slice(ut.page * UT_PAGE, ut.page * UT_PAGE + UT_PAGE);
-  const opts = '<option value="">— выбрать тип —</option>' + ut.types.map(t => `<option value="${utEsc(t)}">${utEsc(t)}</option>`).join('');
   utEl('utBody').innerHTML = slice.map((r, n) => {
-    const d = ut.dec[r.id], chips = r.sug.length ? r.sug.map((s, k) => {
+    const d = ut.dec[r.id], eff = d ? d.t : r.cur;
+    const chips = r.sug.length ? r.sug.map((s, k) => {
       const t = ut.types[s.ti], tip = utEsc((k === 0 ? 'Уверенность: ' + UT_CONF_LABEL[r.conf] + ' — ' + UT_CONF_HINT[r.conf] + '. ' : '') + 'Почему: ' + (s.why.join('; ') || 'слабые косвенные признаки'));
-      return `<button type="button" class="ut-chip${k === 0 ? ' ut-top ut-' + r.conf : ''}${d && d.t === t ? ' ut-sel' : ''}" data-id="${utEsc(r.id)}" data-t="${utEsc(t)}" title="${tip}">${utEsc(t.split(' (')[0])}<i>${s.why.length ? '' : ''}</i></button>`;
+      return `<button type="button" class="ut-chip${k === 0 ? ' ut-top ut-' + r.conf : ''}${eff === t ? ' ut-sel' : ''}" data-id="${utEsc(r.id)}" data-t="${utEsc(t)}" title="${tip}">${utEsc(t.split(' (')[0])}</button>`;
     }).join('') : `<span class="meta">${r.fio ? 'только ФИО предпринимателя — смотрите адрес' : 'признаков нет'}</span>`;
     const why = r.sug.length ? `<div class="ut-why">${utEsc(r.sug[0].why[0] || '')}</div>` : '';
+    const how = r.typed
+      ? `<div><b>${utEsc(r.cur.split(' (')[0])}</b></div><div class="meta">${utEsc(r.how)}</div>${r.det ? `<div class="ut-why">${utEsc(r.det)}</div>` : ''}`
+      : '<span class="meta">не определён</span>';
+    const sts = d ? `<div class="meta">${r.typed ? 'изменено с «' + utEsc(r.cur.split(' (')[0]) + '»' : (d.src === 'подсказка' ? 'принята подсказка' : 'выбрано вручную')} <a href="#" class="ut-clr" data-id="${utEsc(r.id)}">${r.typed ? 'вернуть' : 'сбросить'}</a></div>` : '';
     return `<tr data-id="${utEsc(r.id)}"${d ? ' class="ut-done"' : ''}>
       <td class="meta">${ut.page * UT_PAGE + n + 1}</td>
       <td><div>${utEsc(r.city)}</div><div class="meta">${utEsc(r.reg)}</div></td>
-      <td style="max-width:260px;">${utEsc(r.name)}</td>
-      <td style="max-width:280px;"><div>${utEsc(r.addr || '—')}</div><div>${utLinks(r)}</div></td>
+      <td>${utEsc(r.name)}</td>
+      <td><div>${utEsc(r.addr || '—')}</div><div>${utLinks(r)}</div></td>
       <td>${hFmtVol2(r.vol)}</td>
-      <td style="min-width:240px;">${chips}${why}</td>
-      <td><select class="ut-sel-t" data-id="${utEsc(r.id)}">${opts.replace(`value="${utEsc(d ? d.t : '\u0000')}"`, `value="${utEsc(d ? d.t : '')}" selected`)}</select>${d ? `<div class="meta">${d.src === 'подсказка' ? 'принята подсказка' : 'выбрано вручную'} <a href="#" class="ut-clr" data-id="${utEsc(r.id)}">сбросить</a></div>` : ''}</td>
+      <td>${how}</td>
+      <td>${chips}${why}</td>
+      <td><select class="ut-sel-t" data-id="${utEsc(r.id)}">${utOptions(eff)}</select>${sts}</td>
     </tr>`;
-  }).join('') || '<tr><td colspan="7" class="meta" style="padding:14px;">Нет ТТ по выбранным фильтрам.</td></tr>';
+  }).join('') || '<tr><td colspan="8" class="meta" style="padding:14px;">Нет ТТ по выбранным фильтрам.</td></tr>';
   utEl('utPager').innerHTML = `<button class="btn-secondary" id="utPrev" ${ut.page ? '' : 'disabled'}>←</button> <span class="meta">Стр. ${ut.page + 1} из ${pages} · показано ${slice.length} из ${hFmtInt2(ut.filtered.length)}</span> <button class="btn-secondary" id="utNext" ${ut.page < pages - 1 ? '' : 'disabled'}>→</button>`;
-  // сводка по принятым типам
   const by = {}; ut.rows.forEach(r => { const d = ut.dec[r.id]; if(d){ const x = by[d.t] || (by[d.t] = {n: 0, v: 0}); x.n++; x.v += r.vol; } });
   const ent = Object.entries(by).sort((a, b) => b[1].v - a[1].v);
-  utEl('utDone').innerHTML = ent.length ? '<div class="meta" style="margin:8px 0 4px;">Размечено по типам:</div><div class="dist-chip-list">' + ent.map(([t, x]) => `<div class="dist-chip"><span class="n">${utEsc(t.split(' (')[0])}</span><span class="v">${x.n} ТТ · ${hFmtVol2(x.v)} т/год</span></div>`).join('') + '</div>' : '';
+  utEl('utDone').innerHTML = ent.length ? '<div class="meta" style="margin:8px 0 4px;">Выбранные типы (разметка неопознанных и изменения):</div><div class="dist-chip-list">' + ent.map(([t, x]) => `<div class="dist-chip"><span class="n">${utEsc(t.split(' (')[0])}</span><span class="v">${x.n} ТТ · ${hFmtVol2(x.v)} т/год</span></div>`).join('') + '</div>' : '';
+}
+// отметка: для ТТ с типом совпадение с текущим типом = отмена изменения
+function utMark(id, type, src){
+  const r = ut.rows.find(x => x.id === id); if(!r) return;
+  if(!type || (r.typed && type === r.cur)) delete ut.dec[id]; else ut.dec[id] = {t: type, src, was: r.typed ? r.cur : ''};
+  utSaveLocal();
 }
 function utSet(id, type, src){ if(type) ut.dec[id] = {t: type, src}; else delete ut.dec[id]; utSaveLocal(); }
 function utBulk(){
-  const btn = utEl('utBulk'); const targets = ut.filtered.filter(r => !ut.dec[r.id] && r.sug.length && (r.conf === 'high' || r.conf === 'mid'));
+  const btn = utEl('utBulk'); const targets = ut.filtered.filter(r => !r.typed && !ut.dec[r.id] && r.sug.length && (r.conf === 'high' || r.conf === 'mid'));
   if(!btn.dataset.arm){ btn.dataset.arm = '1'; const old = btn.textContent; btn.textContent = `Принять подсказки для ${targets.length} ТТ? Нажмите ещё раз`; setTimeout(() => { delete btn.dataset.arm; btn.textContent = old; }, 4000); return; }
   delete btn.dataset.arm; btn.textContent = '✓ Принять подсказки (высокая и средняя уверенность, по фильтру)';
-  targets.forEach(r => { ut.dec[r.id] = {t: ut.types[r.sug[0].ti], src: 'подсказка'}; }); utSaveLocal(); utApplyFilters(true);
+  targets.forEach(r => { ut.dec[r.id] = {t: ut.types[r.sug[0].ti], src: 'подсказка', was: ''}; }); utSaveLocal(); utApplyFilters(true);
   utEl('utStatus').textContent = `Принято подсказок: ${targets.length}`;
 }
 function utExportRows(){
   return ut.rows.map(r => { const d = ut.dec[r.id], s = r.sug[0];
-    return [r.reg, r.city, r.name, r.addr, pR2(r.vol), s ? ut.types[s.ti] : '', UT_CONF_LABEL[r.conf], s ? s.why.join('; ') : '', r.sug[1] ? ut.types[r.sug[1].ti] : '', d ? d.t : '', d ? d.src : '', r.id]; });
+    return [r.typed ? 'с типом' : 'неопознанная', r.reg, r.city, r.name, r.addr, pR2(r.vol), r.cur, r.how + (r.det ? ': ' + r.det : ''), s ? ut.types[s.ti] : '', UT_CONF_LABEL[r.conf], s ? s.why.join('; ') : '', r.sug[1] ? ut.types[r.sug[1].ti] : '', d ? d.t : (r.typed ? r.cur : ''), d ? (r.typed ? 'изменён вручную' : d.src) : '', r.id]; });
 }
 async function utExcel(){
-  const cols = [{h:'Регион',w:24},{h:'Город',w:20},{h:'Название',w:40},{h:'Адрес',w:46},{h:'Объём, т/год',w:12,dec:2},{h:'Подсказка (тип)',w:34},{h:'Уверенность',w:14},{h:'Почему',w:60},{h:'Вторая подсказка',w:30},{h:'Выбранный тип',w:34},{h:'Как выбран',w:16},{h:'ID ТТ',w:10}];
-  await pDownloadXlsx([pMkSheet('Неопознанные ТТ', cols, utExportRows())], 'Неопознанные ТТ — разметка.xlsx', utEl('utXls'), utEl('utStatus'));
+  const cols = [{h:'Группа',w:14},{h:'Регион',w:24},{h:'Город',w:20},{h:'Название',w:40},{h:'Адрес',w:46},{h:'Объём, т/год',w:12,dec:2},{h:'Тип сейчас',w:30},{h:'Как определён',w:44},{h:'Подсказка (тип)',w:34},{h:'Уверенность',w:14},{h:'Почему',w:60},{h:'Вторая подсказка',w:30},{h:'Итоговый тип',w:34},{h:'Как выбран',w:16},{h:'ID ТТ',w:10}];
+  await pDownloadXlsx([pMkSheet('ТТ — разметка типов', cols, utExportRows())], 'ТТ — разметка типов заведений.xlsx', utEl('utXls'), utEl('utStatus'));
 }
 function utSaveFile(){
   const blob = new Blob([JSON.stringify({v: 1, saved: new Date().toISOString(), marks: ut.dec})], {type: 'application/json'});
@@ -5081,18 +5108,18 @@ function utInit(){
   if(!utEl('utCard2')) return;
   utEl('utStart').addEventListener('click', utStart);
   let tm; utEl('utQ').addEventListener('input', e => { clearTimeout(tm); tm = setTimeout(() => { ut.q = e.target.value; utApplyFilters(); }, 200); });
-  [['utReg', 'fReg'], ['utConf', 'fConf'], ['utType', 'fType'], ['utStat', 'fStat']].forEach(([id, k]) => utEl(id).addEventListener('change', e => { ut[k] = e.target.value; utApplyFilters(); }));
-  utEl('utReset').addEventListener('click', () => { ut.q = ut.fReg = ut.fConf = ut.fType = ut.fStat = ''; utEl('utQ').value = ''; ['utReg', 'utConf', 'utType', 'utStat'].forEach(id => utEl(id).value = ''); utApplyFilters(); });
+  [['utSetSel', 'fSet'], ['utReg', 'fReg'], ['utConf', 'fConf'], ['utType', 'fType'], ['utStat', 'fStat']].forEach(([id, k]) => utEl(id).addEventListener('change', e => { ut[k] = e.target.value; utApplyFilters(); }));
+  utEl('utReset').addEventListener('click', () => { ut.q = ut.fReg = ut.fConf = ut.fType = ut.fStat = ''; ut.fSet = 'undef'; utEl('utQ').value = ''; ['utReg', 'utConf', 'utType', 'utStat'].forEach(id => utEl(id).value = ''); utEl('utSetSel').value = 'undef'; utApplyFilters(); });
   utEl('utBulk').addEventListener('click', utBulk);
   utEl('utXls').addEventListener('click', utExcel);
   utEl('utSave').addEventListener('click', utSaveFile);
   utEl('utLoad').addEventListener('change', e => { if(e.target.files[0]) utLoadFile(e.target.files[0]); e.target.value = ''; });
   utEl('utClearAll').addEventListener('click', () => { const b = utEl('utClearAll'); if(!b.dataset.arm){ b.dataset.arm = '1'; const old = b.textContent; b.textContent = 'Точно сбросить всю разметку? Ещё раз'; setTimeout(() => { delete b.dataset.arm; b.textContent = old; }, 4000); return; } delete b.dataset.arm; b.textContent = '✕ Сбросить всю разметку'; ut.dec = {}; utSaveLocal(); utApplyFilters(true); });
   utEl('utBody').addEventListener('click', e => {
-    const chip = e.target.closest('.ut-chip'); if(chip){ utSet(chip.dataset.id, chip.dataset.t, 'подсказка'); utRender(); return; }
-    const clr = e.target.closest('.ut-clr'); if(clr){ e.preventDefault(); utSet(clr.dataset.id, null); utRender(); }
+    const chip = e.target.closest('.ut-chip'); if(chip){ utMark(chip.dataset.id, chip.dataset.t, 'подсказка'); utRender(); return; }
+    const clr = e.target.closest('.ut-clr'); if(clr){ e.preventDefault(); utMark(clr.dataset.id, null); utRender(); }
   });
-  utEl('utBody').addEventListener('change', e => { const s = e.target.closest('.ut-sel-t'); if(s){ const r = ut.rows.find(x => x.id === s.dataset.id); const sug = r && r.sug.length && ut.types[r.sug[0].ti] === s.value; utSet(s.dataset.id, s.value, sug ? 'подсказка' : 'вручную'); utRender(); } });
+  utEl('utBody').addEventListener('change', e => { const s = e.target.closest('.ut-sel-t'); if(s){ const r = ut.rows.find(x => x.id === s.dataset.id); const sug = r && r.sug.length && ut.types[r.sug[0].ti] === s.value; utMark(s.dataset.id, s.value, sug ? 'подсказка' : 'вручную'); utRender(); } });
   utEl('utPager').addEventListener('click', e => { if(e.target.id === 'utPrev' && ut.page > 0){ ut.page--; utRender(); } else if(e.target.id === 'utNext'){ ut.page++; utRender(); } });
 }
 utInit();
