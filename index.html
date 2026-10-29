@@ -195,6 +195,17 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
 #dualLayoutProd4 .p3-filters{box-sizing:border-box; height:40px; overflow:visible;} #dualLayoutProd4 .panel-col > .card:first-child{overflow:visible; position:relative; z-index:5;} #dualLayoutProd4 [data-role=legend]{min-height:44px; align-content:flex-start;} @media (max-width:1400px){#dualLayoutProd4 [data-role=legend]{min-height:68px;}} @media (max-width:1250px){#dualLayoutProd4 [data-role=legend]{min-height:92px;}} #dualLayoutProd4 .map-holder svg{display:block; width:100%; aspect-ratio:1000/539; height:auto;}
 #dualLayoutProd4{grid-template-columns:repeat(2,minmax(0,1fr));} #dualLayoutProd4 .panel-col{min-width:0;}
 #tblProdReg4{width:100%; table-layout:auto;} #tblProdReg4 th,#tblProdReg4 td{padding:7px 6px; font-size:12px; vertical-align:middle;} #tblProdReg4 th{white-space:normal; line-height:1.2; position:sticky; top:0; z-index:2; background:var(--card,var(--bg));} #tblProdReg4 td:first-child{min-width:110px;} @media (max-width:1300px){#tblProdReg4 th,#tblProdReg4 td{padding:6px 4px; font-size:11px;}}
+
+.ut-chip{display:inline-block; margin:2px 4px 2px 0; padding:3px 9px; border-radius:20px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:11.5px; cursor:pointer;}
+.ut-chip:hover{border-color:var(--accent);}
+.ut-chip.ut-top{font-weight:700;}
+.ut-chip.ut-high{border-color:#22a55a; background:rgba(34,165,90,.14);}
+.ut-chip.ut-mid{border-color:#f5a524; background:rgba(245,165,36,.14);}
+.ut-chip.ut-low{border-style:dashed;}
+.ut-chip.ut-sel{background:var(--accent); color:#fff; border-color:var(--accent);}
+.ut-why{font-size:11px; color:var(--muted); margin-top:3px;}
+.ut-lnk{font-size:11.5px; margin-right:6px;}
+tr.ut-done td{background:rgba(34,165,90,.07);}
 </style>
 </head>
 <body>
@@ -719,6 +730,37 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
       <div class="editor-actions" style="margin-top:12px;">
         <button class="btn-secondary" id="expBtn">⬇ Скачать Excel</button>
         <span id="expStatus" style="color:var(--muted); font-size:12.5px;"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="utCard2">
+    <div class="card-h">
+      <div class="title">🔎 Неопознанные ТТ — подсказки типа заведения</div>
+      <button class="clear-link" id="utReset">✕ Сбросить фильтры</button>
+    </div>
+    <div class="card-body">
+      <div class="editor-note">Наши ТТ, у которых тип заведения не определён («Не определено»). Для каждой инструмент предлагает до трёх типов и объясняет почему (наведите на тип): по точкам рынка на том же адресе, по словам в названии и адресе, по тому, какой тип у похожих точек рынка и у уже размеченных наших ТТ. Принять подсказку — клик по типу, любой другой тип — в списке справа. Адрес можно проверить в 2ГИС или Яндексе по ссылкам. Разметка сохраняется в браузере и выгружается в файл — ей можно обмениваться.</div>
+      <div class="editor-actions"><button class="btn-secondary" id="utStart">🔍 Построить подсказки</button><span id="utStatus" style="color:var(--muted); font-size:12.5px;"></span></div>
+      <div id="utWork" style="display:none;">
+        <div class="legend" id="utSummary" style="margin-bottom:10px; gap:18px;"></div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-bottom:10px;">
+          <input id="utQ" type="search" placeholder="Поиск: название, адрес, город" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;">
+          <select id="utReg" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"></select>
+          <select id="utConf" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"><option value="">Любая уверенность</option><option value="high">Высокая</option><option value="mid">Средняя</option><option value="low">Слабая</option><option value="none">Нет подсказки</option></select>
+          <select id="utType" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"></select>
+          <select id="utStat" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"><option value="">Размечены и нет</option><option value="todo">Ещё не размечены</option><option value="done">Размечены</option></select>
+        </div>
+        <div class="tbl-scroll" style="max-height:560px;"><table><thead><tr><th>№</th><th>Город · регион</th><th>Название</th><th>Адрес</th><th>Объём, т/год</th><th>Подсказки</th><th>Тип</th></tr></thead><tbody id="utBody"></tbody></table></div>
+        <div id="utPager" style="margin-top:8px; display:flex; gap:10px; align-items:center;"></div>
+        <div id="utDone"></div>
+        <div class="editor-actions" style="margin-top:12px; flex-wrap:wrap;">
+          <button class="btn-secondary" id="utBulk">✓ Принять подсказки (высокая и средняя уверенность, по фильтру)</button>
+          <button class="btn-secondary" id="utXls">⬇ Скачать Excel</button>
+          <button class="btn-secondary" id="utSave">💾 Сохранить разметку (файл)</button>
+          <label class="btn-secondary" style="cursor:pointer;">📂 Загрузить разметку<input type="file" id="utLoad" accept=".json,application/json" style="display:none;"></label>
+          <button class="btn-secondary" id="utClearAll">✕ Сбросить всю разметку</button>
+        </div>
       </div>
     </div>
   </div>
@@ -4781,6 +4823,280 @@ pExpInit({
   mktRow: p => [p.n, p.inn, p.reg, p.grp, pR1(p.rev), pR1(p.act), p.okved, p.okvedName, p3Uses(p), p3Umk(p), p.note],
   regCols: [{h:'Регион',w:28},{h:'Производств',w:12},{h:'Выручка, млн ₽',w:14,dec:1},{h:'Работаем с УМК, шт',w:12},{h:'Выручка «работаем», млн ₽',w:16,dec:1},{h:'Первичка, млн ₽/год',w:14,dec:2},{h:'Вторичка, млн ₽/год',w:14,dec:2},{h:'Всего, млн ₽/год',w:14,dec:2},{h:'Статус',w:20},{h:'Примечание',w:12}]
 });
+
+// ================= Разметка неопознанных ТТ: подсказки типа заведения =================
+// Подсказки строятся из: (1) точки рынка по тому же адресу, (2) слов из названий базы рынка (какой тип у точек с таким словом),
+// (3) ключевых слов в названии и адресе, (4) набора наших SKU у уже размеченных ТТ, (5) структуры типов региона.
+const UT_NONE_TYPE = 'Не определено';
+const UT_STOP = new Set(['ип','ооо','оао','зао','пао','ао','общество','ограниченной','ответственностью','индивидуальный','предприниматель','город','улица','самовывоз','область','район','дом','кв','офис','пом','помещение','магазин_','ул','пр','пер','площадь','проспект','переулок','шоссе','корпус','строение','литер','респ','республика','край','обл','гор','пос','село','поселок','рабочий','микрорайон','мкр','д','г','с','п','тц','трц','торговый','центр','номер','для','или','без','при','ёлка','the']);
+const UT_RULES = [
+  [/пекарн|булочн|хлебопекарн|выпечк|пекар|хлебозавод|хлеб\b/, 'Пекарни', 3.2],
+  [/кофейн|кофе\b|кофе-|coffee|кофи\b|капучин/, 'Кофейни', 3.0],
+  [/додо|dodo/, 'ДоДо пицца', 4.0],
+  [/пицц|pizza|пиццер|итальянск|trattoria|траттор|паста|pasta/, 'Пиццерии и итальянская кухня (другие)', 3.0],
+  [/суши|ролл|sushi|якитор|темпур/, 'Суши (узкоспециализированные, доставки)', 3.2],
+  [/японск|рамен|izakaya|изакая|рэмэн/, 'Японская кухня (с блюдами помимо суши)', 3.0],
+  [/\bбар\b|пивн|паб\b|\bpub\b|лаундж|lounge|караоке|кальян|винотек|пивоварн|brewery|крафт|гастробар/, 'Бары, пабы, лаунджи', 2.8],
+  [/столов|буфет|кафетери|комбинат питания|общепит|школьн|детск\w* сад|больниц|интернат|санчаст|производственн\w* питани|кормлени/, 'Столовые', 3.0],
+  [/кулинар|готов\w* еды|готовая еда|кухня на дом|ресторан-кулинар|кулинарный/, 'Магазины и кулинарии готовой еды', 3.0],
+  [/кондитер|торт|десерт|пирожн|cake|пончик|donut|шоколад|сладост|мороженое|морожен/, 'Кондитерские', 2.8],
+  [/блин|крепер|crepe/, 'Блинные', 3.0],
+  [/бургер|burger|стейк-хаус/, 'Бургерные (не сетевые)', 3.0],
+  [/шаурм|шаверм|хот-дог|хотдог|фастфуд|fast.?food|стрит|street|донер|кебаб|kebab|чебурек|чебуречн|беляш|пирожков/, 'Фастфуд нецелевой (уличный, манты, без специализации, шаурма)', 3.0],
+  [/грузинск|хинкал|хачапур|кавказск|кавказ\b|\bшашлычн\w* кавказ|осетинск|аджар|кубдари/, 'Кавказская и грузинская кухня', 3.0],
+  [/шашлык|мангал|узбекск|плов|китайск|wok|\bвок\b|лапш|тайск|вьетнам|корейск|азиатск|восточн|дунган|манты|самса|тандыр|чайхан/, 'Нецелевые кухни (азия, шашлычные)', 2.6],
+  [/европейск|авторск|гастроном|brasserie|брассери|стейк|french|французск|ресторан\w* (русской|европейской)/, 'Европейская и авторская кухня', 2.4],
+  [/ресторан|restaurant|\bкафе\b|cafe\b|кафе-|трактир|таверн|закусочн|харчевн|пельмен|варенич|трапезн|гриль\b|\bgrill\b|rest\b/, 'Рестораны и кафе без специализации', 2.5],
+  [/банкет|кейтеринг|catering|\bевент|\bevent|фудмолл|food.?hall|фуд-?корт|гастромаркет|фудкорт/, 'Прочее', 2.6],
+  [/дарк|dark.?kitchen|доставк[аи] еды|кухня-доставк|cloud kitchen|облачная кухня/, 'Дарк-китчены и доставка', 3.0],
+  [/отел[ьи]|гостиниц|hotel|хостел|санатори|пансионат|база отдыха|турбаз|гостевой дом|апарт|мотель|курорт/, 'Отели и гостиницы', 3.2],
+  [/супермаркет|гипермаркет|универсам|минимаркет|мини-маркет|\bмаркет\b|market|продуктов\w* (магазин|лавк|сеть|дом)|магазин|продукты|бакале|универмаг|павильон|торговая точка|мясн\w* (лавка|магазин)|рыбн\w* магазин|фермерск\w* (лавка|магазин)|дикси|пятёрочк|пятерочк|магнит|перекрёсток|перекресток|лента\b|ашан|верный|монетк|красное.?белое|бристоль|fix.?price|фикс.?прайс|ярче|spar\b|спар\b/, 'Супермаркеты и розница (не общепит)', 2.8],
+  [/оптов|\bопт\b|дистриб|торговый дом|торгов\w* (компания|дом)|логистик|склад|снабжен|поставк|производств|\bцех\b|комбинат|завод|фабрик|агро|молочн|сыроварн|мясокомбинат|холод|продсервис|трейд|trade|фуд ?сервис|foodservice|оптторг|торг\b|ритейл|import|импорт/, 'Субдистрибьюторы и производство', 2.4],
+  [/физическ\w* лиц|самозанят|\bфл\b/, 'Физические лица', 3.0]
+];
+const UT_ADDR_RULES = [
+  [/школ|гимнази|лице[йя]|детск\w* сад|больниц|поликлиник|университет|колледж|техникум|институт|академи|интернат|санатор|завод|предприяти|комбинат/, 'Столовые', 1.6],
+  [/отел|гостиниц|хостел|база отдыха|турбаз|пансионат/, 'Отели и гостиницы', 2.0],
+  [/аэропорт|вокзал|азс\b|трасса|км\b/, 'Фастфуд нецелевой (уличный, манты, без специализации, шаурма)', 0.6],
+  [/склад|промзон|промышлен|база\b|логист/, 'Субдистрибьюторы и производство', 1.4]
+];
+const UT_PAGE = 50;
+const ut = { ready:false, building:false, rows:[], types:[], tIdx:null, dec:{}, filtered:[], page:0, q:'', fReg:'', fConf:'', fType:'', fStat:'' };
+const UT_KEY = 'umk_untyped_marks_v1';
+function utSaveLocal(){ try { localStorage.setItem(UT_KEY, JSON.stringify(ut.dec)); } catch(e){} }
+function utLoadLocal(){ try { const s = localStorage.getItem(UT_KEY); if(s) ut.dec = JSON.parse(s) || {}; } catch(e){ ut.dec = {}; } }
+function utNorm(s){ return (s || '').toLowerCase().replace(/ё/g, 'е'); }
+function utTokens(s){
+  return utNorm(s).replace(/[^a-zа-я0-9\-]+/g, ' ').split(' ').filter(w => w.length >= 3 && !UT_STOP.has(w) && !/^\d+$/.test(w));
+}
+// только ФИО (ИП Иванов Иван Иванович): названия нет, по тексту тип не определить
+function utIsFio(name){
+  const s = (name || '').replace(/\([^)]*\)/g, '').replace(/^(ИП|Индивидуальный предприниматель|Глава КФХ|КФХ)\s+/i, '').trim();
+  return /^[А-ЯЁ][а-яё\-]+(\s+[А-ЯЁ][а-яё\-]+){1,2}$/.test(s) && !/(ООО|АО|ЗАО|ПАО)/.test(name);
+}
+function utFeat(i){
+  const o = ut.ctx.o, nm = o.nameA[i] || '', ad = o.addrA[i] || '';
+  const f = utTokens((nm + ' ' + (o.chainA[i] || '') + ' ' + (o.signA[i] || '')));
+  const f2 = [...new Set(f)];
+  if(/^\s*(ип|индивидуальный предприниматель)\b/i.test(nm)) f2.push('__ип'); else if(/(^|\s)(ооо|общество с ограниченной)/i.test(nm)) f2.push('__ооо'); else if(/(^|\s)(ао|зао|пао|оао)\b/i.test(nm)) f2.push('__ао'); else f2.push('__без_формы');
+  if(utIsFio(nm)) f2.push('__фио');
+  if(/\([^)]+\)/.test(nm)) f2.push('__скобки');
+  if(/самовывоз/i.test(ad)) f2.push('__самовывоз');
+  const v = (o.cy[i] || 0) * 12 / 9 / 1000;   // т/год
+  f2.push('__объём_' + (v < 0.2 ? 'a' : v < 0.6 ? 'b' : v < 1.5 ? 'c' : v < 4 ? 'd' : 'e'));
+  return f2;
+}
+async function utBuild(){
+  if(ut.ready || ut.building) return;
+  ut.building = true;
+  const P = await hLoadPoints(), m = P.m, o = P.o;
+  const types = o.types.filter(t => t !== UT_NONE_TYPE);
+  const hMeta = o.how.indexOf('метка «Типы ТТ»');
+  ut.hMeta = hMeta;
+  ut.types = types; ut.tIdx = new Map(types.map((t, i) => [t, i]));
+  const NT = types.length, uIdx = o.types.indexOf(UT_NONE_TYPE), FAST = ut.tIdx.get('Фастфуд нецелевой (уличный, манты, без специализации, шаурма)');
+  // тип точки рынка -> индекс наших типов (сетевые бургерные -> фастфуд)
+  const mapM = m.types.map(t => ut.tIdx.has(t) ? ut.tIdx.get(t) : (/Бургерные/.test(t) ? FAST : -1));
+  // (2) слово -> распределение типов по базе рынка
+  const tok = new Map();
+  for(let i = 0; i < m.N; i++){
+    const ti = mapM[m.t[i]]; if(ti < 0) continue;
+    const seen = new Set(utTokens(m.nameA[i]));
+    seen.forEach(w => { let a = tok.get(w); if(!a){ a = new Uint32Array(NT + 1); tok.set(w, a); } a[ti]++; a[NT]++; });
+  }
+  // (4) набор SKU -> распределение типов по уже размеченным нашим ТТ
+  const sku = new Map(), reg = new Map();
+  for(let i = 0; i < o.N; i++){
+    if(o.t[i] === uIdx || o.h[i] === hMeta) continue; const ti = ut.tIdx.get(o.types[o.t[i]]); if(ti === undefined) continue;
+    let a = sku.get(o.u[i]); if(!a){ a = new Uint32Array(NT + 1); sku.set(o.u[i], a); } a[ti]++; a[NT]++;
+    const rg = o.places[o.k[i]][1]; let b = reg.get(rg); if(!b){ b = new Uint32Array(NT + 1); reg.set(rg, b); } b[ti]++; b[NT]++;
+  }
+  // (6) слова и признаки уже размеченных НАШИХ ТТ (то же «предметное поле», что и у неопознанных)
+  const own = new Map();
+  ut.ctx = {m, o, NT, mapM, tok, sku, reg, uIdx, own};
+  for(let i = 0; i < o.N; i++){
+    if(o.t[i] === uIdx || o.h[i] === hMeta) continue; const ti = ut.tIdx.get(o.types[o.t[i]]); if(ti === undefined) continue;
+    utFeat(i).forEach(w => { let a = own.get(w); if(!a){ a = new Uint32Array(NT + 1); own.set(w, a); } a[ti]++; a[NT]++; });
+  }
+  ut.base = new Uint32Array(NT + 1); for(let i = 0; i < o.N; i++){ if(o.t[i] === uIdx || o.h[i] === hMeta) continue; const ti = ut.tIdx.get(o.types[o.t[i]]); if(ti !== undefined){ ut.base[ti]++; ut.base[NT]++; } }
+  ut.ready = true; ut.building = false;
+}
+// подсказка для одной нашей ТТ -> {sug:[{ti,score,why[]}], conf, fio}
+function utSuggest(i, ignoreOm, selfTi){
+  const {m, o, NT, mapM, tok, sku, reg} = ut.ctx;
+  const S = new Float64Array(NT), ST = new Float64Array(NT), why = Array.from({length: NT}, () => []);
+  const add = (ti, w, reason, weak) => { if(ti < 0 || ti === undefined || !(w > 0)) return; S[ti] += w; if(!weak) ST[ti] += w; if(reason && why[ti].length < 4 && !why[ti].includes(reason)) why[ti].push(reason); };
+  const name = (o.nameA[i] || '') + ' ' + (o.chainA[i] || '') + ' ' + (o.signA[i] || ''), addr = o.addrA[i] || '', nn = utNorm(name), an = utNorm(addr);
+  // (1) на этом же адресе есть точка рынка
+  if(!ignoreOm){
+    const cnt = new Map();
+    (o.om[i] || []).forEach(mi => { const ti = mapM[m.t[mi]]; if(ti >= 0){ if(!cnt.has(ti)) cnt.set(ti, []); cnt.get(ti).push(m.nameA[mi]); } });
+    cnt.forEach((names, ti) => add(ti, 4.5 + Math.min(1, names.length * 0.3), 'на этом адресе в базе рынка: «' + names[0] + '»'));
+  }
+  // (3) ключевые слова
+  UT_RULES.forEach(([re, type, w]) => { const mt = nn.match(re); if(mt) add(ut.tIdx.get(type), w, 'в названии «' + mt[0].trim() + '»'); });
+  UT_ADDR_RULES.forEach(([re, type, w]) => { const mt = an.match(re); if(mt) add(ut.tIdx.get(type), w, 'в адресе «' + mt[0].trim() + '»'); });
+  // (2) слова названия по базе рынка
+  const words = utTokens(name); const used = new Set();
+  words.forEach(w => {
+    if(used.has(w)) return; used.add(w);
+    const a = tok.get(w); if(!a || a[NT] < 6) return;
+    let top = 0, tt = 0; for(let k = 0; k < NT; k++) if(a[k] > top){ top = a[k]; tt = k; }
+    const pur = top / a[NT]; if(pur < 0.5) return;
+    add(tt, (pur - 0.3) * Math.min(1, Math.log10(a[NT]) / 2) * 3.2, 'слово «' + w + '»: ' + Math.round(pur * 100) + '% из ' + a[NT] + ' точек рынка — ' + ut.types[tt].split(' (')[0].toLowerCase());
+  });
+  // (6) слова нашей базы: байесовская оценка по размеченным ТТ (при проверке саму ТТ вычитаем)
+  {
+    const own = ut.ctx.own, lp = new Float64Array(NT); let nf = 0;
+    utFeat(i).forEach(w => {
+      const a = own.get(w); if(!a) return; const tot = a[NT] - (selfTi !== undefined ? 1 : 0); if(tot < 5) return;
+      nf++; for(let k = 0; k < NT; k++){ const c = a[k] - (selfTi === k ? 1 : 0); lp[k] += Math.log((c + 0.5) / (tot + 0.5 * NT)) - Math.log((ut.base[k] + 1) / (ut.base[NT] + NT)); }
+    });
+    if(nf){ let mx = -1e9; for(let k = 0; k < NT; k++){ lp[k] += Math.log((ut.base[k] + 1) / (ut.base[NT] + NT)); if(lp[k] > mx) mx = lp[k]; }
+      let z = 0; const pr = new Float64Array(NT); for(let k = 0; k < NT; k++){ pr[k] = Math.exp(lp[k] - mx); z += pr[k]; }
+      for(let k = 0; k < NT; k++){ const p = pr[k] / z; if(p >= 0.3) if(ut.base[k] >= 40) add(k, 3.6 * p, 'по словам и признакам похожих размеченных ТТ: ' + Math.round(p * 100) + '%', true); } }
+  }
+  // (4) наборы SKU у размеченных ТТ
+  const sa = sku.get(o.u[i]);
+  if(sa && sa[NT] >= 15){ for(let k = 0; k < NT; k++){ const sh = sa[k] / sa[NT]; if(sh >= 0.35) add(k, 1.3 * sh, 'похожий набор наших SKU у размеченных ТТ: ' + Math.round(sh * 100) + '%', true); } }
+  // (5) структура региона (слабый приор)
+  const ra = reg.get(o.places[o.k[i]][1]);
+  if(ra && ra[NT] >= 30){ for(let k = 0; k < NT; k++){ const sh = ra[k] / ra[NT]; if(sh >= 0.25) add(k, 0.5 * sh, 'частый тип в регионе', true); } }
+  // подсказка должна опираться хотя бы на один содержательный признак (адрес в базе рынка, слово в названии/адресе); одни приоры не показываем
+  const ord = [...S.keys()].filter(k => S[k] > 0 && ST[k] >= 0.8).sort((a, b) => S[b] - S[a]).slice(0, 3);
+  const best = ord.length ? S[ord[0]] : 0, margin = ord.length > 1 ? best - S[ord[1]] : best;
+  let conf = 'none';
+  if(best >= 4.2 && margin >= 1.2) conf = 'high'; else if(best >= 2.6 && margin >= 0.6) conf = 'mid'; else if(best >= 1.0) conf = 'low';
+  return {sug: ord.map(k => ({ti: k, score: S[k], why: why[k]})), conf, fio: utIsFio(o.nameA[i])};
+}
+// проверка качества на уже размеченных ТТ (тип скрываем и сравниваем)
+function utEvalTyped(ignoreOm){
+  const {o, uIdx} = ut.ctx; const res = {high:[0,0], mid:[0,0], low:[0,0], none:[0,0]}; let n = 0;
+  for(let i = 0; i < o.N; i += 1){
+    if(o.t[i] === uIdx || o.h[i] === ut.hMeta) continue; const ti = ut.tIdx.get(o.types[o.t[i]]); if(ti === undefined) continue;
+    const r = utSuggest(i, ignoreOm, ti); n++; const c = res[r.conf]; c[0]++; if(r.sug.length && r.sug[0].ti === ti) c[1]++;
+  }
+  return {n, res};
+}
+
+// ---------- интерфейс ----------
+const UT_CONF_LABEL = {high:'высокая', mid:'средняя', low:'слабая', none:'нет подсказки'};
+const UT_CONF_HINT = {high:'на уже размеченных ТТ такие подсказки совпадали с типом примерно в 90% случаев', mid:'совпадение около 85% на размеченных ТТ', low:'слабая подсказка: совпадала примерно в половине случаев, проверьте по адресу', none:'признаков не нашлось — смотрите адрес в 2ГИС / Яндекс'};
+const utEl = id => document.getElementById(id);
+const utEsc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+async function utStart(){
+  const st = utEl('utStatus'), btn = utEl('utStart');
+  btn.disabled = true; st.textContent = 'Анализирую неопознанные ТТ…';
+  try {
+    await utBuild(); utLoadLocal();
+    const {o, uIdx} = ut.ctx, k = typeof COV_ANNUAL_FACTOR === 'number' ? COV_ANNUAL_FACTOR : 12 / 9;
+    ut.rows = [];
+    for(let i = 0; i < o.N; i++){
+      if(o.t[i] !== uIdx) continue;
+      const r = utSuggest(i, false);
+      ut.rows.push({i, id: String(o.id[i]), reg: o.places[o.k[i]][1], city: o.places[o.k[i]][0], name: (o.nameA[i] || '').replace(/\s+/g, ' ').trim(), addr: (o.addrA[i] || '').trim(), vol: (o.cy[i] || 0) * k / 1000, sug: r.sug, conf: r.conf, fio: r.fio});
+    }
+    ut.rows.sort((a, b) => b.vol - a.vol);
+    const regs = [...new Set(ut.rows.map(r => r.reg))].sort((a, b) => a.localeCompare(b, 'ru'));
+    utEl('utReg').innerHTML = '<option value="">Все регионы</option>' + regs.map(r => `<option>${utEsc(r)}</option>`).join('');
+    utEl('utType').innerHTML = '<option value="">Любой подсказанный тип</option>' + ut.types.map(t => `<option>${utEsc(t)}</option>`).join('');
+    utEl('utWork').style.display = ''; btn.style.display = 'none'; st.textContent = '';
+    utApplyFilters();
+  } catch(e){ st.textContent = 'Не удалось построить подсказки: ' + e.message; btn.disabled = false; }
+}
+function utApplyFilters(keepPage){
+  const q = utNorm(ut.q);
+  ut.filtered = ut.rows.filter(r => {
+    if(ut.fReg && r.reg !== ut.fReg) return false;
+    if(ut.fConf && r.conf !== ut.fConf) return false;
+    if(ut.fType && !(r.sug.length && ut.types[r.sug[0].ti] === ut.fType)) return false;
+    const d = ut.dec[r.id];
+    if(ut.fStat === 'done' && !d) return false; if(ut.fStat === 'todo' && d) return false;
+    if(q && !(utNorm(r.name).includes(q) || utNorm(r.addr).includes(q) || utNorm(r.city).includes(q))) return false;
+    return true;
+  });
+  if(!keepPage) ut.page = 0;
+  utRender();
+}
+function utLinks(r){
+  const q = encodeURIComponent((r.city && !r.addr.toLowerCase().includes(r.city.toLowerCase()) ? r.city + ', ' : '') + (r.addr && !/^самовывоз$/i.test(r.addr) ? r.addr : r.name));
+  return `<a href="https://2gis.ru/search/${q}" target="_blank" rel="noopener" class="ut-lnk">2ГИС</a> <a href="https://yandex.ru/maps/?text=${q}" target="_blank" rel="noopener" class="ut-lnk">Яндекс</a>`;
+}
+function utRender(){
+  const tot = ut.rows.length, done = ut.rows.filter(r => ut.dec[r.id]).length;
+  const byConf = {high:0, mid:0, low:0, none:0}; ut.rows.forEach(r => byConf[r.conf]++);
+  utEl('utSummary').innerHTML = `<span><b>${hFmtInt2(tot)}</b> неопознанных ТТ · объём ${hFmtVol2(ut.rows.reduce((s, r) => s + r.vol, 0))} т/год</span><span>Подсказки: высокая <b>${byConf.high}</b> · средняя <b>${byConf.mid}</b> · слабая <b>${byConf.low}</b> · нет <b>${byConf.none}</b></span><span>Размечено: <b>${hFmtInt2(done)}</b> (${tot ? Math.round(done / tot * 100) : 0}%)</span>`;
+  const pages = Math.max(1, Math.ceil(ut.filtered.length / UT_PAGE)); if(ut.page >= pages) ut.page = pages - 1;
+  const slice = ut.filtered.slice(ut.page * UT_PAGE, ut.page * UT_PAGE + UT_PAGE);
+  const opts = '<option value="">— выбрать тип —</option>' + ut.types.map(t => `<option value="${utEsc(t)}">${utEsc(t)}</option>`).join('');
+  utEl('utBody').innerHTML = slice.map((r, n) => {
+    const d = ut.dec[r.id], chips = r.sug.length ? r.sug.map((s, k) => {
+      const t = ut.types[s.ti], tip = utEsc((k === 0 ? 'Уверенность: ' + UT_CONF_LABEL[r.conf] + ' — ' + UT_CONF_HINT[r.conf] + '. ' : '') + 'Почему: ' + (s.why.join('; ') || 'слабые косвенные признаки'));
+      return `<button type="button" class="ut-chip${k === 0 ? ' ut-top ut-' + r.conf : ''}${d && d.t === t ? ' ut-sel' : ''}" data-id="${utEsc(r.id)}" data-t="${utEsc(t)}" title="${tip}">${utEsc(t.split(' (')[0])}<i>${s.why.length ? '' : ''}</i></button>`;
+    }).join('') : `<span class="meta">${r.fio ? 'только ФИО предпринимателя — смотрите адрес' : 'признаков нет'}</span>`;
+    const why = r.sug.length ? `<div class="ut-why">${utEsc(r.sug[0].why[0] || '')}</div>` : '';
+    return `<tr data-id="${utEsc(r.id)}"${d ? ' class="ut-done"' : ''}>
+      <td class="meta">${ut.page * UT_PAGE + n + 1}</td>
+      <td><div>${utEsc(r.city)}</div><div class="meta">${utEsc(r.reg)}</div></td>
+      <td style="max-width:260px;">${utEsc(r.name)}</td>
+      <td style="max-width:280px;"><div>${utEsc(r.addr || '—')}</div><div>${utLinks(r)}</div></td>
+      <td>${hFmtVol2(r.vol)}</td>
+      <td style="min-width:240px;">${chips}${why}</td>
+      <td><select class="ut-sel-t" data-id="${utEsc(r.id)}">${opts.replace(`value="${utEsc(d ? d.t : '\u0000')}"`, `value="${utEsc(d ? d.t : '')}" selected`)}</select>${d ? `<div class="meta">${d.src === 'подсказка' ? 'принята подсказка' : 'выбрано вручную'} <a href="#" class="ut-clr" data-id="${utEsc(r.id)}">сбросить</a></div>` : ''}</td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="7" class="meta" style="padding:14px;">Нет ТТ по выбранным фильтрам.</td></tr>';
+  utEl('utPager').innerHTML = `<button class="btn-secondary" id="utPrev" ${ut.page ? '' : 'disabled'}>←</button> <span class="meta">Стр. ${ut.page + 1} из ${pages} · показано ${slice.length} из ${hFmtInt2(ut.filtered.length)}</span> <button class="btn-secondary" id="utNext" ${ut.page < pages - 1 ? '' : 'disabled'}>→</button>`;
+  // сводка по принятым типам
+  const by = {}; ut.rows.forEach(r => { const d = ut.dec[r.id]; if(d){ const x = by[d.t] || (by[d.t] = {n: 0, v: 0}); x.n++; x.v += r.vol; } });
+  const ent = Object.entries(by).sort((a, b) => b[1].v - a[1].v);
+  utEl('utDone').innerHTML = ent.length ? '<div class="meta" style="margin:8px 0 4px;">Размечено по типам:</div><div class="dist-chip-list">' + ent.map(([t, x]) => `<div class="dist-chip"><span class="n">${utEsc(t.split(' (')[0])}</span><span class="v">${x.n} ТТ · ${hFmtVol2(x.v)} т/год</span></div>`).join('') + '</div>' : '';
+}
+function utSet(id, type, src){ if(type) ut.dec[id] = {t: type, src}; else delete ut.dec[id]; utSaveLocal(); }
+function utBulk(){
+  const btn = utEl('utBulk'); const targets = ut.filtered.filter(r => !ut.dec[r.id] && r.sug.length && (r.conf === 'high' || r.conf === 'mid'));
+  if(!btn.dataset.arm){ btn.dataset.arm = '1'; const old = btn.textContent; btn.textContent = `Принять подсказки для ${targets.length} ТТ? Нажмите ещё раз`; setTimeout(() => { delete btn.dataset.arm; btn.textContent = old; }, 4000); return; }
+  delete btn.dataset.arm; btn.textContent = '✓ Принять подсказки (высокая и средняя уверенность, по фильтру)';
+  targets.forEach(r => { ut.dec[r.id] = {t: ut.types[r.sug[0].ti], src: 'подсказка'}; }); utSaveLocal(); utApplyFilters(true);
+  utEl('utStatus').textContent = `Принято подсказок: ${targets.length}`;
+}
+function utExportRows(){
+  return ut.rows.map(r => { const d = ut.dec[r.id], s = r.sug[0];
+    return [r.reg, r.city, r.name, r.addr, pR2(r.vol), s ? ut.types[s.ti] : '', UT_CONF_LABEL[r.conf], s ? s.why.join('; ') : '', r.sug[1] ? ut.types[r.sug[1].ti] : '', d ? d.t : '', d ? d.src : '', r.id]; });
+}
+async function utExcel(){
+  const cols = [{h:'Регион',w:24},{h:'Город',w:20},{h:'Название',w:40},{h:'Адрес',w:46},{h:'Объём, т/год',w:12,dec:2},{h:'Подсказка (тип)',w:34},{h:'Уверенность',w:14},{h:'Почему',w:60},{h:'Вторая подсказка',w:30},{h:'Выбранный тип',w:34},{h:'Как выбран',w:16},{h:'ID ТТ',w:10}];
+  await pDownloadXlsx([pMkSheet('Неопознанные ТТ', cols, utExportRows())], 'Неопознанные ТТ — разметка.xlsx', utEl('utXls'), utEl('utStatus'));
+}
+function utSaveFile(){
+  const blob = new Blob([JSON.stringify({v: 1, saved: new Date().toISOString(), marks: ut.dec})], {type: 'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'разметка_неопознанных_ТТ.json'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 20000);
+}
+function utLoadFile(file){
+  const rd = new FileReader();
+  rd.onload = () => { try { const j = JSON.parse(rd.result); const mk = j.marks || {}; let n = 0; Object.keys(mk).forEach(id => { if(mk[id] && ut.types.includes(mk[id].t)){ ut.dec[id] = mk[id]; n++; } }); utSaveLocal(); utApplyFilters(true); utEl('utStatus').textContent = `Загружено отметок: ${n}`; } catch(e){ utEl('utStatus').textContent = 'Не удалось прочитать файл разметки'; } };
+  rd.readAsText(file);
+}
+function utInit(){
+  if(!utEl('utCard2')) return;
+  utEl('utStart').addEventListener('click', utStart);
+  let tm; utEl('utQ').addEventListener('input', e => { clearTimeout(tm); tm = setTimeout(() => { ut.q = e.target.value; utApplyFilters(); }, 200); });
+  [['utReg', 'fReg'], ['utConf', 'fConf'], ['utType', 'fType'], ['utStat', 'fStat']].forEach(([id, k]) => utEl(id).addEventListener('change', e => { ut[k] = e.target.value; utApplyFilters(); }));
+  utEl('utReset').addEventListener('click', () => { ut.q = ut.fReg = ut.fConf = ut.fType = ut.fStat = ''; utEl('utQ').value = ''; ['utReg', 'utConf', 'utType', 'utStat'].forEach(id => utEl(id).value = ''); utApplyFilters(); });
+  utEl('utBulk').addEventListener('click', utBulk);
+  utEl('utXls').addEventListener('click', utExcel);
+  utEl('utSave').addEventListener('click', utSaveFile);
+  utEl('utLoad').addEventListener('change', e => { if(e.target.files[0]) utLoadFile(e.target.files[0]); e.target.value = ''; });
+  utEl('utClearAll').addEventListener('click', () => { const b = utEl('utClearAll'); if(!b.dataset.arm){ b.dataset.arm = '1'; const old = b.textContent; b.textContent = 'Точно сбросить всю разметку? Ещё раз'; setTimeout(() => { delete b.dataset.arm; b.textContent = old; }, 4000); return; } delete b.dataset.arm; b.textContent = '✕ Сбросить всю разметку'; ut.dec = {}; utSaveLocal(); utApplyFilters(true); });
+  utEl('utBody').addEventListener('click', e => {
+    const chip = e.target.closest('.ut-chip'); if(chip){ utSet(chip.dataset.id, chip.dataset.t, 'подсказка'); utRender(); return; }
+    const clr = e.target.closest('.ut-clr'); if(clr){ e.preventDefault(); utSet(clr.dataset.id, null); utRender(); }
+  });
+  utEl('utBody').addEventListener('change', e => { const s = e.target.closest('.ut-sel-t'); if(s){ const r = ut.rows.find(x => x.id === s.dataset.id); const sug = r && r.sug.length && ut.types[r.sug[0].ti] === s.value; utSet(s.dataset.id, s.value, sug ? 'подсказка' : 'вручную'); utRender(); } });
+  utEl('utPager').addEventListener('click', e => { if(e.target.id === 'utPrev' && ut.page > 0){ ut.page--; utRender(); } else if(e.target.id === 'utNext'){ ut.page++; utRender(); } });
+}
+utInit();
+
 </script>
 </body>
 </html>
