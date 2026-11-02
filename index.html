@@ -196,9 +196,11 @@ footer{color:var(--muted); font-size:11.5px; text-align:center; margin-top:24px;
 #dualLayoutProd4{grid-template-columns:repeat(2,minmax(0,1fr));} #dualLayoutProd4 .panel-col{min-width:0;}
 #tblProdReg4{width:100%; table-layout:auto;} #tblProdReg4 th,#tblProdReg4 td{padding:7px 6px; font-size:12px; vertical-align:middle;} #tblProdReg4 th{white-space:normal; line-height:1.2; position:sticky; top:0; z-index:2; background:var(--card,var(--bg));} #tblProdReg4 td:first-child{min-width:110px;} @media (max-width:1300px){#tblProdReg4 th,#tblProdReg4 td{padding:6px 4px; font-size:11px;}}
 
-.ut-tbl{table-layout:fixed; width:100%; font-size:12px;}
+.ut-tbl{table-layout:fixed; width:100%; font-size:11.5px;}
 .ut-tbl th,.ut-tbl td{white-space:normal; overflow-wrap:anywhere; word-break:break-word; padding:6px 6px; vertical-align:top;}
-.ut-tbl select{width:100%; max-width:100%; font-size:11.5px;}
+.ut-tbl select,.ut-chain-in{width:100%; max-width:100%; box-sizing:border-box; font-size:11.5px;}
+.ut-chain-in{margin-top:4px; background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:6px; padding:4px 6px;}
+.ut-kc{border-color:#6c8ebf;}
 
 .ut-chip{display:inline-block; margin:2px 4px 2px 0; padding:3px 9px; border-radius:20px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:11.5px; cursor:pointer;}
 .ut-chip:hover{border-color:var(--accent);}
@@ -744,23 +746,26 @@ tr.ut-done td{background:rgba(34,165,90,.07);}
       <button class="clear-link" id="utReset">✕ Сбросить фильтры</button>
     </div>
     <div class="card-body">
-      <div class="editor-note">Наши ТТ: по умолчанию — те, у которых тип не определён; переключатель «Какие ТТ» показывает и уже размеченные — у них видно, как был определён тип (по сети, названию, адресу, вывеске или метке), и тип можно изменить. Для каждой инструмент предлагает до трёх типов и объясняет почему (наведите на тип): по точкам рынка на том же адресе, по словам в названии и адресе, по тому, какой тип у похожих точек рынка и у уже размеченных наших ТТ. Принять подсказку — клик по типу, любой другой тип — в списке справа. Адрес можно проверить в 2ГИС или Яндексе по ссылкам. Разметка сохраняется в браузере и выгружается в файл — ей можно обмениваться.</div>
+      <div class="editor-note">Наши ТТ: по умолчанию — те, у которых тип не определён; переключатель «Какие ТТ» показывает и уже размеченные — у них видно, как был определён тип (по сети, названию, адресу, вывеске или метке), и тип можно изменить. Для каждой инструмент предлагает до трёх типов и объясняет почему (наведите на тип): по точкам рынка на том же адресе, по словам в названии и адресе, по тому, какой тип у похожих точек рынка и у уже размеченных наших ТТ. Принять подсказку — клик по типу, любой другой тип — в списке справа. Для каждой ТТ также показано, сетевая она или нет (из клиентской базы, из точки рынка на том же адресе или по названию сети в названии ТТ): выберите «Не сетевая» или «Сетевая» и затем сеть из списка рынка (можно ввести название). Адрес можно проверить в 2ГИС или Яндексе по ссылкам. Разметка сохраняется в браузере и выгружается в файл — ей можно обмениваться.</div>
       <div class="editor-actions"><button class="btn-secondary" id="utStart">🔍 Построить подсказки</button><span id="utStatus" style="color:var(--muted); font-size:12.5px;"></span></div>
       <div id="utWork" style="display:none;">
         <div class="legend" id="utSummary" style="margin-bottom:10px; gap:18px;"></div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-bottom:10px;">
           <input id="utQ" type="search" placeholder="Поиск: название, адрес, город" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;">
           <select id="utSetSel" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"><option value="undef">Неопознанные ТТ</option><option value="typed">ТТ с определённым типом</option><option value="all">Все наши ТТ</option></select>
+          <select id="utKindSel" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"><option value="">Сетевые и не сетевые</option><option value="chain">Только сетевые</option><option value="plain">Только не сетевые</option><option value="none">Сеть не определена</option></select>
           <select id="utReg" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"></select>
           <select id="utConf" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"><option value="">Любая уверенность</option><option value="high">Высокая</option><option value="mid">Средняя</option><option value="low">Слабая</option><option value="none">Нет подсказки</option></select>
           <select id="utType" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"></select>
           <select id="utStat" style="background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:7px 10px; font-size:12.8px;"><option value="">Размечены и нет</option><option value="todo">Ещё не размечены</option><option value="done">Размечены</option></select>
         </div>
-        <div class="tbl-scroll" style="max-height:600px; overflow-x:hidden;"><table class="ut-tbl"><colgroup><col style="width:3%"><col style="width:10%"><col style="width:15%"><col style="width:16%"><col style="width:6%"><col style="width:14%"><col style="width:18%"><col style="width:18%"></colgroup><thead><tr><th>№</th><th>Город · регион</th><th>Название</th><th>Адрес</th><th>Объём, т/год</th><th>Как определён тип</th><th>Подсказки</th><th>Тип</th></tr></thead><tbody id="utBody"></tbody></table></div>
+        <div class="tbl-scroll" style="max-height:600px; overflow-x:hidden;"><table class="ut-tbl"><colgroup><col style="width:2%"><col style="width:8%"><col style="width:11%"><col style="width:12%"><col style="width:5%"><col style="width:9%"><col style="width:13%"><col style="width:11%"><col style="width:15%"><col style="width:14%"></colgroup><thead><tr><th>№</th><th>Город · регион</th><th>Название</th><th>Адрес</th><th>Т/год</th><th>Как определён тип</th><th>Подсказки типа</th><th>Тип</th><th>Сетевая / не сетевая</th><th>Выбор сети</th></tr></thead><tbody id="utBody"></tbody></table></div>
         <div id="utPager" style="margin-top:8px; display:flex; gap:10px; align-items:center;"></div>
         <div id="utDone"></div>
+        <datalist id="utChainList"></datalist>
         <div class="editor-actions" style="margin-top:12px; flex-wrap:wrap;">
           <button class="btn-secondary" id="utBulk">✓ Принять подсказки (высокая и средняя уверенность, по фильтру)</button>
+          <button class="btn-secondary" id="utBulkK">✓ Принять сети (высокая уверенность, по фильтру)</button>
           <button class="btn-secondary" id="utXls">⬇ Скачать Excel</button>
           <button class="btn-secondary" id="utSave">💾 Сохранить разметку (файл)</button>
           <label class="btn-secondary" style="cursor:pointer;">📂 Загрузить разметку<input type="file" id="utLoad" accept=".json,application/json" style="display:none;"></label>
@@ -4866,10 +4871,10 @@ const UT_ADDR_RULES = [
   [/склад|промзон|промышлен|база\b|логист/, 'Субдистрибьюторы и производство', 1.4]
 ];
 const UT_PAGE = 50;
-const ut = { ready:false, building:false, rows:[], types:[], tIdx:null, dec:{}, filtered:[], page:0, q:'', fReg:'', fConf:'', fType:'', fStat:'', fSet:'undef' };
-const UT_KEY = 'umk_untyped_marks_v1';
-function utSaveLocal(){ try { localStorage.setItem(UT_KEY, JSON.stringify(ut.dec)); } catch(e){} }
-function utLoadLocal(){ try { const s = localStorage.getItem(UT_KEY); if(s) ut.dec = JSON.parse(s) || {}; } catch(e){ ut.dec = {}; } }
+const ut = { ready:false, building:false, rows:[], types:[], tIdx:null, dec:{}, filtered:[], page:0, q:'', fReg:'', fConf:'', fType:'', fStat:'', fSet:'undef', fKind:'', chn:{} };
+const UT_KEY = 'umk_untyped_marks_v1', UT_KEY_C = 'umk_untyped_chain_v1';
+function utSaveLocal(){ try { localStorage.setItem(UT_KEY, JSON.stringify(ut.dec)); localStorage.setItem(UT_KEY_C, JSON.stringify(ut.chn)); } catch(e){} }
+function utLoadLocal(){ try { const s = localStorage.getItem(UT_KEY); if(s) ut.dec = JSON.parse(s) || {}; const c = localStorage.getItem(UT_KEY_C); if(c) ut.chn = JSON.parse(c) || {}; } catch(e){ ut.dec = {}; ut.chn = {}; } }
 function utNorm(s){ return (s || '').toLowerCase().replace(/ё/g, 'е'); }
 function utTokens(s){
   return utNorm(s).replace(/[^a-zа-я0-9\-]+/g, ' ').split(' ').filter(w => w.length >= 3 && !UT_STOP.has(w) && !/^\d+$/.test(w));
@@ -5008,9 +5013,11 @@ async function utStart(){
         else if(hw === 'название ТТ') det = 'слова в названии';
         else if(hw === 'метка «Типы ТТ»') det = 'внутренняя метка клиентской базы, не проверена по заведению';
       }
-      ut.rows.push({i, id: String(o.id[i]), typed, cur, how: HOW[hw] || hw, det, reg: o.places[o.k[i]][1], city: o.places[o.k[i]][0], name: (o.nameA[i] || '').replace(/\s+/g, ' ').trim(), addr: (o.addrA[i] || '').trim(), vol: (o.cy[i] || 0) * k / 1000, sug: r.sug, conf: r.conf, fio: r.fio});
+      const kc = utKindCur(i), ks = utKindSug(i);
+      ut.rows.push({i, id: String(o.id[i]), kc, ks, typed, cur, how: HOW[hw] || hw, det, reg: o.places[o.k[i]][1], city: o.places[o.k[i]][0], name: (o.nameA[i] || '').replace(/\s+/g, ' ').trim(), addr: (o.addrA[i] || '').trim(), vol: (o.cy[i] || 0) * k / 1000, sug: r.sug, conf: r.conf, fio: r.fio});
     }
     ut.rows.sort((a, b) => b.vol - a.vol);
+    utEl('utChainList').innerHTML = ut.chainNames.map(c => `<option value="${utEsc(c.name)}">${c.pts} точек</option>`).join('');
     const regs = [...new Set(ut.rows.map(r => r.reg))].sort((a, b) => a.localeCompare(b, 'ru'));
     utEl('utReg').innerHTML = '<option value="">Все регионы</option>' + regs.map(r => `<option>${utEsc(r)}</option>`).join('');
     utEl('utType').innerHTML = '<option value="">Любой тип</option>' + ut.types.map(t => `<option>${utEsc(t)}</option>`).join('');
@@ -5022,12 +5029,13 @@ function utApplyFilters(keepPage){
   const q = utNorm(ut.q);
   ut.filtered = ut.rows.filter(r => {
     if(ut.fSet === 'undef' && r.typed) return false; if(ut.fSet === 'typed' && !r.typed) return false;
+    if(ut.fKind){ const e = utKindEff(r); if(ut.fKind === 'none' ? e.k : e.k !== ut.fKind) return false; }
     if(ut.fReg && r.reg !== ut.fReg) return false;
     if(ut.fConf && r.conf !== ut.fConf) return false;
     if(ut.fType && !(r.cur === ut.fType || (r.sug.length && ut.types[r.sug[0].ti] === ut.fType))) return false;
     const d = ut.dec[r.id];
     if(ut.fStat === 'done' && !d) return false; if(ut.fStat === 'todo' && d) return false;
-    if(q && !(utNorm(r.name).includes(q) || utNorm(r.addr).includes(q) || utNorm(r.city).includes(q))) return false;
+    if(q && !(utNorm(r.name).includes(q) || utNorm(r.addr).includes(q) || utNorm(r.city).includes(q) || utNorm(utKindEff(r).name || '').includes(q))) return false;
     return true;
   });
   if(!keepPage) ut.page = 0;
@@ -5037,12 +5045,33 @@ function utLinks(r){
   const q = encodeURIComponent((r.city && !r.addr.toLowerCase().includes(r.city.toLowerCase()) ? r.city + ', ' : '') + (r.addr && !/^самовывоз$/i.test(r.addr) ? r.addr : r.name));
   return `<a href="https://2gis.ru/search/${q}" target="_blank" rel="noopener" class="ut-lnk">2ГИС</a> <a href="https://yandex.ru/maps/?text=${q}" target="_blank" rel="noopener" class="ut-lnk">Яндекс</a>`;
 }
+function utKindEff(r){ const d = ut.chn[r.id]; if(d) return {k: d.k, name: d.c || '', src: 'выбор'}; return r.kc; }
+function utKindCur(i){
+  const {m, o} = ut.ctx; uChainBuild();
+  const c = (o.chainA[i] || '').trim();
+  if(c){ const j = ut.chByNorm.get(ut.norm(c)); return {k: 'chain', name: j !== undefined ? m.chains[j] : c, src: 'сеть указана в клиентской базе'}; }
+  const mi = (o.om[i] || [])[0];
+  if(mi !== undefined){ const cj = m.ch[mi] - 1; return cj >= 0 ? {k: 'chain', name: m.chains[cj], src: 'по адресу: точка рынка «' + (m.nameA[mi] || '').slice(0, 40) + '» — сеть'} : {k: 'plain', name: '', src: 'по адресу: точка рынка «' + (m.nameA[mi] || '').slice(0, 40) + '» не сетевая'}; }
+  return {k: '', name: '', src: ''};
+}
+function utKindSug(i){
+  const {o} = ut.ctx, l = uChainSuggest(i, false), top = l[0];
+  const nm = o.nameA[i] || '', person = /^\s*(ип|индивидуальный предприниматель)\b/i.test(nm) || utIsFio(nm);
+  if(top && top.sc >= 1.2) return {k: 'chain', conf: top.sc >= 4 ? 'high' : top.sc >= 2.5 ? 'mid' : 'low', chains: l.map(x => ({name: ut.ctx.m.chains[x.j], sc: x.sc, why: x.why.join('; ')}))};
+  return {k: 'plain', conf: person ? 'mid' : 'low', chains: [], why: person ? 'предприниматель без признаков сети в названии' : 'в названии нет признаков сети'};
+}
+function utChainMark(id, k, c){
+  if(!k){ delete ut.chn[id]; } else ut.chn[id] = {k, c: k === 'chain' ? (c || '') : ''};
+  const r = ut.rows.find(x => x.id === id); if(r && r.kc.k === k && (k === 'plain' || (r.kc.name || '').toLowerCase() === (c || '').toLowerCase())) delete ut.chn[id];
+  utSaveLocal();
+}
 function utOptions(sel){ return '<option value="">— выбрать тип —</option>' + ut.types.map(t => `<option value="${utEsc(t)}"${t === sel ? ' selected' : ''}>${utEsc(t)}</option>`).join(''); }
 function utRender(){
   const und = ut.rows.filter(r => !r.typed), typ = ut.rows.filter(r => r.typed);
   const doneU = und.filter(r => ut.dec[r.id]).length, doneT = typ.filter(r => ut.dec[r.id]).length;
   const byConf = {high:0, mid:0, low:0, none:0}; und.forEach(r => byConf[r.conf]++);
-  utEl('utSummary').innerHTML = `<span><b>${hFmtInt2(und.length)}</b> неопознанных ТТ · ${hFmtVol2(und.reduce((s, r) => s + r.vol, 0))} т/год · и <b>${hFmtInt2(typ.length)}</b> с уже определённым типом</span><span>Подсказки для неопознанных: высокая <b>${byConf.high}</b> · средняя <b>${byConf.mid}</b> · слабая <b>${byConf.low}</b> · нет <b>${byConf.none}</b></span><span>Размечено неопознанных: <b>${hFmtInt2(doneU)}</b> (${und.length ? Math.round(doneU / und.length * 100) : 0}%) · изменён тип у <b>${hFmtInt2(doneT)}</b></span>`;
+  const kc = {chain: 0, plain: 0, none: 0}; ut.rows.forEach(r => { const e = utKindEff(r); kc[e.k || 'none']++; });
+  utEl('utSummary').innerHTML = `<span><b>${hFmtInt2(und.length)}</b> неопознанных ТТ · ${hFmtVol2(und.reduce((s, r) => s + r.vol, 0))} т/год · и <b>${hFmtInt2(typ.length)}</b> с уже определённым типом</span><span>Подсказки для неопознанных: высокая <b>${byConf.high}</b> · средняя <b>${byConf.mid}</b> · слабая <b>${byConf.low}</b> · нет <b>${byConf.none}</b></span><span>Размечено неопознанных: <b>${hFmtInt2(doneU)}</b> (${und.length ? Math.round(doneU / und.length * 100) : 0}%) · изменён тип у <b>${hFmtInt2(doneT)}</b></span><span>Сетевых <b>${hFmtInt2(kc.chain)}</b> · не сетевых <b>${hFmtInt2(kc.plain)}</b> · не определено <b>${hFmtInt2(kc.none)}</b> (выбрано вручную: ${hFmtInt2(Object.keys(ut.chn).length)})</span>`;
   const pages = Math.max(1, Math.ceil(ut.filtered.length / UT_PAGE)); if(ut.page >= pages) ut.page = pages - 1;
   const slice = ut.filtered.slice(ut.page * UT_PAGE, ut.page * UT_PAGE + UT_PAGE);
   utEl('utBody').innerHTML = slice.map((r, n) => {
@@ -5065,12 +5094,29 @@ function utRender(){
       <td>${how}</td>
       <td>${chips}${why}</td>
       <td><select class="ut-sel-t" data-id="${utEsc(r.id)}">${utOptions(eff)}</select>${sts}</td>
+      <td>${utKindCell(r)}</td>
+      <td>${utKindPick(r)}</td>
     </tr>`;
-  }).join('') || '<tr><td colspan="8" class="meta" style="padding:14px;">Нет ТТ по выбранным фильтрам.</td></tr>';
+  }).join('') || '<tr><td colspan="10" class="meta" style="padding:14px;">Нет ТТ по выбранным фильтрам.</td></tr>';
   utEl('utPager').innerHTML = `<button class="btn-secondary" id="utPrev" ${ut.page ? '' : 'disabled'}>←</button> <span class="meta">Стр. ${ut.page + 1} из ${pages} · показано ${slice.length} из ${hFmtInt2(ut.filtered.length)}</span> <button class="btn-secondary" id="utNext" ${ut.page < pages - 1 ? '' : 'disabled'}>→</button>`;
   const by = {}; ut.rows.forEach(r => { const d = ut.dec[r.id]; if(d){ const x = by[d.t] || (by[d.t] = {n: 0, v: 0}); x.n++; x.v += r.vol; } });
   const ent = Object.entries(by).sort((a, b) => b[1].v - a[1].v);
   utEl('utDone').innerHTML = ent.length ? '<div class="meta" style="margin:8px 0 4px;">Выбранные типы (разметка неопознанных и изменения):</div><div class="dist-chip-list">' + ent.map(([t, x]) => `<div class="dist-chip"><span class="n">${utEsc(t.split(' (')[0])}</span><span class="v">${x.n} ТТ · ${hFmtVol2(x.v)} т/год</span></div>`).join('') + '</div>' : '';
+}
+const UT_KIND_LABEL = {chain: 'Сетевая', plain: 'Не сетевая'};
+function utKindCell(r){
+  const e = utKindEff(r), d = ut.chn[r.id];
+  const cur = e.k ? `<div><b>${UT_KIND_LABEL[e.k]}</b>${e.k === 'chain' && e.name ? ' · ' + utEsc(e.name) : ''}</div><div class="ut-why">${d ? 'выбрано вручную' + (r.kc.k ? ' (было: ' + UT_KIND_LABEL[r.kc.k].toLowerCase() + (r.kc.name ? ' · ' + utEsc(r.kc.name) : '') + ')' : '') : utEsc(e.src)}</div>` : '<div class="meta">не определено</div>';
+  const ks = r.ks, tip = utEsc('Уверенность: ' + UT_CONF_LABEL[ks.conf] + '. ' + (ks.why || ''));
+  const chips = ks.k === 'chain'
+    ? ks.chains.map((c, n) => `<button type="button" class="ut-chip ut-kc${n === 0 ? ' ut-top ut-' + ks.conf : ''}" data-id="${utEsc(r.id)}" data-k="chain" data-c="${utEsc(c.name)}" title="${utEsc('Почему: ' + c.why)}">Сеть: ${utEsc(c.name)}</button>`).join('')
+    : `<button type="button" class="ut-chip ut-kc ut-top ut-${ks.conf}" data-id="${utEsc(r.id)}" data-k="plain" title="${tip}">Не сетевая</button>`;
+  return cur + chips;
+}
+function utKindPick(r){
+  const e = utKindEff(r);
+  return `<select class="ut-kind" data-id="${utEsc(r.id)}"><option value="">— выбрать —</option><option value="plain"${e.k === 'plain' ? ' selected' : ''}>Не сетевая</option><option value="chain"${e.k === 'chain' ? ' selected' : ''}>Сетевая</option></select>`
+    + (e.k === 'chain' ? `<input class="ut-chain-in" list="utChainList" data-id="${utEsc(r.id)}" placeholder="какая сеть" value="${utEsc(e.name)}">` : '');
 }
 // отметка: для ТТ с типом совпадение с текущим типом = отмена изменения
 function utMark(id, type, src){
@@ -5088,41 +5134,93 @@ function utBulk(){
 }
 function utExportRows(){
   return ut.rows.map(r => { const d = ut.dec[r.id], s = r.sug[0];
-    return [r.typed ? 'с типом' : 'неопознанная', r.reg, r.city, r.name, r.addr, pR2(r.vol), r.cur, r.how + (r.det ? ': ' + r.det : ''), s ? ut.types[s.ti] : '', UT_CONF_LABEL[r.conf], s ? s.why.join('; ') : '', r.sug[1] ? ut.types[r.sug[1].ti] : '', d ? d.t : (r.typed ? r.cur : ''), d ? (r.typed ? 'изменён вручную' : d.src) : '', r.id]; });
+    return [r.typed ? 'с типом' : 'неопознанная', r.reg, r.city, r.name, r.addr, pR2(r.vol), r.cur, r.how + (r.det ? ': ' + r.det : ''), s ? ut.types[s.ti] : '', UT_CONF_LABEL[r.conf], s ? s.why.join('; ') : '', r.sug[1] ? ut.types[r.sug[1].ti] : '', d ? d.t : (r.typed ? r.cur : ''), d ? (r.typed ? 'изменён вручную' : d.src) : '', r.kc.k ? UT_KIND_LABEL[r.kc.k] : '', r.kc.name || '', r.kc.src || '', r.ks.k === 'chain' ? r.ks.chains.map(c => c.name).join('; ') : 'Не сетевая', (() => { const e = utKindEff(r); return e.k ? UT_KIND_LABEL[e.k] : ''; })(), utKindEff(r).name || '', r.id]; });
 }
 async function utExcel(){
-  const cols = [{h:'Группа',w:14},{h:'Регион',w:24},{h:'Город',w:20},{h:'Название',w:40},{h:'Адрес',w:46},{h:'Объём, т/год',w:12,dec:2},{h:'Тип сейчас',w:30},{h:'Как определён',w:44},{h:'Подсказка (тип)',w:34},{h:'Уверенность',w:14},{h:'Почему',w:60},{h:'Вторая подсказка',w:30},{h:'Итоговый тип',w:34},{h:'Как выбран',w:16},{h:'ID ТТ',w:10}];
+  const cols = [{h:'Группа',w:14},{h:'Регион',w:24},{h:'Город',w:20},{h:'Название',w:40},{h:'Адрес',w:46},{h:'Объём, т/год',w:12,dec:2},{h:'Тип сейчас',w:30},{h:'Как определён',w:44},{h:'Подсказка (тип)',w:34},{h:'Уверенность',w:14},{h:'Почему',w:60},{h:'Вторая подсказка',w:30},{h:'Итоговый тип',w:34},{h:'Как выбран',w:16},{h:'Сетевая сейчас',w:16},{h:'Сеть сейчас',w:28},{h:'Как определено',w:44},{h:'Подсказка (сеть)',w:34},{h:'Итоговый признак',w:16},{h:'Итоговая сеть',w:28},{h:'ID ТТ',w:10}];
   await pDownloadXlsx([pMkSheet('ТТ — разметка типов', cols, utExportRows())], 'ТТ — разметка типов заведений.xlsx', utEl('utXls'), utEl('utStatus'));
 }
 function utSaveFile(){
-  const blob = new Blob([JSON.stringify({v: 1, saved: new Date().toISOString(), marks: ut.dec})], {type: 'application/json'});
+  const blob = new Blob([JSON.stringify({v: 2, saved: new Date().toISOString(), marks: ut.dec, chains: ut.chn})], {type: 'application/json'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'разметка_неопознанных_ТТ.json'; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 20000);
 }
 function utLoadFile(file){
   const rd = new FileReader();
-  rd.onload = () => { try { const j = JSON.parse(rd.result); const mk = j.marks || {}; let n = 0; Object.keys(mk).forEach(id => { if(mk[id] && ut.types.includes(mk[id].t)){ ut.dec[id] = mk[id]; n++; } }); utSaveLocal(); utApplyFilters(true); utEl('utStatus').textContent = `Загружено отметок: ${n}`; } catch(e){ utEl('utStatus').textContent = 'Не удалось прочитать файл разметки'; } };
+  rd.onload = () => { try { const j = JSON.parse(rd.result); const mk = j.marks || {}; let n = 0; Object.keys(mk).forEach(id => { if(mk[id] && ut.types.includes(mk[id].t)){ ut.dec[id] = mk[id]; n++; } }); Object.keys(j.chains || {}).forEach(id => { const c = j.chains[id]; if(c && (c.k === 'chain' || c.k === 'plain')){ ut.chn[id] = c; n++; } }); utSaveLocal(); utApplyFilters(true); utEl('utStatus').textContent = `Загружено отметок: ${n}`; } catch(e){ utEl('utStatus').textContent = 'Не удалось прочитать файл разметки'; } };
   rd.readAsText(file);
 }
 function utInit(){
   if(!utEl('utCard2')) return;
   utEl('utStart').addEventListener('click', utStart);
   let tm; utEl('utQ').addEventListener('input', e => { clearTimeout(tm); tm = setTimeout(() => { ut.q = e.target.value; utApplyFilters(); }, 200); });
-  [['utSetSel', 'fSet'], ['utReg', 'fReg'], ['utConf', 'fConf'], ['utType', 'fType'], ['utStat', 'fStat']].forEach(([id, k]) => utEl(id).addEventListener('change', e => { ut[k] = e.target.value; utApplyFilters(); }));
-  utEl('utReset').addEventListener('click', () => { ut.q = ut.fReg = ut.fConf = ut.fType = ut.fStat = ''; ut.fSet = 'undef'; utEl('utQ').value = ''; ['utReg', 'utConf', 'utType', 'utStat'].forEach(id => utEl(id).value = ''); utEl('utSetSel').value = 'undef'; utApplyFilters(); });
+  [['utSetSel', 'fSet'], ['utKindSel', 'fKind'], ['utReg', 'fReg'], ['utConf', 'fConf'], ['utType', 'fType'], ['utStat', 'fStat']].forEach(([id, k]) => utEl(id).addEventListener('change', e => { ut[k] = e.target.value; utApplyFilters(); }));
+  utEl('utReset').addEventListener('click', () => { ut.q = ut.fReg = ut.fConf = ut.fType = ut.fStat = ut.fKind = ''; ut.fSet = 'undef'; utEl('utKindSel').value = ''; utEl('utQ').value = ''; ['utReg', 'utConf', 'utType', 'utStat'].forEach(id => utEl(id).value = ''); utEl('utSetSel').value = 'undef'; utApplyFilters(); });
   utEl('utBulk').addEventListener('click', utBulk);
+  utEl('utBulkK').addEventListener('click', () => {
+    const btn = utEl('utBulkK'), targets = ut.filtered.filter(r => !ut.chn[r.id] && !r.kc.k && r.ks.conf === 'high' && r.ks.k === 'chain');
+    if(!btn.dataset.arm){ btn.dataset.arm = '1'; const old = btn.textContent; btn.textContent = `Принять сети для ${targets.length} ТТ? Нажмите ещё раз`; setTimeout(() => { delete btn.dataset.arm; btn.textContent = old; }, 4000); return; }
+    delete btn.dataset.arm; btn.textContent = '✓ Принять сети (высокая уверенность, по фильтру)';
+    targets.forEach(r => { ut.chn[r.id] = {k: 'chain', c: r.ks.chains[0].name}; }); utSaveLocal(); utApplyFilters(true); utEl('utStatus').textContent = `Принято сетей: ${targets.length}`;
+  });
   utEl('utXls').addEventListener('click', utExcel);
   utEl('utSave').addEventListener('click', utSaveFile);
   utEl('utLoad').addEventListener('change', e => { if(e.target.files[0]) utLoadFile(e.target.files[0]); e.target.value = ''; });
-  utEl('utClearAll').addEventListener('click', () => { const b = utEl('utClearAll'); if(!b.dataset.arm){ b.dataset.arm = '1'; const old = b.textContent; b.textContent = 'Точно сбросить всю разметку? Ещё раз'; setTimeout(() => { delete b.dataset.arm; b.textContent = old; }, 4000); return; } delete b.dataset.arm; b.textContent = '✕ Сбросить всю разметку'; ut.dec = {}; utSaveLocal(); utApplyFilters(true); });
+  utEl('utClearAll').addEventListener('click', () => { const b = utEl('utClearAll'); if(!b.dataset.arm){ b.dataset.arm = '1'; const old = b.textContent; b.textContent = 'Точно сбросить всю разметку? Ещё раз'; setTimeout(() => { delete b.dataset.arm; b.textContent = old; }, 4000); return; } delete b.dataset.arm; b.textContent = '✕ Сбросить всю разметку'; ut.dec = {}; ut.chn = {}; utSaveLocal(); utApplyFilters(true); });
   utEl('utBody').addEventListener('click', e => {
+    const kch = e.target.closest('.ut-kc'); if(kch){ utChainMark(kch.dataset.id, kch.dataset.k, kch.dataset.c || ''); utRender(); return; }
     const chip = e.target.closest('.ut-chip'); if(chip){ utMark(chip.dataset.id, chip.dataset.t, 'подсказка'); utRender(); return; }
     const clr = e.target.closest('.ut-clr'); if(clr){ e.preventDefault(); utMark(clr.dataset.id, null); utRender(); }
   });
-  utEl('utBody').addEventListener('change', e => { const s = e.target.closest('.ut-sel-t'); if(s){ const r = ut.rows.find(x => x.id === s.dataset.id); const sug = r && r.sug.length && ut.types[r.sug[0].ti] === s.value; utMark(s.dataset.id, s.value, sug ? 'подсказка' : 'вручную'); utRender(); } });
+  utEl('utBody').addEventListener('change', e => {
+    const kd = e.target.closest('.ut-kind'); if(kd){ const r = ut.rows.find(x => x.id === kd.dataset.id); const e0 = utKindEff(r); utChainMark(kd.dataset.id, kd.value, kd.value === 'chain' ? (e0.name || '') : ''); if(kd.value === 'chain' && !ut.chn[kd.dataset.id]) ut.chn[kd.dataset.id] = {k: 'chain', c: e0.name || ''}; utSaveLocal(); utRender(); return; }
+    const ci = e.target.closest('.ut-chain-in'); if(ci){ const v = ci.value.trim(); ut.chn[ci.dataset.id] = {k: 'chain', c: v}; const r = ut.rows.find(x => x.id === ci.dataset.id); if(r && r.kc.k === 'chain' && (r.kc.name || '').toLowerCase() === v.toLowerCase()) delete ut.chn[ci.dataset.id]; utSaveLocal(); utRender(); return; }
+    const s = e.target.closest('.ut-sel-t'); if(s){ const r = ut.rows.find(x => x.id === s.dataset.id); const sug = r && r.sug.length && ut.types[r.sug[0].ti] === s.value; utMark(s.dataset.id, s.value, sug ? 'подсказка' : 'вручную'); utRender(); } });
   utEl('utPager').addEventListener('click', e => { if(e.target.id === 'utPrev' && ut.page > 0){ ut.page--; utRender(); } else if(e.target.id === 'utNext'){ ut.page++; utRender(); } });
 }
 utInit();
+
+
+// ================= Сетевая / не сетевая точка и подсказки сети =================
+// Признак «сетевая» берём из клиентской базы (поле «сеть»), иначе из точки рынка на том же адресе; подсказки — по названиям сетей рынка в названии ТТ.
+const UC_GENERIC = new Set(['кафе','бар','пекарня','ресторан','столовая','кофейня','суши','пицца','пиццерия','магазин','продукты','буфет','кулинария','булочная','бистро','пельменная','шашлычная','закусочная','чайхана','кондитерская','шаурма','блинная','вокзал','студия','дом','клуб']);
+function uChainBuild(){
+  if(ut.chIdx) return;
+  const {m, o} = ut.ctx, norm = s => (s || '').toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9]+/g, ' ').trim();
+  ut.norm = norm;
+  const pts = new Uint32Array(m.chains.length); for(let i = 0; i < m.N; i++) if(m.ch[i] > 0) pts[m.ch[i] - 1]++;
+  // слова, которые часто встречаются в названиях не сетевых точек — не годятся как признак сети
+  const plainTok = new Map(); for(let i = 0; i < m.N; i++){ if(m.ch[i] > 0) continue; new Set(utTokens(m.nameA[i])).forEach(w => plainTok.set(w, (plainTok.get(w) || 0) + 1)); }
+  const ourFreq = new Map(); for(let i = 0; i < o.N; i++){ new Set(utTokens((o.nameA[i] || '') + ' ' + (o.addrA[i] || ''))).forEach(w => ourFreq.set(w, (ourFreq.get(w) || 0) + 1)); }
+  const idx = new Map(), byNorm = new Map();
+  m.chains.forEach((c, j) => {
+    const n = norm(c); if(n.length < 4 || pts[j] < 2) return;
+    byNorm.set(n, j);
+    const first = n.split(' ')[0]; if(first.length < 3) return;
+    const toks = n.split(' '); const generic = toks.length === 1 && (UC_GENERIC.has(n) || (plainTok.get(n) || 0) > 8 || ((ourFreq.get(n) || 0) >= 12 && pts[j] < 60) || (n.length < 5 && pts[j] < 40));
+    (idx.get(first) || idx.set(first, []).get(first)).push({j, n, pts: pts[j], weak: generic});
+  });
+  ut.chIdx = idx; ut.chByNorm = byNorm; ut.chPts = pts;
+  ut.chainNames = m.chains.map((c, j) => ({j, name: c, pts: pts[j]})).filter(x => x.pts >= 2).sort((a, b) => b.pts - a.pts);
+}
+// кандидаты-сети по тексту названия ТТ
+function uChainSuggest(i, useOm){
+  uChainBuild();
+  const {m, o} = ut.ctx, norm = ut.norm;
+  const sign = (o.signA[i] || '') + ' ' + (o.chainA[i] || '');
+  const hay = ' ' + norm((o.nameA[i] || '') + ' ' + sign) + ' ', whole = norm(sign), nameOnly = norm(o.nameA[i] || '');
+  const seen = new Set(), cand = new Map();
+  hay.split(' ').forEach(w => { if(!w || seen.has(w)) return; seen.add(w); (ut.chIdx.get(w) || []).forEach(c => {
+    if(!hay.includes(' ' + c.n + ' ')) return;
+    let sc = 2.6 + Math.min(1.2, Math.log10(c.pts + 1) / 2.2);
+    if(c.n === whole || c.n === nameOnly) sc += 1.8;
+    if(c.weak) sc *= 0.35;
+    const x = cand.get(c.j); if(!x || x.sc < sc) cand.set(c.j, {j: c.j, sc, why: ['в названии или вывеске «' + m.chains[c.j] + '»' + (c.weak ? ' (общее слово)' : '')]});
+  }); });
+  if(useOm){ (o.om[i] || []).forEach(mi => { const cj = m.ch[mi] - 1; if(cj >= 0){ const x = cand.get(cj) || {j: cj, sc: 0, why: []}; x.sc += 4.0; x.why.push('на адресе точка этой сети'); cand.set(cj, x); } }); }
+  const list = [...cand.values()].sort((a, b) => b.sc - a.sc).slice(0, 3);
+  return list;
+}
 
 </script>
 </body>
