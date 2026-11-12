@@ -3901,30 +3901,33 @@ function p3Legend(el, mode){
 
 // ---------- сводные показатели ----------
 function p3Totals(){
-  const regs = Object.keys(pAgg3);
-  const rev = pPlants3.reduce((s,p) => s + (p.rev || 0), 0);
-  const work = pPlants3.filter(p => p.umk === 'Работаем');
+  const inS = r => !pScope3 || (r.reg || r.region) === pScope3;     // регион, выбранный на карте
+  const plants = pPlants3.filter(inS);
+  const prim3 = PROD3.prim.filter(inS), sec3 = PROD3.sec.filter(inS);
+  const regs = Object.keys(pAgg3).filter(r => !pScope3 || r === pScope3);
+  const rev = plants.reduce((s,p) => s + (p.rev || 0), 0);
+  const work = plants.filter(p => p.umk === 'Работаем');
   const revWork = work.reduce((s,p) => s + (p.rev || 0), 0);
   let primRub = 0, primKg = 0, secRub = 0, secKg = 0;
-  PROD3.prim.forEach(r => { primRub += r.rub; primKg += r.kg; });
-  PROD3.sec.forEach(r => { secRub += r.rub; secKg += r.kg; });
-  const ourRegs = Object.keys(P_OUR3).filter(r => p3OurAll(r) > 0);
+  prim3.forEach(r => { primRub += r.rub; primKg += r.kg; });
+  sec3.forEach(r => { secRub += r.rub; secKg += r.kg; });
+  const ourRegs = Object.keys(P_OUR3).filter(r => (!pScope3 || r === pScope3) && p3OurAll(r) > 0);
   const white = regs.filter(r => p3OurAll(r) === 0);
   const whiteRev = white.reduce((s,r) => s + pAgg3[r].rev, 0);
-  const offRev = pPlants3.filter(p => !HGEO_BY_REGION2[p.reg]).reduce((s,p) => s + (p.rev||0), 0);
-  return {n: pPlants3.length, rev, nRegs: regs.length, nWork: work.length, revWork, primRub, primKg, secRub, secKg,
-    ourRegs: ourRegs.length, white, whiteRev, offRev};
+  const offRev = plants.filter(p => !HGEO_BY_REGION2[p.reg]).reduce((s,p) => s + (p.rev||0), 0);
+  return {n: plants.length, rev, nRegs: regs.length, nWork: work.length, revWork, primRub, primKg, secRub, secKg,
+    ourRegs: ourRegs.length, white, whiteRev, offRev, prim3, sec3};
 }
 function renderKpisProd3(){
   const T = p3Totals();
   document.getElementById('kpisProd3').innerHTML = `
     <div class="kpi"><div class="num">${p3Int(T.n)}</div><div class="lbl">РЫНОК: производств в выборке (всего в списке ${p3Int(PROD3.plants.length)})</div></div>
-    <div class="kpi"><div class="num">${p3Mln(T.rev)}</div><div class="lbl">РЫНОК: выручка производств в выборке, ${T.nRegs} регионов</div></div>
+    <div class="kpi"><div class="num">${p3Mln(T.rev)}</div><div class="lbl">РЫНОК: выручка производств в выборке, ${T.nRegs} регионов${pScope3 ? ' · выбран регион: <b>' + pScope3 + '</b>' : ''}</div></div>
     <div class="kpi"><div class="num">${p3Int(T.nWork)}</div><div class="lbl">РЫНОК: работаем с УМК · ${T.rev ? p3Num(T.revWork/T.rev*100, 1) : '0'}% выручки выборки (${p3Mln(T.revWork)})</div></div>
     <div class="kpi"><div class="num">${T.rev ? p3Num(T.whiteRev/T.rev*100, 1) : '0'}%</div><div class="lbl">РЫНОК: выручки выборки — в ${T.white.length} регионах, где у нас продаж нет</div></div>
     <div class="kpi"><div class="num">${p3Rub(T.primRub + T.secRub)}</div><div class="lbl">НАШИ ПРОДАЖИ за год без НДС (янв–сен × 12/9): первичка + вторичка</div></div>
-    <div class="kpi"><div class="num">${p3Rub(T.primRub)}</div><div class="lbl">НАШИ: первичка · ${p3Kg(T.primKg)} · ${PROD3.prim.length} строк, ${new Set(PROD3.prim.map(r=>r.ka)).size} клиентов</div></div>
-    <div class="kpi"><div class="num">${p3Rub(T.secRub)}</div><div class="lbl">НАШИ: вторичка · ${p3Kg(T.secKg)} · ${new Set(PROD3.sec.map(r=>r.dist)).size} дистрибьюторов</div></div>
+    <div class="kpi"><div class="num">${p3Rub(T.primRub)}</div><div class="lbl">НАШИ: первичка · ${p3Kg(T.primKg)} · ${T.prim3.length} строк, ${new Set(T.prim3.map(r=>r.ka)).size} клиентов</div></div>
+    <div class="kpi"><div class="num">${p3Rub(T.secRub)}</div><div class="lbl">НАШИ: вторичка · ${p3Kg(T.secKg)} · ${new Set(T.sec3.map(r=>r.dist)).size} дистрибьюторов</div></div>
     <div class="kpi"><div class="num">${T.ourRegs}</div><div class="lbl">НАШИ: регионов с продажами (с учётом регионов вне карты)</div></div>
   `;
 }
@@ -4055,7 +4058,7 @@ function createProdPanel3(root, defaultMode, kind){
     tooltipEl.style.left = (ev.clientX - rect.left) + 'px'; tooltipEl.style.top = (ev.clientY - rect.top) + 'px'; tooltipEl.style.display = 'block';
     const a = p3Agg(region), o = p3Our(region);
     tooltipEl.innerHTML = kind === 'market'
-      ? `<b>${region}</b>Производства: ${p3Int(a.n)} · ${p3Mln(a.rev)}<br>Работаем с УМК: ${p3Int(a.nWork)} · ${p3Mln(a.revWork)}`
+      ? `<b>${region}</b>Производства: ${p3Int(a.n)} · ${p3Mln(a.rev)}<br>Работаем с УМК: ${p3Int(a.nWork)} · ${p3Mln(a.revWork)}<br><b>Наши продажи: ${p3Rub(o.primRub + o.secRub)}</b> (первичка ${p3Rub(o.primRub)} + вторичка ${p3Rub(o.secRub)})`
       : `<b>${region}</b>Первичка: ${p3Rub(o.primRub)}<br>Вторичка: ${p3Rub(o.secRub)}<br>Всего: ${p3Rub(o.primRub + o.secRub)}`;
   }
   function refreshColors(){
@@ -4197,7 +4200,7 @@ function p3SetScope(region){
   pScope3 = region;
   ['pScopeP3', 'pScopeS3'].forEach(id => { const s = document.getElementById(id); if(s) s.value = region; });
   pPlAll3 = false; pSaleAll3 = false;
-  renderPlantsTable3(); renderSalesTable3();
+  renderPlantsTable3(); renderSalesTable3(); renderKpisProd3();
 }
 
 // ---------- перерисовка при смене фильтров ----------
@@ -4511,9 +4514,10 @@ function createProdPanel4(root, defaultMode, kind){
     const rect = mapHolderEl.getBoundingClientRect();
     tooltipEl.style.left = (ev.clientX - rect.left) + 'px'; tooltipEl.style.top = (ev.clientY - rect.top) + 'px'; tooltipEl.style.display = 'block';
     const a = p4Agg(region), o = p4Our(region);
+    const pT = o.primKg / 1000, sT = o.secKg / 1000, ourT = pT + sT;
     tooltipEl.innerHTML = kind === 'market'
-      ? `<b>${region}</b>Клиентов: ${p3Int(a.n)} · потребность ${p4T(a.t)}<br>Наших клиентов: ${p3Int(a.nOurs)} · ${p4T(a.tOurs)}`
-      : `<b>${region}</b>Первичка: ${p3Rub(o.primRub)}<br>Вторичка: ${p3Rub(o.secRub)}<br>Всего: ${p3Rub(o.primRub + o.secRub)}`;
+      ? `<b>${region}</b>Клиентов в списке: ${p3Int(a.n)} · потребность ${p4T(a.t)}<br>Из них наши клиенты: ${p3Int(a.nOurs)} · их потребность ${p4T(a.tOurs)}<br><b>Наш объём (продажи): ${p4T(ourT)}</b> · первичка ${p4T(pT)} + вторичка ${p4T(sT)}<br>Доля в потребности: ${a.t > 0 ? p3Num(ourT / a.t * 100, 1) + '%' : '—'}`
+      : `<b>${region}</b>Первичка: ${p3Rub(o.primRub)} · ${p4T(pT)}<br>Вторичка: ${p3Rub(o.secRub)} · ${p4T(sT)}<br>Всего: ${p3Rub(o.primRub + o.secRub)} · ${p4T(ourT)}`;
   }
   function refreshColors(){
     const R = p4Range(state.mode);
